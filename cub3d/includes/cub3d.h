@@ -2,5 +2,32 @@
 # define CUB3D_H
 
 # include "structs.h"
+# include "defines.h"
+
+
+// init.c
+void    init_game(t_game *game);
+void    init_player(t_player *player);
+char    **get_map(void);
+
+// input.c
+int     key_press(int keycode, t_player *player);
+int     key_release(int keycode, t_player *player);
+
+// player.c
+void    move_player(t_player *player);
+
+// graphics.c
+void    put_pixel(int x, int y, int color, t_game *game);
+void    clear_image(t_game *game);
+void    draw_square(int x, int y, int size, int color, t_game *game);
+void    draw_map(t_game *game);
+
+// raycast.c
+float   distance(float x, float y);
+float   fixed_dist(float x1, float y1, float x2, float y2, t_game *game);
+bool    touch(float px, float py, t_game *game);
+void    draw_line(t_player *player, t_game *game, float start_x, int i);
+
 
 #endif

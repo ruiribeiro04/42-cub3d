@@ -8,7 +8,7 @@ NAME_BONUS    = cub3d_bonus
 CC            = cc
 RM            = rm -f
 
-# Directorys
+# Directories
 SRC_DIR       = srcs
 OBJ_DIR       = objs
 INC_DIR       = includes
@@ -17,10 +17,7 @@ MLX_DIR       = minilibx
 # Compiling Flags
 CFLAGS        = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
 
-# MLX Include
-# -L Dir of MLX
-# -l Linking the Library
-# -lm Mathematic Library, if Necessary
+# MLX Linking
 LDFLAGS       = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 # SRCs Find
@@ -45,7 +42,7 @@ all: $(NAME)
 
 # ---------------------- Linking -----------------------------------------------
 
-$(NAME): $(OBJS) $(MLX_LIB)
+$(NAME): $(MLX_LIB) $(OBJS)
 	@echo ""
 	@echo "$(YELLOW)Linking Object Files to make $(NAME)...$(RESET)"
 	$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
@@ -53,34 +50,46 @@ $(NAME): $(OBJS) $(MLX_LIB)
 
 bonus: all
 
-# ---------------------- Compiling ---------------------------------------------
+# ---------------------- MiniLibX ----------------------------------------------
 
-# MiniLibX Compiling
-$(MLX_LIB):
+# Download MLX - O diretório como target garante que só baixa uma vez
+$(MLX_DIR):
+	@echo "$(CYAN)Downloading MiniLibX...$(RESET)"
+	git clone https://github.com/42Paris/minilibx-linux.git $(MLX_DIR)
+	@echo "$(GREEN)MiniLibX downloaded!$(RESET)"
+
+# Compile MLX - Order-only prerequisite (|) para o diretório
+$(MLX_LIB): | $(MLX_DIR)
 	@echo "$(CYAN)Compiling MiniLibX...$(RESET)"
 	@make -sC $(MLX_DIR)
-	@echo "$(GREEN)Done!$(RESET)"
+	@echo "$(GREEN)MiniLibX compiled!$(RESET)"
 
-# Compiling my Program
-# .c to .o
+# ---------------------- Compiling ---------------------------------------------
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@echo  "$(CYAN)\n Compiling $(RESET)"
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
-	@echo  "$(GREEN) Done Compiling $(RESET)"
+	@echo "$(CYAN)Compiling $<...$(RESET)"
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # ---------------------- Cleaning ----------------------------------------------
 
 clean:
-	@echo  "$(CYAN)\n Cleaning Object Files $(RESET)"
+	@echo "$(CYAN)Cleaning Object Files...$(RESET)"
 	@$(RM) -r $(OBJ_DIR)
-	@make -sC $(MLX_DIR) clean
-	@echo  "$(GREEN) Done Cleaning Object Files $(RESET)"
+	@if [ -d "$(MLX_DIR)" ]; then make -sC $(MLX_DIR) clean 2>/dev/null || true; fi
+	@echo "$(GREEN)Done!$(RESET)"
 
 fclean: clean
 	@echo "$(RED)Removing executables...$(RESET)"
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(NAME_BONUS)
+	@echo "$(GREEN)Done!$(RESET)"
+
+# Remove tudo incluindo a MLX baixada
+ffclean: fclean
+	@echo "$(RED)Removing MiniLibX...$(RESET)"
+	@$(RM) -r $(MLX_DIR)
+	@echo "$(GREEN)Done!$(RESET)"
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean ffclean re
