@@ -1,0 +1,2 @@
+- [ ] Close Game
+- [ ] Melhor Sistema de Colisao
