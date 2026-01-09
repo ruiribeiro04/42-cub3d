@@ -1,0 +1,8 @@
+#include "cub3d.h"
+
+void    ft_exit_game(t_game *game)
+{
+    ft_free_game(*game);
+    ft_putstr_fd("GANHASTE POCKET ES O MAIOR PLAYER DO SERVER", STDOUT_FILENO);
+    exit(EXIT_SUCCESS);
+}

@@ -1,2 +1,2 @@
-- [ ] Close Game
-- [ ] Melhor Sistema de Colisao
+- Melhor Sistema de Colisao
+- Implement a Free Game Function, based on game struct!

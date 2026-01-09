@@ -7,6 +7,7 @@
 # include <stdlib.h>
 # include <math.h>
 
+# include "libft.h"
 # include "structs.h"
 # include "defines.h"
 # include "../minilibx/mlx.h"
@@ -17,8 +18,8 @@ void    init_player(t_player *player);
 char    **get_map(void);
 
 // input.c
-int     key_press(int keycode, t_player *player);
-int     key_release(int keycode, t_player *player);
+int     key_press(int keycode, t_game *game);
+int     key_release(int keycode, t_game *game);
 
 // player.c
 void    move_player(t_player *player);
@@ -35,5 +36,11 @@ float   fixed_dist(float x1, float y1, float x2, float y2, t_game *game);
 bool    touch(float px, float py, t_game *game);
 void    draw_line(t_player *player, t_game *game, float start_x, int i);
 
+//ft_error_exit.c
+
+void	ft_free_game(t_game game);
+
+// ft_exit_game.c
+void    ft_exit_game(t_game *game);
 
 #endif
