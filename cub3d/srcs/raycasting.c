@@ -47,7 +47,8 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
     {
         float dist = fixed_dist(player->x, player->y, ray_x, ray_y, game);
         // Evita divisão por zero
-        if (dist == 0) dist = 1; 
+        if (dist == 0) 
+            dist = 1; 
 
         float height = (BLOCK / dist) * (WIDTH / 2);
         int start_y = (HEIGHT - height) / 2;

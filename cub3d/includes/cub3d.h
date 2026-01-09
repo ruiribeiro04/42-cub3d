@@ -13,8 +13,7 @@
 # include "../minilibx/mlx.h"
 
 // init.c
-void    init_game(t_game *game);
-void    init_player(t_player *player);
+int	init_game(t_game *game);
 char    **get_map(void);
 
 // input.c
@@ -36,9 +35,9 @@ float   fixed_dist(float x1, float y1, float x2, float y2, t_game *game);
 bool    touch(float px, float py, t_game *game);
 void    draw_line(t_player *player, t_game *game, float start_x, int i);
 
-//ft_error_exit.c
-
-void	ft_free_game(t_game game);
+//ft_error.c
+int	ft_error(t_game *game, char *error_msg);
+void	ft_free_game(t_game *game);
 
 // ft_exit_game.c
 void    ft_exit_game(t_game *game);
