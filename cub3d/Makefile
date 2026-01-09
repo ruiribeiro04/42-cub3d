@@ -16,17 +16,15 @@ MLX_DIR       = minilibx
 
 # Compiling Flags
 CFLAGS        = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
-
 # MLX Linking
 LDFLAGS       = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 # SRCs Find
 SRCS          = $(shell find $(SRC_DIR) -name "*.c")
-
 # OBJs
 OBJS          = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
-# MiniLibX Library
+# MinilibX Library
 MLX_LIB       = $(MLX_DIR)/libmlx.a
 
 # Colors
@@ -52,13 +50,11 @@ bonus: all
 
 # ---------------------- MiniLibX ----------------------------------------------
 
-# Download MLX - O diretório como target garante que só baixa uma vez
 $(MLX_DIR):
 	@echo "$(CYAN)Downloading MiniLibX...$(RESET)"
 	git clone https://github.com/42Paris/minilibx-linux.git $(MLX_DIR)
 	@echo "$(GREEN)MiniLibX downloaded!$(RESET)"
 
-# Compile MLX - Order-only prerequisite (|) para o diretório
 $(MLX_LIB): | $(MLX_DIR)
 	@echo "$(CYAN)Compiling MiniLibX...$(RESET)"
 	@make -sC $(MLX_DIR)
@@ -80,16 +76,11 @@ clean:
 	@echo "$(GREEN)Done!$(RESET)"
 
 fclean: clean
-	@echo "$(RED)Removing executables...$(RESET)"
+	@echo "$(RED)Removing executables and MiniLibX...$(RESET)"
 	@$(RM) $(NAME) $(NAME_BONUS)
-	@echo "$(GREEN)Done!$(RESET)"
-
-# Remove tudo incluindo a MLX baixada
-ffclean: fclean
-	@echo "$(RED)Removing MiniLibX...$(RESET)"
 	@$(RM) -r $(MLX_DIR)
 	@echo "$(GREEN)Done!$(RESET)"
 
 re: fclean all
 
-.PHONY: all bonus clean fclean ffclean re
+.PHONY: all bonus clean fclean re

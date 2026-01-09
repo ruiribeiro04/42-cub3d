@@ -1,9 +1,15 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdio.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <math.h>
+
 # include "structs.h"
 # include "defines.h"
-
+# include "../minilibx/mlx.h"
 
 // init.c
 void    init_game(t_game *game);
