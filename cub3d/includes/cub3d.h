@@ -9,6 +9,7 @@
 
 # include "libft.h"
 # include "structs.h"
+# include "graphics.h"
 # include "defines.h"
 # include "raycasting.h"
 # include "../minilibx/mlx.h"
@@ -23,12 +24,6 @@ int     ft_input_key_release(int keycode, t_game *game);
 
 // player.c
 void    ft_player_move_player(t_player *player);
-
-// graphics.c
-void    put_pixel(int x, int y, int color, t_game *game);
-void    clear_image(t_game *game);
-void    draw_square(int x, int y, int size, int color, t_game *game);
-void    draw_map(t_game *game);
 
 //ft_error.c
 int	ft_error(t_game *game, char *error_msg);

@@ -27,7 +27,7 @@ static void	ft_raycasting_draw_wall_column(int x, float dist, t_game *game)
 	end = start_y + height;
 	while (start_y < end)
 	{
-		put_pixel(x, start_y, 255, game);
+		ft_put_pixel_to_img(game, x, start_y, 255);
 		start_y++;
 	}
 }

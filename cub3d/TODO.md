@@ -1,2 +1,3 @@
 - Melhor Sistema de Colisao
 - Implement a Free Game Function, based on game struct!
+- Tentar perceber de forma lucida a otimizacao do codigo de rendering do draw com o minilibx
