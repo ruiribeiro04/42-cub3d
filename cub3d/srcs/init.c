@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	init_player_keys(t_player *player)
+static void	ft_init_player_keys(t_player *player)
 {
 	player->key_up = false;
 	player->key_down = false;
@@ -10,15 +10,15 @@ static void	init_player_keys(t_player *player)
 	player->right_rotate = false;
 }
 
-static void	init_player(t_player *player)
+static void	ft_init_player(t_player *player)
 {
 	player->x = WIDTH / 2;
 	player->y = HEIGHT / 2;
 	player->angle = PI / 2;
-	init_player_keys(player);
+	ft_init_player_keys(player);
 }
 
-static int	init_mlx(t_game *game)
+static int	ft_init_mlx(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
@@ -36,14 +36,14 @@ static int	init_mlx(t_game *game)
 	return (0);
 }
 
-int	init_game(t_game *game)
+int	ft_init_game(t_game *game)
 {
 	ft_memset(game, 0, sizeof(t_game));
-	init_player(&game->player);
-	game->map = get_map();
+	ft_init_player(&game->player);
+	game->map = ft_get_map();
 	if (!game->map)
 		return (1);
-	if (init_mlx(game))
+	if (ft_init_mlx(game))
 		return (1);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);

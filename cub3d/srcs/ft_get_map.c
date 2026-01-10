@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-char **get_map(void)
+char **ft_get_map(void)
 {
     char **map = malloc(sizeof(char *) * 11);
     map[0] = "111111111111111";

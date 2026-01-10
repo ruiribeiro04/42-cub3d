@@ -16,5 +16,8 @@
 # define Q 113
 
 # define PI 3.14159265359
+# define TWO_PI 6.283185307f
+# define MOVE_SPEED 3
+# define ROTATE_SPEED 0.03f
 
 #endif

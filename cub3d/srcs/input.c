@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int key_press(int keycode, t_game *game)
+int ft_input_key_press(int keycode, t_game *game)
 {
     if (keycode == W)
         game->player.key_up = true;
@@ -19,7 +19,7 @@ int key_press(int keycode, t_game *game)
     return (0);
 }
 
-int key_release(int keycode, t_game *game)
+int ft_input_key_release(int keycode, t_game *game)
 {
     if (keycode == W)
         game->player.key_up = false;
