@@ -19,4 +19,10 @@
 # define MOVE_SPEED 3
 # define ROTATE_SPEED 0.03f
 
+# define KEY_PRESS 2
+# define KEY_PRESS_MASK 1
+# define KEY_RELEASE 3
+# define KEY_RELEASE_MASK 2
+# define DESTROY_NOTIFY 17
+# define STRUCTURE_NOTIFY_MASK 131072
 #endif

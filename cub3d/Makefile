@@ -18,6 +18,10 @@ MLX_DIR       = minilibx
 CFLAGS        = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
 # MLX Linking
 LDFLAGS       = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+# Debug Flags
+DEBUG_FLAGS = -g -fsanitize=address -fno-omit-frame-pointer
+
+
 
 # SRCs Find
 SRCS          = $(shell find $(SRC_DIR) -name "*.c")
@@ -82,5 +86,10 @@ fclean: clean
 	@echo "$(GREEN)Done!$(RESET)"
 
 re: fclean all
+
+
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: LDFLAGS += -fsanitize=address
+debug: re
 
 .PHONY: all bonus clean fclean re

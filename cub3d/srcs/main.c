@@ -39,8 +39,9 @@ int	main(void)
 	7. Free Game ✅
 	*/
     
-	mlx_hook(game.win, 2, 1L<<0, ft_input_key_press, &game);
-	mlx_hook(game.win, 3, 1L<<1, ft_input_key_release, &game);
+	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, ft_input_key_press, &game);
+	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, ft_input_key_release, &game);
+	mlx_hook(game.win, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, ft_exit_game, &game);
     
 	mlx_loop_hook(game.mlx, ft_draw_loop, &game);
 	mlx_loop(game.mlx);

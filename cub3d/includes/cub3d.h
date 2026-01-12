@@ -30,6 +30,6 @@ int	ft_error(t_game *game, char *error_msg);
 void	ft_free_game(t_game *game);
 
 // ft_exit_game.c
-void    ft_exit_game(t_game *game);
+int    ft_exit_game(t_game *game);
 
 #endif
