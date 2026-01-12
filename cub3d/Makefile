@@ -13,11 +13,13 @@ SRC_DIR       = srcs
 OBJ_DIR       = objs
 INC_DIR       = includes
 MLX_DIR       = minilibx
+LIBS_DIR      = libs
+LIBFT_DIR     = $(LIBS_DIR)/libft
 
 # Compiling Flags
-CFLAGS        = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
+CFLAGS        = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR)
 # MLX Linking
-LDFLAGS       = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+LDFLAGS       = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -L$(LIBFT_DIR) -lft
 # Debug Flags
 DEBUG_FLAGS = -g -fsanitize=address -fno-omit-frame-pointer
 
@@ -30,6 +32,9 @@ OBJS          = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 # MinilibX Library
 MLX_LIB       = $(MLX_DIR)/libmlx.a
+
+# Libft Library
+LIBFT         = $(LIBFT_DIR)/libft.a
 
 # Colors
 GREEN         = \033[0;32m
@@ -44,7 +49,7 @@ all: $(NAME)
 
 # ---------------------- Linking -----------------------------------------------
 
-$(NAME): $(MLX_LIB) $(OBJS)
+$(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
 	@echo ""
 	@echo "$(YELLOW)Linking Object Files to make $(NAME)...$(RESET)"
 	$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
@@ -64,6 +69,13 @@ $(MLX_LIB): | $(MLX_DIR)
 	@make -sC $(MLX_DIR)
 	@echo "$(GREEN)MiniLibX compiled!$(RESET)"
 
+# ---------------------- Libft -------------------------------------------------
+
+$(LIBFT):
+	@echo "$(CYAN)Compiling Libft...$(RESET)"
+	@make -sC $(LIBFT_DIR)
+	@echo "$(GREEN)Libft compiled!$(RESET)"
+
 # ---------------------- Compiling ---------------------------------------------
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -77,12 +89,14 @@ clean:
 	@echo "$(CYAN)Cleaning Object Files...$(RESET)"
 	@$(RM) -r $(OBJ_DIR)
 	@if [ -d "$(MLX_DIR)" ]; then make -sC $(MLX_DIR) clean 2>/dev/null || true; fi
+	@make -sC $(LIBFT_DIR) clean
 	@echo "$(GREEN)Done!$(RESET)"
 
 fclean: clean
 	@echo "$(RED)Removing executables and MiniLibX...$(RESET)"
 	@$(RM) $(NAME) $(NAME_BONUS)
 	@$(RM) -r $(MLX_DIR)
+	@make -sC $(LIBFT_DIR) fclean
 	@echo "$(GREEN)Done!$(RESET)"
 
 re: fclean all

@@ -6,6 +6,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <math.h>
+#include <fcntl.h>
 
 # include "libft.h"
 # include "structs.h"
