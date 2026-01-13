@@ -19,16 +19,33 @@ static void	ft_raycasting_draw_wall_column(int x, float dist, t_game *game)
 	float	height;
 	int		start_y;
 	int		end;
+	int		y;
 
 	if (dist < 1)
 		dist = 1;
 	height = (BLOCK / dist) * (WIDTH / 2);
 	start_y = (HEIGHT - height) / 2;
 	end = start_y + height;
+	// Teto
+	y = 0;
+	while (y < start_y)
+	{
+		ft_put_pixel_to_img(game, x, y, 0x7F5B6F); 
+		y++;
+	}
+	// Parede
 	while (start_y < end)
 	{
-		ft_put_pixel_to_img(game, x, start_y, 255);
+		if (start_y >= 0 && start_y < HEIGHT)
+			ft_put_pixel_to_img(game, x, start_y, 0x4B371B);
 		start_y++;
+	}
+	// Chao
+	y = end;
+	while (y < HEIGHT)
+	{
+		ft_put_pixel_to_img(game, x, y, 0xBF772F); 
+		y++;
 	}
 }
 
