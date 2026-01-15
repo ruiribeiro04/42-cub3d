@@ -1,9 +1,12 @@
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
 
-int	ft_raycasting_touch(float px, float py, t_game *game);
-float	ft_raycasting_fixed_dist(float x2, float y2, t_game *game);
-float	ft_raycasting_distance(float x, float y);
-void	ft_raycasting_draw_line(t_game *game, float angle, int column);
+int		ft_raycasting(t_game *game);
+void	ft_raycasting_init_ray(t_game *game, float angle);
+void	ft_raycasting_calc_step(t_game *game);
+void	ft_raycasting_perform_dda(t_game *game);
+void	ft_raycasting_calc_wall_height(t_game *game, float angle);
+void	ft_raycasting_draw_column(t_game *game, int col);
+int		ft_raycasting_is_wall(t_game *game, int x, int y);
 
 #endif

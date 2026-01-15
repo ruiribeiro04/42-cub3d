@@ -6,7 +6,8 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <math.h>
-#include <fcntl.h>
+# include <fcntl.h>
+# include <stdbool.h>
 
 # include "libft.h"
 # include "structs.h"
@@ -24,7 +25,7 @@ int     ft_input_key_press(int keycode, t_game *game);
 int     ft_input_key_release(int keycode, t_game *game);
 
 // player.c
-void    ft_player_move_player(t_player *player);
+void    ft_player_move(t_game *game);
 
 //ft_error.c
 int	ft_error(t_game *game, char *error_msg);

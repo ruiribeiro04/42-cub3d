@@ -28,13 +28,33 @@ static void	ft_free_mlx(t_game *game)
 	}
 }
 
+/* 
+static void	ft_free_textures(t_game *game)
+{
+	if (game->tex_north.img && game->mlx)
+		mlx_destroy_image(game->mlx, game->tex_north.img);
+	if (game->tex_south.img && game->mlx)
+		mlx_destroy_image(game->mlx, game->tex_south.img);
+	if (game->tex_east.img && game->mlx)
+		mlx_destroy_image(game->mlx, game->tex_east.img);
+	if (game->tex_west.img && game->mlx)
+		mlx_destroy_image(game->mlx, game->tex_west.img);
+}
+*/
+
 void	ft_free_game(t_game *game)
 {
 	if (!game)
 		return ;
 	ft_free_map(game->map);
+	game->map = NULL;
+	//ft_free_textures(game);
 	ft_free_mlx(game);
+	game->mlx = NULL;
+	game->win = NULL;
+	game->img = NULL;
 }
+
 
 int	ft_error(t_game *game, char *error_msg)
 {
@@ -42,6 +62,7 @@ int	ft_error(t_game *game, char *error_msg)
 		ft_free_game(game);
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	ft_putstr_fd(error_msg, STDERR_FILENO);
-	// return (1);
-	exit(EXIT_FAILURE);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	return (1);
+	//exit(EXIT_FAILURE);
 }

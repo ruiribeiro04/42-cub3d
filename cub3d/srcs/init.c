@@ -12,10 +12,31 @@ static void	ft_init_player_keys(t_player *player)
 
 static void	ft_init_player(t_player *player)
 {
-	player->x = WIDTH / 2;
-	player->y = HEIGHT / 2;
+	player->x = BLOCK + BLOCK / 2;
+	player->y = BLOCK + BLOCK / 2;
 	player->angle = PI / 2;
 	ft_init_player_keys(player);
+}
+
+static void	ft_init_map_dimensions(t_game *game)
+{
+	int	y;
+	int	x;
+	int	max_width;
+
+	max_width = 0;
+	y = 0;
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x])
+			x++;
+		if (x > max_width)
+			max_width = x;
+		y++;
+	}
+	game->map_width = max_width;
+	game->map_height = y;
 }
 
 static int	ft_init_mlx(t_game *game)
@@ -43,8 +64,8 @@ int	ft_init_game(t_game *game)
 	game->map = ft_get_map();
 	if (!game->map)
 		return (1);
+	ft_init_map_dimensions(game);
 	if (ft_init_mlx(game))
 		return (1);
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
 }

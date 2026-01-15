@@ -2,23 +2,10 @@
 
 int	ft_draw_loop(t_game *game)
 {
-	t_player	*player;
-	float		fraction;
-	float		start_x;
-	int		i;
-    
-	player = &game->player;
-	ft_player_move_player(player);
+	ft_player_move(game);
 	ft_clear_image(game, 0x00000000);
-	fraction = PI / 3 / WIDTH;
-	start_x = player->angle - (PI / 6);
-	i = 0;
-	while (i < WIDTH)
-	{
-	ft_raycasting_draw_line(game, start_x, i);
-	start_x += fraction;
-	i++;
-	}
+	if (ft_raycasting(game) == 1)
+		ft_error(game, "Raycasting failed!");
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
 }

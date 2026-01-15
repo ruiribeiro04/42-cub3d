@@ -1,9 +1,11 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
-# define WIDTH 320
-# define HEIGHT 200
+# define WIDTH 1280
+# define HEIGHT 720
 # define BLOCK 64
+
+# define COLLISION_MARGIN 5
 
 # define W 119
 # define A 97
@@ -16,6 +18,7 @@
 
 # define PI 3.14159265359
 # define TWO_PI 6.283185307f
+# define FOV 1.0471975512f
 # define MOVE_SPEED 3
 # define ROTATE_SPEED 0.03f
 
@@ -25,4 +28,10 @@
 # define KEY_RELEASE_MASK 2
 # define DESTROY_NOTIFY 17
 # define STRUCTURE_NOTIFY_MASK 131072
+
+# define CEILING_COLOR 0x7F5B6F
+# define FLOOR_COLOR 0xBF772F
+# define WALL_LIGHT 0x4B371B
+# define WALL_DARK 0x3A2D16
+
 #endif
