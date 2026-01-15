@@ -2,7 +2,7 @@
 
 int    ft_exit_game(t_game *game)
 {
-    ft_free_game(game);
+    mlx_loop_end(game->mlx); 
     ft_putstr_fd("GANHASTE POCKET ES O MAIOR PLAYER DO SERVER", STDOUT_FILENO);
     //exit(EXIT_SUCCESS);
     return (0);
