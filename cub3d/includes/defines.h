@@ -31,7 +31,5 @@
 
 # define CEILING_COLOR 0x7F5B6F
 # define FLOOR_COLOR 0xBF772F
-# define WALL_LIGHT 0x4B371B
-# define WALL_DARK 0x3A2D16
 
 #endif

@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+void	ft_raycasting_calc_wall_x(t_game *game)
+{
+	if (game->ray.side == 0)
+		game->ray.wall_x = (game->player.y / BLOCK)
+			+ game->ray.perp_dist * game->ray.dir_y / BLOCK;
+	else
+		game->ray.wall_x = (game->player.x / BLOCK)
+			+ game->ray.perp_dist * game->ray.dir_x / BLOCK;
+	game->ray.wall_x -= floor(game->ray.wall_x);
+}
+
 int	ft_raycasting_is_wall(t_game *game, int x, int y)
 {
 	if (x < 0 || x >= game->map_width)
@@ -51,4 +62,5 @@ void	ft_raycasting_calc_wall_height(t_game *game, float angle)
 	game->ray.wall_height = (int)((BLOCK / game->ray.perp_dist) * (WIDTH / 2));
 	game->ray.draw_start = (HEIGHT - game->ray.wall_height) / 2;
 	game->ray.draw_end = game->ray.draw_start + game->ray.wall_height;
+	ft_raycasting_calc_wall_x(game);
 }

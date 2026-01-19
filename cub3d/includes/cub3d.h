@@ -13,6 +13,7 @@
 # include "structs.h"
 # include "graphics.h"
 # include "defines.h"
+# include "textures.h"
 # include "raycasting.h"
 # include "../minilibx/mlx.h"
 

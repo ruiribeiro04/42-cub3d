@@ -28,7 +28,7 @@ static void	ft_free_mlx(t_game *game)
 	}
 }
 
-/* 
+
 static void	ft_free_textures(t_game *game)
 {
 	if (game->tex_north.img && game->mlx)
@@ -40,7 +40,6 @@ static void	ft_free_textures(t_game *game)
 	if (game->tex_west.img && game->mlx)
 		mlx_destroy_image(game->mlx, game->tex_west.img);
 }
-*/
 
 void	ft_free_game(t_game *game)
 {
@@ -48,7 +47,7 @@ void	ft_free_game(t_game *game)
 		return ;
 	ft_free_map(game->map);
 	game->map = NULL;
-	//ft_free_textures(game);
+	ft_free_textures(game);
 	ft_free_mlx(game);
 	game->mlx = NULL;
 	game->win = NULL;

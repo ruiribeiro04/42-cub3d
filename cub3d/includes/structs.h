@@ -14,6 +14,18 @@ typedef struct s_player
 	bool	right_rotate;
 }	t_player;
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_texture;
+
+
 typedef struct s_ray
 {
 	float	dir_x;
@@ -31,6 +43,8 @@ typedef struct s_ray
 	int		wall_height;
 	int		draw_start;
 	int		draw_end;
+	float	wall_x;
+	int		tex_x;
 }	t_ray;
 
 typedef struct s_game
@@ -47,6 +61,10 @@ typedef struct s_game
 	t_player	player;
 	t_ray		ray;
 	char		**map;
+	t_texture	tex_north;
+	t_texture	tex_south;
+	t_texture	tex_east;
+	t_texture	tex_west;
 }	t_game;
 
 #endif

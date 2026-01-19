@@ -67,5 +67,11 @@ int	ft_init_game(t_game *game)
 	ft_init_map_dimensions(game);
 	if (ft_init_mlx(game))
 		return (1);
+	game->tex_north.img = NULL;
+	game->tex_south.img = NULL;
+	game->tex_east.img = NULL;
+	game->tex_west.img = NULL;
+	if (ft_load_all_textures(game))
+		return (1);
 	return (0);
 }
