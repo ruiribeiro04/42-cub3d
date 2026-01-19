@@ -94,6 +94,7 @@ clean:
 
 fclean: clean
 	@echo "$(RED)Removing executables and MiniLibX...$(RESET)"
+	@$(RM) $(NAME) $(NAME_BONUS) valgrind-out.txt
 	@$(RM) $(NAME) $(NAME_BONUS)
 	@$(RM) -r $(MLX_DIR)
 	@make -sC $(LIBFT_DIR) fclean
@@ -101,9 +102,24 @@ fclean: clean
 
 re: fclean all
 
+# ---------------------- Debugging & Testing -----------------------------------
 
 debug: CFLAGS += $(DEBUG_FLAGS)
 debug: LDFLAGS += -fsanitize=address
 debug: re
 
-.PHONY: all bonus clean fclean re
+
+# make valgrind ARGS="maps/outro_mapa.cub"
+
+valgrind: CFLAGS += -g
+valgrind: $(NAME)
+	@echo "$(CYAN)Running Valgrind on $(NAME) with args: $(ARGS)...$(RESET)"
+	valgrind --leak-check=full \
+			 --show-leak-kinds=all \
+			 --track-origins=yes \
+			 --verbose \
+			 --log-file=valgrind-out.txt \
+			 ./$(NAME) $(ARGS)
+	@echo "$(GREEN)Valgrind finished! Check valgrind-out.txt$(RESET)"
+
+.PHONY: all bonus clean fclean re debug valgrind
