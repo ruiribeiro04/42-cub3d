@@ -17,3 +17,24 @@ No entanto, para resolver o erro do Valgrind que mostraste (que acontece ao sair
 
 ---
 
+- Rewrite do codigo das texturas, para ficar mais simples e menos jank
+- norminette
+- testar se compila nos PCs da 42
+
+---
+
+# Comecar a trabalhar no `bonus`
+
+- Implementar sistema de mouse aim
+    - potencialmente mudar os keycodes, mas nao sei
+- sistema de portas que abre e fecha
+    - Reconhecer simbolo de porta no mapa
+    - dar draw a uma textura de porta
+    - implementar logica de close e open
+        Colisao do player fica on e off, conforme o estado da porta
+- minimapa
+    - nao faco a minima
+    - seria interessante carregar no tab e surgir o mapa
+- sprites animados
+    - meter so para ter 125!
+    - potencialmente fazer animacao das paredes, com fogo ou algo do genero

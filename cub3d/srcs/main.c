@@ -19,10 +19,10 @@ int	main(void)
 	/*
 	1. Init Game Struct ✅
 	2. Parsing do Mapa
-	3. Load das Texturas
-	4. Init do Player
-	5. Init do MLX
-	6. Game Loop
+	3. Load das Texturas ✅
+	4. Init do Player ✅
+	5. Init do MLX ✅
+	6. Game Loop ✅
 	7. Free Game ✅
 	*/
     
