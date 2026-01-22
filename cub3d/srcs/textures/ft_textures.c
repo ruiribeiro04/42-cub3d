@@ -33,14 +33,13 @@ static int	ft_load_texture(t_game *game, t_texture *tex, char *path)
 
 int	ft_load_all_textures(t_game *game)
 {
-	// TODO: HARDCODED
-	if (ft_load_texture(game, &game->tex_north, "textures/north.xpm"))
+	if (ft_load_texture(game, &game->tex_north, game->path_north))
 		return (1);
-	if (ft_load_texture(game, &game->tex_south, "textures/south.xpm"))
+	if (ft_load_texture(game, &game->tex_south, game->path_south))
 		return (1);
-	if (ft_load_texture(game, &game->tex_east, "textures/east.xpm"))
+	if (ft_load_texture(game, &game->tex_east, game->path_east))
 		return (1);
-	if (ft_load_texture(game, &game->tex_west, "textures/west.xpm"))
+	if (ft_load_texture(game, &game->tex_west, game->path_west))
 		return (1);
 	return (0);
 }

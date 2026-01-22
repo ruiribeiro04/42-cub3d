@@ -10,14 +10,6 @@ static void	ft_init_player_keys(t_player *player)
 	player->right_rotate = false;
 }
 
-static void	ft_init_player(t_player *player)
-{
-	player->x = BLOCK + BLOCK / 2;
-	player->y = BLOCK + BLOCK / 2;
-	player->angle = PI / 2;
-	ft_init_player_keys(player);
-}
-
 static void	ft_init_map_dimensions(t_game *game)
 {
 	int	y;
@@ -57,12 +49,11 @@ static int	ft_init_mlx(t_game *game)
 	return (0);
 }
 
-int	ft_init_game(t_game *game)
+int	ft_init_game(t_game *game, char *map_file)
 {
 	ft_memset(game, 0, sizeof(t_game));
-	ft_init_player(&game->player);
-	game->map = ft_get_map();
-	if (!game->map)
+	ft_init_player_keys(&game->player);
+	if (ft_parse_cub_file(map_file, game))
 		return (1);
 	ft_init_map_dimensions(game);
 	if (ft_init_mlx(game))

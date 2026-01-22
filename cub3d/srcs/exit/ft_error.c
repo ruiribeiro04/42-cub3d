@@ -41,6 +41,30 @@ static void	ft_free_textures(t_game *game)
 		mlx_destroy_image(game->mlx, game->tex_west.img);
 }
 
+static void	ft_free_config_paths(t_game *game)
+{
+	if (game->path_north)
+	{
+		free(game->path_north);
+		game->path_north = NULL;
+	}
+	if (game->path_south)
+	{
+		free(game->path_south);
+		game->path_south = NULL;
+	}
+	if (game->path_east)
+	{
+		free(game->path_east);
+		game->path_east = NULL;
+	}
+	if (game->path_west)
+	{
+		free(game->path_west);
+		game->path_west = NULL;
+	}
+}
+
 void	ft_free_game(t_game *game)
 {
 	if (!game)
@@ -48,6 +72,7 @@ void	ft_free_game(t_game *game)
 	ft_free_map(game->map);
 	game->map = NULL;
 	ft_free_textures(game);
+	ft_free_config_paths(game);
 	ft_free_mlx(game);
 	game->mlx = NULL;
 	game->win = NULL;
