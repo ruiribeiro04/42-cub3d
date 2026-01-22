@@ -2,17 +2,19 @@
 
 int	ft_parse_cub_file(char *filename, t_game *game)
 {
-	int	fd;
+	int		fd;
+	char	*first_line;
 
 	fd = ft_open_and_validate(filename);
 	if (fd < 0)
 		return (1);
-	if (ft_parse_elements(fd, game))
+	first_line = ft_parse_elements(fd, game);
+	if (!first_line)
 	{
 		close(fd);
 		return (1);
 	}
-	game->map = ft_parse_map_grid(fd, game);
+	game->map = ft_parse_map_grid(fd, game, first_line);
 	if (!game->map)
 	{
 		close(fd);

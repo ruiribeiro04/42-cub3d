@@ -10,27 +10,6 @@ static void	ft_init_player_keys(t_player *player)
 	player->right_rotate = false;
 }
 
-static void	ft_init_map_dimensions(t_game *game)
-{
-	int	y;
-	int	x;
-	int	max_width;
-
-	max_width = 0;
-	y = 0;
-	while (game->map[y])
-	{
-		x = 0;
-		while (game->map[y][x])
-			x++;
-		if (x > max_width)
-			max_width = x;
-		y++;
-	}
-	game->map_width = max_width;
-	game->map_height = y;
-}
-
 static int	ft_init_mlx(t_game *game)
 {
 	game->mlx = mlx_init();
@@ -55,7 +34,6 @@ int	ft_init_game(t_game *game, char *map_file)
 	ft_init_player_keys(&game->player);
 	if (ft_parse_cub_file(map_file, game))
 		return (1);
-	ft_init_map_dimensions(game);
 	if (ft_init_mlx(game))
 		return (1);
 	game->tex_north.img = NULL;

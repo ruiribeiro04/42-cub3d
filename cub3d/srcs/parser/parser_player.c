@@ -45,6 +45,6 @@ void	ft_init_player_from_map(t_game *game)
 		ft_putstr_fd("Error: Multiple player spawn positions found\n", 2);
 		return ;
 	}
-	game->player.x = spawn_x + 0.5;
-	game->player.y = spawn_y + 0.5;
+	game->player.x = (spawn_x + 0.5) * BLOCK;
+	game->player.y = (spawn_y + 0.5) * BLOCK;
 }

@@ -11,7 +11,7 @@ static void	ft_raycasting_draw_ceiling(t_game *game, int col)
 	y = 0;
 	while (y < end)
 	{
-		ft_put_pixel_to_img(game, col, y, CEILING_COLOR);
+		ft_put_pixel_to_img(game, col, y, game->ceiling_color);
 		y++;
 	}
 }
@@ -57,7 +57,7 @@ static void	ft_raycasting_draw_floor(t_game *game, int col)
 	y = start;
 	while (y < HEIGHT)
 	{
-		ft_put_pixel_to_img(game, col, y, FLOOR_COLOR);
+		ft_put_pixel_to_img(game, col, y, game->floor_color);
 		y++;
 	}
 }

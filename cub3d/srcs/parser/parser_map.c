@@ -30,14 +30,14 @@ static void	strip_newline(char *line)
 	line[i] = '\0';
 }
 
-char	**ft_parse_map_grid(int fd, t_game *game)
+char	**ft_parse_map_grid(int fd, t_game *game, char *first_line)
 {
 	char	*line;
 	char	**map;
 	int		i;
 
-	// Get the first map line that was saved by ft_parse_elements
-	line = get_first_map_line();
+	// Use the first map line passed from ft_parse_elements
+	line = first_line;
 	map = NULL;
 	i = 0;
 	if (line)
