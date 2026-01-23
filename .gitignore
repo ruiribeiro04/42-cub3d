@@ -63,3 +63,6 @@ dkms.conf
 .k*/
 o*c/
 *.md
+
+# Doxygen documentation
+doxygen/
