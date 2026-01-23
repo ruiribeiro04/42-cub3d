@@ -1,5 +1,7 @@
 #include "cub3d.h"
 
+static int	ft_parse_and_validate(t_game *game, int fd, char *first_line);
+
 int	ft_parse_cub_file(char *filename, t_game *game)
 {
 	int		fd;
@@ -14,27 +16,12 @@ int	ft_parse_cub_file(char *filename, t_game *game)
 		close(fd);
 		return (1);
 	}
-	game->map = ft_parse_map_grid(fd, game, first_line);
-	if (!game->map)
+	if (ft_parse_and_validate(game, fd, first_line))
 	{
 		close(fd);
-		ft_free_config(game);
 		return (1);
 	}
 	close(fd);
-	if (ft_validate_map_chars(game))
-	{
-		ft_free_config(game);
-		game->map = NULL;
-		return (1);
-	}
-	if (ft_validate_map_closed(game))
-	{
-		ft_free_config(game);
-		game->map = NULL;
-		return (1);
-	}
-	ft_init_player_from_map(game);
 	return (0);
 }
 
@@ -61,10 +48,8 @@ int	ft_open_and_validate(char *filename)
 	return (fd);
 }
 
-void	ft_free_config(t_game *game)
+static void	ft_free_paths(t_game *game)
 {
-	int	i;
-
 	if (game->path_north)
 	{
 		free(game->path_north);
@@ -85,15 +70,41 @@ void	ft_free_config(t_game *game)
 		free(game->path_west);
 		game->path_west = NULL;
 	}
-	if (game->map)
-	{
-		i = 0;
-		while (game->map[i])
-		{
-			free(game->map[i]);
-			i++;
-		}
-		free(game->map);
-		game->map = NULL;
-	}
 }
+
+static void	ft_free_map(t_game *game)
+{
+	int	i;
+
+	if (!game->map)
+		return ;
+	i = 0;
+	while (game->map[i])
+	{
+		free(game->map[i]);
+		i++;
+	}
+	free(game->map);
+	game->map = NULL;
+}
+
+static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
+{
+	game->map = ft_parse_map_grid(fd, game, first_line);
+	if (!game->map)
+		return (1);
+	if (ft_validate_map_chars(game) || ft_validate_map_closed(game))
+	{
+		ft_free_paths(game);
+		ft_free_map(game);
+		return (1);
+	}
+	ft_init_player_from_map(game);
+	return (0);
+}
+
+// void	ft_free_config(t_game *game)
+// {
+// 	ft_free_paths(game);
+// 	ft_free_map(game);
+// }

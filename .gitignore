@@ -15,6 +15,7 @@ a.out
 *.ilk
 *.map
 *.exp
+.vscode/
 
 # Precompiled Headers
 *.gch

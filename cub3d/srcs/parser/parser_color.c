@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	free_split(char **values)
+static void	ft_free_split(char **values)
 {
 	int	i;
 
@@ -13,7 +13,7 @@ static void	free_split(char **values)
 	free(values);
 }
 
-static int	parse_rgb_values(char *line, int *r, int *g, int *b)
+static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 {
 	char	**values;
 	int		result;
@@ -32,7 +32,7 @@ static int	parse_rgb_values(char *line, int *r, int *g, int *b)
 		if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
 			result = 1;
 	}
-	free_split(values);
+	ft_free_split(values);
 	return (result);
 }
 
@@ -43,7 +43,7 @@ int	ft_parse_color(char *line, t_game *game)
 	int	b;
 	int	color;
 
-	if (parse_rgb_values(line, &r, &g, &b))
+	if (ft_parse_rgb_values(line, &r, &g, &b))
 		return (ft_putstr_fd("Error: Invalid RGB color format\n", 2), -1);
 	color = (r << 16) | (g << 8) | b;
 	if (!ft_strncmp(line, "F ", 2))

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static int	is_element_line(char *line)
+static int	ft_is_element_line(char *line)
 {
 	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3))
 		return (1);
@@ -11,10 +11,19 @@ static int	is_element_line(char *line)
 	return (0);
 }
 
-char	*ft_parse_elements(int fd, t_game *game)
+static int	ft_parse_element_line(char *line, t_game *game)
+{
+	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
+		|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
+		return (ft_parse_texture(line, game));
+	else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
+		return (ft_parse_color(line, game));
+	return (0);
+}
+
+static char	*ft_skip_empty_lines(int fd)
 {
 	char	*line;
-	int		count;
 
 	line = get_next_line(fd);
 	while (line && line[0] == '\n')
@@ -22,30 +31,21 @@ char	*ft_parse_elements(int fd, t_game *game)
 		free(line);
 		line = get_next_line(fd);
 	}
+	return (line);
+}
+
+char	*ft_parse_elements(int fd, t_game *game)
+{
+	char	*line;
+	int		count;
+
+	line = ft_skip_empty_lines(fd);
 	count = 0;
-	while (line && is_element_line(line))
+	while (line && ft_is_element_line(line))
 	{
-		if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3) ||
-			!ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
-			count += ft_parse_texture(line, game);
-		else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
-			count += ft_parse_color(line, game);
+		count += ft_parse_element_line(line, game);
 		free(line);
-		line = get_next_line(fd);
-		while (line && line[0] == '\n')
-		{
-			free(line);
-			line = get_next_line(fd);
-		}
-	}
-	// At this point, line is either:
-	// 1. NULL (EOF) - error
-	// 2. A newline - skip it
-	// 3. The first map line - return it!
-	while (line && line[0] == '\n')
-	{
-		free(line);
-		line = get_next_line(fd);
+		line = ft_skip_empty_lines(fd);
 	}
 	if (count != 6)
 	{
@@ -54,6 +54,5 @@ char	*ft_parse_elements(int fd, t_game *game)
 		ft_putstr_fd("Error: Missing or duplicate config elements\n", 2);
 		return (NULL);
 	}
-	// Return the first map line (or NULL if EOF)
 	return (line);
 }

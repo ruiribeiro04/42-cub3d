@@ -34,6 +34,48 @@ static int	validate_texture_path(char *path)
 	return (0);
 }
 
+static int	parse_north_south(char *line, t_game *game, char **path)
+{
+	if (!ft_strncmp(line, "NO ", 3))
+	{
+		*path = extract_path(line, 3);
+		if (*path && !validate_texture_path(*path) && !game->path_north)
+			game->path_north = *path;
+		else
+			return (1);
+	}
+	else if (!ft_strncmp(line, "SO ", 3))
+	{
+		*path = extract_path(line, 3);
+		if (*path && !validate_texture_path(*path) && !game->path_south)
+			game->path_south = *path;
+		else
+			return (1);
+	}
+	return (0);
+}
+
+static int	parse_west_east(char *line, t_game *game, char **path)
+{
+	if (!ft_strncmp(line, "WE ", 3))
+	{
+		*path = extract_path(line, 3);
+		if (*path && !validate_texture_path(*path) && !game->path_west)
+			game->path_west = *path;
+		else
+			return (1);
+	}
+	else if (!ft_strncmp(line, "EA ", 3))
+	{
+		*path = extract_path(line, 3);
+		if (*path && !validate_texture_path(*path) && !game->path_east)
+			game->path_east = *path;
+		else
+			return (1);
+	}
+	return (0);
+}
+
 int	ft_parse_texture(char *line, t_game *game)
 {
 	char	*path;
@@ -41,38 +83,9 @@ int	ft_parse_texture(char *line, t_game *game)
 
 	result = 0;
 	path = NULL;
-	if (!ft_strncmp(line, "NO ", 3))
-	{
-		path = extract_path(line, 3);
-		if (path && !validate_texture_path(path) && !game->path_north)
-			game->path_north = path;
-		else
-			result = 1;
-	}
-	else if (!ft_strncmp(line, "SO ", 3))
-	{
-		path = extract_path(line, 3);
-		if (path && !validate_texture_path(path) && !game->path_south)
-			game->path_south = path;
-		else
-			result = 1;
-	}
-	else if (!ft_strncmp(line, "WE ", 3))
-	{
-		path = extract_path(line, 3);
-		if (path && !validate_texture_path(path) && !game->path_west)
-			game->path_west = path;
-		else
-			result = 1;
-	}
-	else if (!ft_strncmp(line, "EA ", 3))
-	{
-		path = extract_path(line, 3);
-		if (path && !validate_texture_path(path) && !game->path_east)
-			game->path_east = path;
-		else
-			result = 1;
-	}
+	result = parse_north_south(line, game, &path);
+	if (!result)
+		result = parse_west_east(line, game, &path);
 	if (result)
 	{
 		if (path)
