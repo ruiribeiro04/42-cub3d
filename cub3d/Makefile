@@ -1,8 +1,8 @@
 # ---------------------- Variables ---------------------------------------------
 
 # Executables
-NAME          = cub3d
-NAME_BONUS    = cub3d_bonus
+NAME          = cub3D
+NAME_BONUS    = cub3D_bonus
 
 # Commands
 CC            = cc
