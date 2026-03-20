@@ -25,7 +25,8 @@ int	main(int argc, char **argv)
 	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, ft_input_key_press, &game);
 	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, ft_input_key_release,
 		&game);
-	mlx_hook(game.win, MOTION_NOTIFY, POINTER_MOTION_MASK, ft_input_mouse_move, &game);
+	mlx_hook(game.win, MOTION_NOTIFY, POINTER_MOTION_MASK, ft_input_mouse_move,
+		&game);
 	mlx_hook(game.win, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, ft_exit_game,
 		&game);
 	mlx_loop_hook(game.mlx, ft_draw_loop, &game);
