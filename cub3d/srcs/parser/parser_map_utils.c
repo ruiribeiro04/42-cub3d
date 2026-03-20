@@ -68,7 +68,6 @@ char	*skip_empty_and_read(int fd)
 	return (line);
 }
 
-
 /**
 * @brief Adds a line to the map array.
 * 

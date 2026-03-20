@@ -1,8 +1,8 @@
 # ---------------------- Variables ---------------------------------------------
 
 # Executables
-NAME          = cub3d
-NAME_BONUS    = cub3d_bonus
+NAME          = cub3D
+NAME_BONUS    = cub3D_bonus
 
 # Commands
 CC            = cc
@@ -15,6 +15,7 @@ INC_DIR       = includes
 MLX_DIR       = minilibx
 LIBS_DIR      = libs
 LIBFT_DIR     = $(LIBS_DIR)/libft
+DOXYGEN_DIR   = ../doxygen
 
 # Compiling Flags
 CFLAGS        = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR)
@@ -90,6 +91,7 @@ clean:
 	@$(RM) -r $(OBJ_DIR)
 	@if [ -d "$(MLX_DIR)" ]; then make -sC $(MLX_DIR) clean 2>/dev/null || true; fi
 	@make -sC $(LIBFT_DIR) clean
+	@make docs_clean
 	@echo "$(GREEN)Done!$(RESET)"
 
 fclean: clean
@@ -122,4 +124,16 @@ valgrind: $(NAME)
 			 ./$(NAME) $(ARGS)
 	@echo "$(GREEN)Valgrind finished! Check valgrind-out.txt$(RESET)"
 
-.PHONY: all bonus clean fclean re debug valgrind
+# ---------------------- Documentation ----------------------------------------
+
+docs:
+	@echo "$(CYAN)Generating Doxygen documentation...$(RESET)"
+	@cd .. && doxygen Doxyfile
+	@echo "$(GREEN)Documentation generated! Open ../doxygen/doxygen_docs/index.html$(RESET)"
+
+docs_clean:
+	@echo "$(CYAN)Cleaning Doxygen documentation...$(RESET)"
+	@$(RM) -r $(DOXYGEN_DIR)
+	@echo "$(GREEN)Documentation cleaned!$(RESET)"
+
+.PHONY: all bonus clean fclean re debug valgrind docs docs_clean

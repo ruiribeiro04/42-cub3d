@@ -65,6 +65,12 @@ typedef struct s_game
 	t_texture	tex_south;
 	t_texture	tex_east;
 	t_texture	tex_west;
+	char		*path_north;
+	char		*path_south;
+	char		*path_east;
+	char		*path_west;
+	int			floor_color;
+	int			ceiling_color;
 }	t_game;
 
 #endif

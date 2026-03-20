@@ -15,11 +15,11 @@
 # include "defines.h"
 # include "textures.h"
 # include "raycasting.h"
+# include "parser.h"
 # include "../minilibx/mlx.h"
 
 // init.c
-int	ft_init_game(t_game *game);
-char    **ft_get_map(void);
+int	ft_init_game(t_game *game, char *map_file);
 
 // input.c
 int     ft_input_key_press(int keycode, t_game *game);

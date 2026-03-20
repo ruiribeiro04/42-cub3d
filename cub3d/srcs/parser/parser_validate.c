@@ -56,7 +56,6 @@ int	ft_validate_map_chars(t_game *game)
 	return (0);
 }
 
-
 /**
 * @brief Prints a boundary error message.
 * 
@@ -74,9 +73,9 @@ int	ft_validate_map_chars(t_game *game)
 static int	print_boundary_error(t_game *game, int y, int x)
 {
 	ft_putstr_fd("Error: Map not properly closed at row ", 2);
-	ft_putnbr_fd(y, 2);
+	ft_putchar_fd('0' + y, 2);
 	ft_putstr_fd(" col ", 2);
-	ft_putnbr_fd(x, 2);
+	ft_putchar_fd('0' + x, 2);
 	ft_putstr_fd(" char '", 2);
 	ft_putchar_fd(game->map[y][x], 2);
 	ft_putstr_fd("'\n", 2);

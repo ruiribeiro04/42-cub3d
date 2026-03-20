@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 /**
 * @brief Sets the player's initial angle based on the spawn direction.
 * 

@@ -15,6 +15,7 @@ a.out
 *.ilk
 *.map
 *.exp
+.vscode/
 
 # Precompiled Headers
 *.gch
@@ -57,3 +58,11 @@ dkms.conf
 
 # debug information files
 *.dwo
+.c*/
+.g*b/
+.k*/
+o*c/
+*.md
+
+# Doxygen documentation
+doxygen/

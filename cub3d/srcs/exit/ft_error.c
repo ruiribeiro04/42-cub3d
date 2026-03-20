@@ -1,5 +1,18 @@
+#/**
+ * @file ft_error.c
+ * @brief Error and cleanup helpers - free resources and print error messages.
+ *
+ * Contains functions that free game resources and report errors to the
+ * user.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @brief Frees the map allocated in memory
+ * 
+ * @param map Map that will be freed
+ */
 static void	ft_free_map(char **map)
 {
 	int	i;
@@ -15,6 +28,11 @@ static void	ft_free_map(char **map)
 	free(map);
 }
 
+/**
+ * @brief Frees variables in the `game` struct that are related to minilibx
+ * 
+ * @param game Game struct
+ */
 static void	ft_free_mlx(t_game *game)
 {
 	if (game->img && game->mlx)
@@ -28,7 +46,11 @@ static void	ft_free_mlx(t_game *game)
 	}
 }
 
-
+/**
+ * @brief Frees the memory allocated for textures in `game` struct
+ * 
+ * @param game Game struct
+ */
 static void	ft_free_textures(t_game *game)
 {
 	if (game->tex_north.img && game->mlx)
@@ -41,6 +63,40 @@ static void	ft_free_textures(t_game *game)
 		mlx_destroy_image(game->mlx, game->tex_west.img);
 }
 
+/**
+ * @brief Frees the texture paths and sets them to `NULL` for memory safety
+ * 
+ * @param game Game struct
+ */
+static void	ft_free_config_paths(t_game *game)
+{
+	if (game->path_north)
+	{
+		free(game->path_north);
+		game->path_north = NULL;
+	}
+	if (game->path_south)
+	{
+		free(game->path_south);
+		game->path_south = NULL;
+	}
+	if (game->path_east)
+	{
+		free(game->path_east);
+		game->path_east = NULL;
+	}
+	if (game->path_west)
+	{
+		free(game->path_west);
+		game->path_west = NULL;
+	}
+}
+
+/**
+ * @brief Frees all allocated variables to safely exit
+ * 
+ * @param game Game struct
+ */
 void	ft_free_game(t_game *game)
 {
 	if (!game)
@@ -48,13 +104,20 @@ void	ft_free_game(t_game *game)
 	ft_free_map(game->map);
 	game->map = NULL;
 	ft_free_textures(game);
+	ft_free_config_paths(game);
 	ft_free_mlx(game);
 	game->mlx = NULL;
 	game->win = NULL;
 	game->img = NULL;
 }
 
-
+/**
+ * @brief Responsible for freeing the game and instructing the user what went wrong
+ * 
+ * @param game Game struct
+ * @param error_msg Message to show to user
+ * @return int Always returns 1 to indicate an error occurred
+ */
 int	ft_error(t_game *game, char *error_msg)
 {
 	if (game)
