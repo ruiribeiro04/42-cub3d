@@ -47,5 +47,6 @@ int	ft_raycasting(t_game *game)
 		ft_raycasting_cast_ray(game, angle, col);
 		col++;
 	}
+	ft_draw_minimap(game);
 	return (0);
 }

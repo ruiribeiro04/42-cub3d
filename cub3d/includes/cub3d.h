@@ -36,4 +36,6 @@ void	ft_free_game(t_game *game);
 // ft_exit_game.c
 int		ft_exit_game(t_game *game);
 
+void	ft_draw_minimap(t_game *game);
+
 #endif

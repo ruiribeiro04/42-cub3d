@@ -37,4 +37,11 @@
 # define CEILING_COLOR 0x7F5B6F
 # define FLOOR_COLOR 0xBF772F
 
+# define MAP_TILE 10
+# define MAP_OFFSET_X 10
+# define MAP_OFFSET_Y 10
+# define MAP_COLOR_WALL 0x63630B
+# define MAP_COLOR_BG 0x677B6F
+# define MAP_COLOR_PLAYER 0xFFF31B
+
 #endif

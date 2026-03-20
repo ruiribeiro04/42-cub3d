@@ -1,5 +1,25 @@
 #include "cub3d.h"
 
+// Adicione isso ao final do seu draw_utils.c
+
+void	ft_draw_rect(t_game *game, t_point pos, int size, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			ft_put_pixel_to_img(game, pos.x + j, pos.y + i, color);
+			j++;
+		}
+		i++;
+	}
+}
+
 /**
  * @file draw_utils.c
  * @brief Image drawing utilities for the renderer.
