@@ -35,3 +35,42 @@ int	ft_input_key_release(int keycode, t_game *game)
 		game->player.right_rotate = false;
 	return (0);
 }
+
+int	ft_input_mouse_move(int x, int y, t_game *game)
+{
+    int	center_x;
+    int	center_y;
+    int	delta_x;
+    static int	first_call = 1;
+
+    center_x = WIDTH / 2;
+    center_y = HEIGHT / 2;
+
+    // No primeiro frame, apenas ajustamos o rato para o centro sem girar a câmera
+    if (first_call)
+    {
+        // CORREÇÃO: Adicionado game->mlx como primeiro argumento
+        mlx_mouse_move(game->mlx, game->win, center_x, center_y);
+        first_call = 0;
+        return (0);
+    }
+
+    // Calcula o quanto o rato se moveu desde o centro
+    delta_x = x - center_x;
+
+    // Se houver movimento horizontal, atualiza o ângulo
+    if (delta_x != 0)
+    {
+        game->player.angle += delta_x * MOUSE_SPEED;
+
+        // Normaliza o ângulo
+        if (game->player.angle > TWO_PI)
+            game->player.angle -= TWO_PI;
+        else if (game->player.angle < 0)
+            game->player.angle += TWO_PI;
+
+        mlx_mouse_move(game->mlx, game->win, center_x, center_y);
+    }
+    (void)y; // O movimento vertical é ignorado
+    return (0);
+}

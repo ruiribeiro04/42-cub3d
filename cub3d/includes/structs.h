@@ -25,7 +25,6 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
-
 typedef struct s_ray
 {
 	float	dir_x;
