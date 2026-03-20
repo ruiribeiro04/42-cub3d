@@ -1,6 +1,6 @@
 # Cub3D - A Raycasting Game Engine
 
-*This project has been created as part of the 42 curriculum by ruiferna.*
+*This project has been created as part of the 42 curriculum by vde-maga.*
 
 ---
 
