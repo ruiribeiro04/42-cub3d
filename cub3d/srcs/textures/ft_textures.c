@@ -52,7 +52,8 @@ t_texture	*ft_get_wall_texture(t_game *game)
  */
 static int	ft_load_texture(t_game *game, t_texture *tex, char *path)
 {
-	tex->img = mlx_xpm_file_to_image(game->mlx, path, &tex->width, &tex->height);
+	tex->img = mlx_xpm_file_to_image(game->mlx, path,
+			&tex->width, &tex->height);
 	if (!tex->img)
 		return (1);
 	tex->data = mlx_get_data_addr(tex->img, &tex->bpp,

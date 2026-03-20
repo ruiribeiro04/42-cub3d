@@ -50,7 +50,8 @@ void	strip_newline(char *line)
 /**
 * @brief Skips empty lines and returns the next non-empty line.
 * 
-* Reads from the file descriptor until it finds a line that is not just a newline.
+* Reads from the file descriptor until it finds a line
+* 	that is not just a newline.
 * 
 * @param fd File descriptor of the file.
 * @return char* Next non-empty line, or NULL if EOF.

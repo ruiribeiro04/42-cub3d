@@ -58,8 +58,10 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 /**
 * @brief Parses a color line (floor or ceiling).
 * 
-* Identifies whether it is floor color (F) or ceiling color (C), extracts the RGB values,
-* combines them into a single 32-bit integer, and stores them in the game structure.
+* Identifies whether it is floor color (F) or ceiling color (C),
+* 	extracts the RGB values,
+* combines them into a single 32-bit integer,
+* 	and stores them in the game structure.
 * Also checks for duplicate colors.
 * 
 * @param line Color configuration line.

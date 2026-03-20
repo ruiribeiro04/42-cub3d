@@ -20,21 +20,12 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	if (ft_init_game(&game, argv[1]) == 1)
-	    ft_error(&game, "Failed to Initialize the Game!");
-	/*
-	1. Init Game Struct ✅
-	2. Parsing do Mapa
-	3. Load das Texturas ✅
-	4. Init do Player ✅
-	5. Init do MLX ✅
-	6. Game Loop ✅
-	7. Free Game ✅
-	*/
-
+		ft_error(&game, "Failed to Initialize the Game!");
 	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, ft_input_key_press, &game);
-	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, ft_input_key_release, &game);
-	mlx_hook(game.win, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, ft_exit_game, &game);
-
+	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, ft_input_key_release,
+		&game);
+	mlx_hook(game.win, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, ft_exit_game,
+		&game);
 	mlx_loop_hook(game.mlx, ft_draw_loop, &game);
 	mlx_loop(game.mlx);
 	ft_free_game(&game);
