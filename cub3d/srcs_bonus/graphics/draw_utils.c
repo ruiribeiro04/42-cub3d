@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-// Adicione isso ao final do seu draw_utils.c
-
 void	ft_draw_rect(t_game *game, t_point pos, int size, int color)
 {
 	int	i;

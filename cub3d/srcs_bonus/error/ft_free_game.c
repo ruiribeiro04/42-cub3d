@@ -96,6 +96,7 @@ void	ft_free_game(t_game *game)
 	ft_free_map(game->map);
 	game->map = NULL;
 	ft_free_textures(game);
+	ft_free_sprites(game);
 	ft_free_config_paths(game);
 	ft_free_mlx(game);
 	game->mlx = NULL;

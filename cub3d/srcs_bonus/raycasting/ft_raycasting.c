@@ -45,8 +45,10 @@ int	ft_raycasting(t_game *game)
 	{
 		angle = start_angle + (col * angle_step);
 		ft_raycasting_cast_ray(game, angle, col);
+		game->z_buffer[col] = game->ray.perp_dist;
 		col++;
 	}
+	ft_draw_sprites(game);
 	ft_draw_minimap(game);
 	return (0);
 }

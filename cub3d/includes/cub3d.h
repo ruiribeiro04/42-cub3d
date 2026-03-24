@@ -8,9 +8,11 @@
 # include <math.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 # include "libft.h"
 # include "structs.h"
+# include "sprites.h"
 # include "graphics.h"
 # include "defines.h"
 # include "textures.h"
@@ -37,5 +39,10 @@ void	ft_free_game(t_game *game);
 int		ft_exit_game(t_game *game);
 
 void	ft_draw_minimap(t_game *game);
+int		ft_load_animation(t_game *game, t_sprite *sprite,
+			char *base_path, int count);
+void	ft_draw_sprites(t_game *game);
+int		ft_load_texture(t_game *game, t_texture *tex, char *path);
+void	ft_free_sprites(t_game *game);
 
 #endif

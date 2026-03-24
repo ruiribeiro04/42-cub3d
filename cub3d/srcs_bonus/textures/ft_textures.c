@@ -50,7 +50,7 @@ t_texture	*ft_get_wall_texture(t_game *game)
  * @param path Filesystem path to the XPM texture file.
  * @return 0 on success, non-zero on failure.
  */
-static int	ft_load_texture(t_game *game, t_texture *tex, char *path)
+int	ft_load_texture(t_game *game, t_texture *tex, char *path)
 {
 	tex->img = mlx_xpm_file_to_image(game->mlx, path,
 			&tex->width, &tex->height);
