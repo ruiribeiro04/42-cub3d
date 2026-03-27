@@ -43,6 +43,5 @@ int		ft_load_animation(t_game *game, t_sprite *sprite,
 			char *base_path, int count);
 void	ft_draw_sprites(t_game *game);
 int		ft_load_texture(t_game *game, t_texture *tex, char *path);
-void	ft_free_sprites(t_game *game);
 
 #endif

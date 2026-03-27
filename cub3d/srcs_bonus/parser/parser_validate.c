@@ -18,6 +18,8 @@ static int	is_valid_char(char c)
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
+	if (c == '2')
+		return (1);
 	return (0);
 }
 
