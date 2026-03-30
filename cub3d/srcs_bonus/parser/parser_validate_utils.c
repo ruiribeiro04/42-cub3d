@@ -18,7 +18,8 @@ int	validate_row_boundaries(t_game *game, int y, int x)
 
 	if (y == 0 || !game->map[y + 1])
 	{
-		if (game->map[y][x] != '1' && game->map[y][x] != ' ')
+		if (game->map[y][x] != '1' && game->map[y][x] != ' ' &&
+			game->map[y][x] != 'D')
 			return (1);
 	}
 	else
@@ -26,7 +27,8 @@ int	validate_row_boundaries(t_game *game, int y, int x)
 		len = ft_strlen(game->map[y]);
 		if (x == 0 || x == len - 1)
 		{
-			if (game->map[y][x] != '1' && game->map[y][x] != ' ')
+			if (game->map[y][x] != '1' && game->map[y][x] != ' ' &&
+				game->map[y][x] != 'D')
 				return (1);
 		}
 	}
@@ -53,7 +55,7 @@ int	validate_space_neighbors(t_game *game, int y, int x)
 	if (curr == ' ')
 		return (0);
 	if (curr == '0' || curr == 'N' || curr == 'S' || curr == 'E'
-		|| curr == 'W' || curr == '2')
+		|| curr == 'W' || curr == '2' || curr == 'D')
 	{
 		if (x > 0 && game->map[y][x - 1] == ' ')
 			return (1);

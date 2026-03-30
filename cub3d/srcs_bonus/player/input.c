@@ -14,6 +14,8 @@ int	ft_input_key_press(int keycode, t_game *game)
 		game->player.left_rotate = true;
 	if (keycode == RIGHT)
 		game->player.right_rotate = true;
+	if (keycode == E)
+        ft_handle_door_interaction(game);
 	if (keycode == ESC || keycode == Q)
 		ft_exit_game(game);
 	return (0);

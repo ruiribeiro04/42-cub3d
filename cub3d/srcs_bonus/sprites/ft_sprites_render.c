@@ -76,6 +76,7 @@ void	ft_draw_sprites(t_game *game)
 		+ (current_time.tv_usec - game->last_time.tv_usec) / 1000000.0;
 	game->last_time = current_time;
 	update_sprite_state(game, delta_time);
+	ft_update_doors(game, delta_time);
 	i = 0;
 	while (i < game->sprite_count)
 	{

@@ -16,6 +16,7 @@
 # include "graphics.h"
 # include "defines.h"
 # include "textures.h"
+# include "doors.h"
 # include "raycasting.h"
 # include "parser.h"
 # include "../minilibx/mlx.h"

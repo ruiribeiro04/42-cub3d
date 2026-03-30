@@ -70,6 +70,8 @@ int	ft_init_game(t_game *game, char *map_file)
 	game->tex_west.img = NULL;
 	if (ft_load_all_textures(game))
 		return (1);
+	if (ft_parse_doors(game))
+    	return (1);
 	if (ft_init_sprites(game))
 		return (1);
 	return (0);

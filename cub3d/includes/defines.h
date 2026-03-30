@@ -17,6 +17,7 @@
 # define RIGHT 65363
 # define ESC 65307
 # define Q 113
+# define E 101
 
 # define PI 3.14159265359
 # define TWO_PI 6.283185307f
@@ -43,5 +44,8 @@
 # define MAP_COLOR_WALL 0xFFF1E8
 # define MAP_COLOR_BG 0x1C1B1B
 # define MAP_COLOR_PLAYER 0xFF4242
+
+# define DOOR_SPEED 2.0f
+# define DOOR_INTERACT_DIST 0.6f
 
 #endif

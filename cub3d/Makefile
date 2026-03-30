@@ -120,6 +120,11 @@ debug: CFLAGS += $(DEBUG_FLAGS)
 debug: LDFLAGS += -fsanitize=address
 debug: re
 
+debug_bonus: CFLAGS += $(DEBUG_FLAGS)
+debug_bonus: LDFLAGS += -fsanitize=address
+debug_bonus: bonus
+
+
 # make valgrind ARGS="maps/outro_mapa.cub"
 valgrind: CFLAGS += -g
 valgrind: $(NAME_BONUS)

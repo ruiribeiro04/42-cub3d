@@ -20,6 +20,8 @@ static int	is_valid_char(char c)
 		return (1);
 	if (c == '2')
 		return (1);
+	if (c == 'D')
+		return (1);
 	return (0);
 }
 

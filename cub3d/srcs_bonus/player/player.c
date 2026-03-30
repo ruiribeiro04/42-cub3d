@@ -14,30 +14,40 @@ static void	ft_player_rotate_player(t_player *player)
 
 static int	ft_player_check_collision(t_game *game, float x, float y)
 {
-	int	map_x;
-	int	map_y;
-	int	i;
-	int	j;
+    int	map_x;
+    int	map_y;
+    int	i;
+    int	j;
+    t_door	*door;
 
-	i = -1;
-	while (i <= 1)
-	{
-		j = -1;
-		while (j <= 1)
-		{
-			map_x = (int)((x + i * COLLISION_MARGIN) / BLOCK);
-			map_y = (int)((y + j * COLLISION_MARGIN) / BLOCK);
-			if (map_x < 0 || map_x >= game->map_width)
-				return (1);
-			if (map_y < 0 || map_y >= game->map_height)
-				return (1);
-			if (game->map[map_y][map_x] == '1')
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+	if (!game->door_map) // <--- ADICIONAR ESTA LINHA DE SEGURANÇA
+        return (0);       // Se não há portas, não há colisão de portas
+    i = -1;
+    while (i <= 1)
+    {
+        j = -1;
+        while (j <= 1)
+        {
+            map_x = (int)((x + i * COLLISION_MARGIN) / BLOCK);
+            map_y = (int)((y + j * COLLISION_MARGIN) / BLOCK);
+            if (map_x < 0 || map_x >= game->map_width)
+                return (1);
+            if (map_y < 0 || map_y >= game->map_height)
+                return (1);
+            if (game->map[map_y][map_x] == '1')
+                return (1);
+            // NOVO: Colisão com portas
+            if (game->map[map_y][map_x] == 'D')
+            {
+                door = game->door_map[map_y][map_x];
+                if (door && door->state != DOOR_OPEN)
+                    return (1);
+            }
+            j++;
+        }
+        i++;
+    }
+    return (0);
 }
 
 static void	ft_player_move_forward_back(t_game *game, float cos_a, float sin_a)

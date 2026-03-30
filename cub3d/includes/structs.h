@@ -1,6 +1,14 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+typedef enum e_door_state
+{
+    DOOR_CLOSED,
+    DOOR_OPENING,
+    DOOR_OPEN,
+    DOOR_CLOSING
+}					t_door_state;
+
 typedef struct s_point
 {
 	int				x;
@@ -30,6 +38,15 @@ typedef struct s_texture
 	int				size_line;
 	int				endian;
 }					t_texture;
+
+typedef struct s_door
+{
+	int				x;
+	int				y;
+	t_door_state	state;
+	float			progress;
+	t_texture		tex;
+}					t_door;
 
 typedef struct s_sprite
 {
@@ -61,6 +78,7 @@ typedef struct s_ray
 	int				draw_end;
 	float			wall_x;
 	int				tex_x;
+	t_door			*hit_door;
 }					t_ray;
 
 typedef struct s_game
@@ -91,6 +109,9 @@ typedef struct s_game
 	int				sprite_count;
 	double			*z_buffer;
 	struct timeval	last_time;
+	t_door			*doors;       // <--- ADICIONAR ISTO
+    int				door_count;   // <--- ADICIONAR ISTO
+    t_door			***door_map;  // <--- ADICIONAR ISTO (Matriz de ponteiros para lookup O(1))
 }					t_game;
 
 #endif
