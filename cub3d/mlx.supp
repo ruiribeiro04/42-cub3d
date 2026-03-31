@@ -1,0 +1,24 @@
+{
+   mlx_x11_init_leak
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible
+   fun:malloc
+   ...
+   fun:XOpenDisplay
+   ...
+   fun:mlx_init
+   ...
+}
+
+# Para ignorar leaks de criação de janelas
+{
+   mlx_x11_window_leak
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible
+   fun:malloc
+   ...
+   fun:XCreateWindow
+   ...
+   fun:mlx_new_window
+   ...
+}

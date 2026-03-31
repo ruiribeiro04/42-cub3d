@@ -108,7 +108,7 @@ clean:
 
 fclean: clean
 	@echo "$(RED)Removing executables and MiniLibX...$(RESET)"
-	@$(RM) $(NAME) $(NAME_BONUS) valgrind-out.txt
+	@$(RM) $(NAME) $(NAME_BONUS) valgrind-out.txt valgrind-bonus-out.txt
 	@$(RM) -r $(MLX_DIR)
 	@make -sC $(LIBFT_DIR) fclean
 	@echo "$(GREEN)Done!$(RESET)"
@@ -124,18 +124,31 @@ debug_bonus: CFLAGS += $(DEBUG_FLAGS)
 debug_bonus: LDFLAGS += -fsanitize=address
 debug_bonus: bonus
 
-
-# make valgrind ARGS="maps/outro_mapa.cub"
+# make valgrind ARGS="maps/mapa.cub"
 valgrind: CFLAGS += -g
-valgrind: $(NAME_BONUS)
+valgrind: $(NAME)
+	@echo "$(CYAN)Running Valgrind on $(NAME) with args: $(ARGS)...$(RESET)"
+		valgrind --leak-check=full \
+			--show-leak-kinds=all \
+			--suppressions=mlx.supp \
+			--track-origins=yes \
+			--verbose \
+			--log-file=valgrind-out.txt \
+			./$(NAME) $(ARGS)
+		@echo "$(GREEN)Valgrind finished! Check valgrind-out.txt$(RESET)"
+
+# make valgrind_bonus ARGS="maps/mapa_bonus.cub"
+valgrind_bonus: CFLAGS += -g
+valgrind_bonus: $(NAME_BONUS)
 	@echo "$(CYAN)Running Valgrind on $(NAME_BONUS) with args: $(ARGS)...$(RESET)"
 	valgrind --leak-check=full \
 		--show-leak-kinds=all \
+		--suppressions=mlx.supp \
 		--track-origins=yes \
 		--verbose \
-		--log-file=valgrind-out.txt \
+		--log-file=valgrind-bonus-out.txt \
 		./$(NAME_BONUS) $(ARGS)
-	@echo "$(GREEN)Valgrind finished! Check valgrind-out.txt$(RESET)"
+	@echo "$(GREEN)Valgrind finished! Check valgrind-bonus-out.txt$(RESET)"
 
 # ---------------------- Documentation ----------------------------------------
 docs:
@@ -148,4 +161,4 @@ docs_clean:
 	@$(RM) -r $(DOXYGEN_DIR)
 	@echo "$(GREEN)Documentation cleaned!$(RESET)"
 
-.PHONY: all bonus clean fclean re debug valgrind docs docs_clean
+.PHONY: all bonus clean fclean re debug debug_bonus valgrind valgrind_bonus docs docs_clean
