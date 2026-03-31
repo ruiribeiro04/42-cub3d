@@ -13,6 +13,7 @@
 # include "libft.h"
 # include "structs.h"
 # include "sprites.h"
+# include "player.h"
 # include "graphics.h"
 # include "defines.h"
 # include "textures.h"
@@ -28,10 +29,6 @@ int		ft_init_game(t_game *game, char *map_file);
 int		ft_input_key_press(int keycode, t_game *game);
 int		ft_input_key_release(int keycode, t_game *game);
 int		ft_input_mouse_move(int x, int y, t_game *game);
-
-// player.c
-void	ft_player_move(t_game *game);
-int		ft_player_check_collision(t_game *game, float x, float y);
 
 //ft_error.c
 int		ft_error(t_game *game, char *error_msg);

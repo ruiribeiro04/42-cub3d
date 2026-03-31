@@ -21,18 +21,18 @@ static void	ft_player_move_forward_back(t_game *game, float cos_a, float sin_a)
 	{
 		new_x = game->player.x + cos_a * MOVE_SPEED;
 		new_y = game->player.y + sin_a * MOVE_SPEED;
-		if (!ft_player_check_collision(game, new_x, game->player.y))
+		if (!ft_player_check_collisions(game, new_x, game->player.y))
 			game->player.x = new_x;
-		if (!ft_player_check_collision(game, game->player.x, new_y))
+		if (!ft_player_check_collisions(game, game->player.x, new_y))
 			game->player.y = new_y;
 	}
 	if (game->player.key_down)
 	{
 		new_x = game->player.x - cos_a * MOVE_SPEED;
 		new_y = game->player.y - sin_a * MOVE_SPEED;
-		if (!ft_player_check_collision(game, new_x, game->player.y))
+		if (!ft_player_check_collisions(game, new_x, game->player.y))
 			game->player.x = new_x;
-		if (!ft_player_check_collision(game, game->player.x, new_y))
+		if (!ft_player_check_collisions(game, game->player.x, new_y))
 			game->player.y = new_y;
 	}
 }
@@ -46,18 +46,18 @@ static void	ft_player_move_strafe(t_game *game, float cos_a, float sin_a)
 	{
 		new_x = game->player.x + sin_a * MOVE_SPEED;
 		new_y = game->player.y - cos_a * MOVE_SPEED;
-		if (!ft_player_check_collision(game, new_x, game->player.y))
+		if (!ft_player_check_collisions(game, new_x, game->player.y))
 			game->player.x = new_x;
-		if (!ft_player_check_collision(game, game->player.x, new_y))
+		if (!ft_player_check_collisions(game, game->player.x, new_y))
 			game->player.y = new_y;
 	}
 	if (game->player.key_right)
 	{
 		new_x = game->player.x - sin_a * MOVE_SPEED;
 		new_y = game->player.y + cos_a * MOVE_SPEED;
-		if (!ft_player_check_collision(game, new_x, game->player.y))
+		if (!ft_player_check_collisions(game, new_x, game->player.y))
 			game->player.x = new_x;
-		if (!ft_player_check_collision(game, game->player.x, new_y))
+		if (!ft_player_check_collisions(game, game->player.x, new_y))
 			game->player.y = new_y;
 	}
 }

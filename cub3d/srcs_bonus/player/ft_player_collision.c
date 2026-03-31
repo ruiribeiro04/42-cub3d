@@ -19,7 +19,7 @@ static int	ft_is_blocked_tile(t_game *game, int map_x, int map_y)
 	return (0);
 }
 
-int	ft_player_check_collision(t_game *game, float x, float y)
+int	ft_player_check_collisions(t_game *game, float x, float y)
 {
 	int	map_x;
 	int	map_y;
