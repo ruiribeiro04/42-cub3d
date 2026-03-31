@@ -3,10 +3,10 @@
 
 typedef enum e_door_state
 {
-    DOOR_CLOSED,
-    DOOR_OPENING,
-    DOOR_OPEN,
-    DOOR_CLOSING
+	DOOR_CLOSED,
+	DOOR_OPENING,
+	DOOR_OPEN,
+	DOOR_CLOSING
 }					t_door_state;
 
 typedef struct s_point
@@ -109,9 +109,9 @@ typedef struct s_game
 	int				sprite_count;
 	double			*z_buffer;
 	struct timeval	last_time;
-	t_door			*doors;       // <--- ADICIONAR ISTO
-    int				door_count;   // <--- ADICIONAR ISTO
-    t_door			***door_map;  // <--- ADICIONAR ISTO (Matriz de ponteiros para lookup O(1))
+	t_door			*doors;
+	int				door_count;
+	t_door			***door_map;
 }					t_game;
 
 #endif

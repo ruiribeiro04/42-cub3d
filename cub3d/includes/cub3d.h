@@ -31,6 +31,7 @@ int		ft_input_mouse_move(int x, int y, t_game *game);
 
 // player.c
 void	ft_player_move(t_game *game);
+int		ft_player_check_collision(t_game *game, float x, float y);
 
 //ft_error.c
 int		ft_error(t_game *game, char *error_msg);
