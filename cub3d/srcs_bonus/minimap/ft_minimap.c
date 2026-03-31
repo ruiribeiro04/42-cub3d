@@ -7,22 +7,22 @@ void	ft_draw_minimap(t_game *game)
 	int		y;
 	int		current_len;
 
-	y = 0;
-	while (y < game->map_height)
+	y = -1;
+	while (++y < game->map_height)
 	{
 		current_len = ft_strlen(game->map[y]);
-		x = 0;
-		while (x < game->map_width)
+		x = -1;
+		while (++x < game->map_width)
 		{
 			draw_pos.x = MAP_OFFSET_X + (x * MAP_TILE);
 			draw_pos.y = MAP_OFFSET_Y + (y * MAP_TILE);
 			if (x < current_len && game->map[y][x] == '1')
 				ft_draw_rect(game, draw_pos, MAP_TILE, MAP_COLOR_WALL);
+			else if (x < current_len && game->map[y][x] == 'D')
+				ft_draw_rect(game, draw_pos, MAP_TILE, MAP_COLOR_DOOR);
 			else
 				ft_draw_rect(game, draw_pos, MAP_TILE, MAP_COLOR_BG);
-			x++;
 		}
-		y++;
 	}
 	/* Se apagarmos o (int), o mapa fica fluido,
 	mas depois tem o bug de passar pelas paredes */
