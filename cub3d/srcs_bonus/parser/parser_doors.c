@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-void		*ft_calloc(size_t nmemb, size_t size);
-
 static int	ft_init_doors_map(t_game *game)
 {
 	int	y;

@@ -17,5 +17,6 @@ int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 int		ft_printf(const char *str, ...);
 char	*get_next_line(int fd);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif
