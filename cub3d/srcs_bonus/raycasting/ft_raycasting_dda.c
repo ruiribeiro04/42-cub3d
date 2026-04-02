@@ -63,9 +63,9 @@ void	ft_raycasting_perform_dda(t_game *game)
 
 void	ft_raycasting_calc_wall_height(t_game *game, float angle)
 {
-	float eucl_dist;
-	float perp_dist;
-	float fish_eye;
+	float	eucl_dist;
+	float	perp_dist;
+	float	fish_eye;
 
 	if (game->ray.side == 0)
 		eucl_dist = game->ray.side_x - game->ray.delta_x;
