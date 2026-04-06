@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main, dev, ruiferna ]
   pull_request:
-    branches: [ main, dev ]
 
 jobs:
   test:
