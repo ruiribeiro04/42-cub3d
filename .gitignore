@@ -17,7 +17,7 @@ objs_bonus/
 *.obj
 *.elf
 _b*
-.g*
+.ge*
 .o*
 .s*
 # Linker output
@@ -77,3 +77,4 @@ o*c/
 doxygen/
 cub3d/test_minimal
 cub3d/test_parser_standalone
+!.github/

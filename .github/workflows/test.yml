@@ -1,0 +1,66 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, dev, ruiferna ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xorg libxext-dev zlib1g-dev libbsd-dev
+
+    - name: Setup MLX for Linux
+      working-directory: cub3d
+      run: |
+        # Download MiniLibX for Linux
+        git clone https://github.com/42Paris/minilibx-linux.git minilibx
+
+    - name: Build Libft
+      working-directory: cub3d
+      run: |
+        make -C libs/libft
+
+    - name: Build MiniLibX
+      working-directory: cub3d
+      run: |
+        make -C minilibx
+
+    - name: Build project
+      working-directory: cub3d
+      run: |
+        make
+
+    - name: Build bonus
+      working-directory: cub3d
+      run: |
+        make bonus
+
+    - name: Run parser tests
+      working-directory: cub3d
+      run: |
+        make test_parser
+
+    - name: Run exhaustive parser tests
+      working-directory: cub3d
+      run: |
+        make test_parser_exhaustive
+
+    - name: Run integration tests
+      working-directory: cub3d
+      run: |
+        make test_integration
+
+    - name: Run full test suite
+      working-directory: cub3d
+      run: |
+        make test_all || true
