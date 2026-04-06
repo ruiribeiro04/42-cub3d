@@ -84,3 +84,5 @@ cub3d/test_parser_exhaustive
 cub3d/cub3D_bonus
 cub3d/cub3D
 error_logs.log
+cub3d/simple_test
+cub3d/debug_test

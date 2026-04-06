@@ -33,7 +33,7 @@ static int	test_valid_map_parsing(void)
 	assert_not_null(game.path_south, "South texture should be set");
 	assert_not_null(game.path_west, "West texture should be set");
 	assert_not_null(game.path_east, "East texture should be set");
-	assert_int_eq(0xE46400, game.floor_color, "Floor color should be 0xE46400");
+	assert_int_eq(0xDC6400, game.floor_color, "Floor color should be 0xDC6400");
 	assert_int_eq(0xE11E00, game.ceiling_color, "Ceiling color should be 0xE11E00");
 	assert_not_null(game.map, "Map should be loaded");
 	assert_true(game.player.x > 0, "Player X should be set");

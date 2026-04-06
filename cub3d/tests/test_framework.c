@@ -86,6 +86,8 @@ int	run_test_suite(const char *suite_name, t_test_case *tests, int count)
 {
 	int			i;
 	int			result;
+	int			passed = 0;
+	int			failed = 0;
 
 	printf("\n%s━━━ %s ━━━%s\n", COLOR_CYAN, suite_name, COLOR_RESET);
 	for (i = 0; i < count; i++)
@@ -94,9 +96,25 @@ int	run_test_suite(const char *suite_name, t_test_case *tests, int count)
 		printf("%sTest %d:%s %s\n", COLOR_YELLOW, i + 1, COLOR_RESET, tests[i].name);
 		result = tests[i].func();
 		if (!_test_failed)
+		{
 			printf("  %s✓ PASSED%s\n", COLOR_GREEN, COLOR_RESET);
+			passed++;
+		}
+		else
+		{
+			failed++;
+		}
 	}
-	return (0);
+	printf("\n%s━━━ Test Summary ━━━%s\n", COLOR_CYAN, COLOR_RESET);
+	printf("Total: %d | %sPASSED:%s %d | %sFAILED:%s %d\n",
+		count,
+		COLOR_GREEN, COLOR_RESET, passed,
+		COLOR_RED, COLOR_RESET, failed);
+	if (failed == 0)
+		printf("\n%s🎉 All tests passed!%s\n", COLOR_GREEN, COLOR_RESET);
+	else
+		printf("\n%s❌ Some tests failed!%s\n", COLOR_RED, COLOR_RESET);
+	return (failed > 0 ? TEST_FAILED : TEST_PASSED);
 }
 
 void	print_test_summary(t_test_result *result)

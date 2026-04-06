@@ -14,7 +14,7 @@
 */
 static int	is_valid_char(char c)
 {
-	if (c == '0' || c == '1' || c == ' ')
+	if (c == '0' || c == '1' || c == ' ' || c == '\t')
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);

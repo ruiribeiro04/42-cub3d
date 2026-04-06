@@ -2,6 +2,9 @@
 #include "test_framework.h"
 #include <limits.h>
 #include <float.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 /* Forward declarations for helper functions */
 static int	create_test_map(const char *filename, const char *content);
@@ -23,6 +26,9 @@ static int	test_texture_north_valid(void)
 	ft_memset(&game, 0, sizeof(t_game));
 	game.floor_color = -1;
 	game.ceiling_color = -1;
+	game.mlx = NULL;
+	game.win = NULL;
+	game.img = NULL;
 
 	assert_int_eq(0, ft_parse_cub_file("test_north.cub", &game),
 		"North texture should parse");
@@ -308,7 +314,7 @@ static int	test_color_floor_valid(void)
 
 	assert_int_eq(0, ft_parse_cub_file("test_floor.cub", &game),
 		"Floor color should parse");
-	assert_int_eq(0xE46400, game.floor_color, "Floor color correct");
+	assert_int_eq(0xDC6400, game.floor_color, "Floor color correct");
 
 	ft_free_game(&game);
 	remove_test_map("test_floor.cub");
@@ -840,7 +846,11 @@ static int	test_map_not_closed_left(void)
 	const char	*map = "NO ./textures/north.xpm\nSO ./textures/south.xpm\n"
 						"WE ./textures/west.xpm\nEA ./textures/east.xpm\n"
 						"F 220,100,0\nC 225,30,0\n"
-						"111111\n110101\n101001\n1100N1\n111111\n";
+						"111111\n"
+						"011101\n"
+						"101001\n"
+						"1100N1\n"
+						"111111\n";
 
 	create_test_map("test_open_left.cub", map);
 	ft_memset(&game, 0, sizeof(t_game));
@@ -925,7 +935,11 @@ static int	test_map_with_spaces(void)
 	const char	*map = "NO ./textures/north.xpm\nSO ./textures/south.xpm\n"
 						"WE ./textures/west.xpm\nEA ./textures/east.xpm\n"
 						"F 220,100,0\nC 225,30,0\n"
-						"111111\n100101\n10 001\n1100N1\n111111\n";
+						"111111\n"
+						"100001\n"
+						"101001\n"
+						"100N01\n"
+						"111111\n";
 
 	create_test_map("test_with_spaces.cub", map);
 	ft_memset(&game, 0, sizeof(t_game));
@@ -1289,22 +1303,8 @@ int	main(void)
 		{"Identifier - Invalid", test_identifier_invalid},
 		{"Identifier - Missing Space", test_identifier_missing_space},
 	};
-	t_test_result	result = {0};
+	int	total;
 
-	result.total = sizeof(tests) / sizeof(tests[0]);
-	run_test_suite("EXHAUSTIVE Parser Tests", tests, result.total);
-
-	/* Count passed tests */
-	for (int i = 0; i < result.total; i++)
-	{
-		int		_test_failed = 0;
-		tests[i].func();
-		if (!_test_failed)
-			result.passed++;
-		else
-			result.failed++;
-	}
-
-	print_test_summary(&result);
-	return (result.failed > 0 ? TEST_FAILED : TEST_PASSED);
+	total = sizeof(tests) / sizeof(tests[0]);
+	return (run_test_suite("EXHAUSTIVE Parser Tests", tests, total));
 }

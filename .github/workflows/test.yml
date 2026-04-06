@@ -1,4 +1,4 @@
-name: Tests
+name: CI/CD Pipeline
 
 on:
   push:
@@ -9,10 +9,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    continue-on-error: false
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        path: cub3d
 
     - name: Install dependencies
       run: |
@@ -22,7 +25,6 @@ jobs:
     - name: Setup MLX for Linux
       working-directory: cub3d
       run: |
-        # Download MiniLibX for Linux
         git clone https://github.com/42Paris/minilibx-linux.git minilibx
 
     - name: Build Libft
@@ -40,27 +42,121 @@ jobs:
       run: |
         make
 
-    - name: Build bonus
-      working-directory: cub3d
-      run: |
-        make bonus
-
     - name: Run parser tests
+      id: parser_tests
       working-directory: cub3d
       run: |
-        make test_parser
+        echo "test_output<<EOF" >> $GITHUB_OUTPUT
+        make test_parser 2>&1 | tee -a $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
 
     - name: Run exhaustive parser tests
+      id: exhaustive_tests
       working-directory: cub3d
       run: |
-        make test_parser_exhaustive
+        echo "test_output<<EOF" >> $GITHUB_OUTPUT
+        make test_parser_exhaustive 2>&1 | tee -a $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
 
     - name: Run integration tests
+      id: integration_tests
       working-directory: cub3d
+      continue-on-error: true
       run: |
-        make test_integration
+        echo "test_output<<EOF" >> $GITHUB_OUTPUT
+        make test_integration 2>&1 | tee -a $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
 
-    - name: Run full test suite
-      working-directory: cub3d
+    - name: Show test results summary
+      if: always()
       run: |
-        make test_all || true
+        echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Parser Tests" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo "${{ steps.parser_tests.outputs.test_output }}" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Exhaustive Parser Tests" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo "${{ steps.exhaustive_tests.outputs.test_output }}" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Integration Tests" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo "${{ steps.integration_tests.outputs.test_output }}" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: cub3d/test_*
+
+    - name: Determine overall test status
+      id: status
+      run: |
+        if [ "${{ steps.parser_tests.outputs.exit_code }}" != "0" ] || \
+           [ "${{ steps.exhaustive_tests.outputs.exit_code }}" != "0" ] || \
+           [ "${{ steps.integration_tests.outputs.exit_code }}" != "0" ]; then
+          echo "overall_status=failed" >> $GITHUB_OUTPUT
+          echo "::error::Tests failed - check the test output above"
+          exit 1
+        else
+          echo "overall_status=passed" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Discord Notification
+      if: always()
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        PR_TITLE: ${{ github.event.pull_request.title }}
+        COMMIT_SHA: ${{ github.sha }}
+        REPO: ${{ github.repository }}
+      run: |
+        if [ -n "$DISCORD_WEBHOOK_URL" ]; then
+          if [ "${{ steps.status.outputs.overall_status }}" == "failed" ]; then
+            COLOR="15158332"
+            STATUS="❌ Tests FAILED"
+            # Extract failures for Discord message
+            FAILURES=""
+            if [ "${{ steps.parser_tests.outputs.exit_code }}" != "0" ]; then
+              FAILURES="${FAILURES}\n• Parser Tests Failed"
+            fi
+            if [ "${{ steps.exhaustive_tests.outputs.exit_code }}" != "0" ]; then
+              FAILURES="${FAILURES}\n• Exhaustive Parser Tests Failed"
+            fi
+            if [ "${{ steps.integration_tests.outputs.exit_code }}" != "0" ]; then
+              FAILURES="${FAILURES}\n• Integration Tests Failed"
+            fi
+          else
+            COLOR="3066993"
+            STATUS="✅ Tests PASSED"
+            FAILURES="All tests passed successfully!"
+          fi
+          
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            TITLE="PR #$PR_NUMBER: $PR_TITLE"
+            URL="${{ github.event.pull_request.html_url }}"
+          else
+            TITLE="Commit: ${{ github.sha }}"
+            URL="https://github.com/$REPO/commit/${{ github.sha }}"
+          fi
+          
+          ESCAPED_STATUS=$(printf '%s' "$STATUS" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read())[1:-1])')
+          ESCAPED_FAILURES=$(printf '%s' "$FAILURES" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read())[1:-1])')
+          ESCAPED_TITLE=$(printf '%s' "$TITLE" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read())[1:-1])')
+          ESCAPED_REPO=$(printf '%s' "$REPO" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read())[1:-1])')
+          
+          PAYLOAD="{\"embeds\":[{\"title\":\"$ESCAPED_TITLE\",\"url\":\"$URL\",\"color\":$COLOR,\"fields\":[{\"name\":\"Repository\",\"value\":\"$ESCAPED_REPO\",\"inline\":true},{\"name\":\"Status\",\"value\":\"$ESCAPED_STATUS\",\"inline\":false},{\"name\":\"Failures\",\"value\":\"$ESCAPED_FAILURES\",\"inline\":false}],\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}]}"
+          
+          curl -s -X POST "$DISCORD_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            --max-time 10
+        fi

@@ -83,13 +83,36 @@ char	*skip_empty_and_read(int fd)
 */
 int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 {
+	int		line_len;
+	char	*padded_line;
+
 	strip_newline(line);
+	line_len = ft_strlen(line);
 	*map = realloc_map(*map, *i);
 	if (!*map)
 		return (0);
-	(*map)[*i] = line;
-	if ((int)ft_strlen(line) > game->map_width)
-		game->map_width = ft_strlen(line);
+	if (line_len < game->map_width)
+	{
+		padded_line = malloc(game->map_width + 1);
+		if (!padded_line)
+			return (0);
+		ft_memset(padded_line, ' ', game->map_width);
+		padded_line[game->map_width] = '\0';
+		while (*line)
+		{
+			*padded_line = *line;
+			padded_line++;
+			line++;
+		}
+		free(line);
+		(*map)[*i] = padded_line - line_len;
+	}
+	else
+	{
+		(*map)[*i] = line;
+		if (line_len > game->map_width)
+			game->map_width = line_len;
+	}
 	(*i)++;
 	return (1);
 }

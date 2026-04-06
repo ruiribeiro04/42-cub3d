@@ -54,21 +54,35 @@ int	validate_space_neighbors(t_game *game, int y, int x)
 	char	curr;
 
 	curr = game->map[y][x];
-	if (curr == ' ')
+	if (curr == ' ' || curr == '\t')
 		return (0);
 	if (curr == '0' || curr == 'N' || curr == 'S' || curr == 'E'
 		|| curr == 'W')
 	{
-		if (x > 0 && game->map[y][x - 1] == ' ')
-			return (1);
-		if (game->map[y][x + 1] && game->map[y][x + 1] == ' ')
-			return (1);
-		if (y > 0 && x < (int)ft_strlen(game->map[y - 1])
-			&& game->map[y - 1][x] == ' ')
-			return (1);
-		if (game->map[y + 1] && x < (int)ft_strlen(game->map[y + 1])
-			&& game->map[y + 1][x] == ' ')
-			return (1);
+		if (x > 0)
+		{
+			char left = game->map[y][x - 1];
+			if (left == ' ' || left == '\t')
+				return (1);
+		}
+		if (game->map[y][x + 1])
+		{
+			char right = game->map[y][x + 1];
+			if (right == ' ' || right == '\t')
+				return (1);
+		}
+		if (y > 0 && x < (int)ft_strlen(game->map[y - 1]))
+		{
+			char up = game->map[y - 1][x];
+			if (up == ' ' || up == '\t')
+				return (1);
+		}
+		if (game->map[y + 1] && x < (int)ft_strlen(game->map[y + 1]))
+		{
+			char down = game->map[y + 1][x];
+			if (down == ' ' || down == '\t')
+				return (1);
+		}
 	}
 	return (0);
 }

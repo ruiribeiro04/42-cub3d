@@ -57,6 +57,7 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 	char	**values;
 	int		result;
 	char	*tmp;
+	int		i;
 
 	str = &line[2];
 	tmp = str;
@@ -72,6 +73,17 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 	result = 0;
 	if (!values[0] || !values[1] || !values[2] || values[3])
 		result = 1;
+	// Strip newlines from values
+	i = 0;
+	while (!result && i < 3)
+	{
+		tmp = values[i];
+		while (tmp && *tmp && *tmp != '\n')
+			tmp++;
+		if (*tmp == '\n')
+			*tmp = '\0';
+		i++;
+	}
 	if (!result && (!is_valid_number(values[0]) || !is_valid_number(values[1])
 			|| !is_valid_number(values[2])))
 		result = 1;

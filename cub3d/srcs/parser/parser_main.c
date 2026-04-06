@@ -1,6 +1,7 @@
 #include "cub3d.h"
 
 static int	ft_parse_and_validate(t_game *game, int fd, char *first_line);
+static void	ft_flush_gnl_buffer(int fd);
 
 /**
 * @brief Performs complete parsing of the .cub file.
@@ -24,14 +25,17 @@ int	ft_parse_cub_file(char *filename, t_game *game)
 	first_line = ft_parse_elements(fd, game);
 	if (!first_line)
 	{
+		ft_flush_gnl_buffer(fd);
 		close(fd);
 		return (1);
 	}
 	if (ft_parse_and_validate(game, fd, first_line))
 	{
+		ft_flush_gnl_buffer(fd);
 		close(fd);
 		return (1);
 	}
+	ft_flush_gnl_buffer(fd);
 	close(fd);
 	return (0);
 }
@@ -151,6 +155,25 @@ static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
 		return (1);
 	}
 	return (0);
+}
+
+/**
+ * @brief Flushes the GNL buffer to prevent data leakage between file parses.
+ *
+ * GNL uses static buffers that persist across file descriptor reuse.
+ * This function consumes all remaining data to prevent one parse's data
+ * from leaking into the next when the same fd number is reused.
+ *
+ * @param fd File descriptor to flush
+ */
+static void	ft_flush_gnl_buffer(int fd)
+{
+	char	*line;
+
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		free(line);
+	}
 }
 
 // void	ft_free_config(t_game *game)
