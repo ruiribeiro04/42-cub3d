@@ -2,6 +2,12 @@
 
 *This project has been created as part of the 42 curriculum by vde-maga.*
 
+## Resources
+
+Thanks [v3x3d](https://v3x3d.itch.io/) for the sprites!
+
+The sprites used were [retro-lines](https://v3x3d.itch.io/retro-lines)
+
 ---
 
 ## 📋 Description

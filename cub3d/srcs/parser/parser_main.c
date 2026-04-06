@@ -144,7 +144,12 @@ static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
 		ft_free_map(game);
 		return (1);
 	}
-	ft_init_player_from_map(game);
+	if (ft_init_player_from_map(game) == 1)
+	{
+		ft_free_paths(game);
+		ft_free_map(game);
+		return (1);
+	}
 	return (0);
 }
 

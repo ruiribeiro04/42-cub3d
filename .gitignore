@@ -1,6 +1,12 @@
 cub3d/cub3d
+cub3d_bonus/cub3d_bonus
+cub3D_bonus/cub3D_bonus
 a.out
 *.swp
+minilibx/
+objs/
+objs_bonus/
+
 
 # Prerequisites
 *.d
