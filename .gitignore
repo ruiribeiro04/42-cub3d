@@ -78,3 +78,9 @@ doxygen/
 cub3d/test_minimal
 cub3d/test_parser_standalone
 !.github/
+cub3d/test_integration
+cub3d/test_parser
+cub3d/test_parser_exhaustive
+cub3d/cub3D_bonus
+cub3d/cub3D
+error_logs.log

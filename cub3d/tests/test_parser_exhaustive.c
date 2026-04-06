@@ -3,6 +3,10 @@
 #include <limits.h>
 #include <float.h>
 
+/* Forward declarations for helper functions */
+static int	create_test_map(const char *filename, const char *content);
+static void	remove_test_map(const char *filename);
+
 /* ========================================================================= */
 /* TEXTURE PARSING TESTS - Every possible texture scenario                   */
 /* ========================================================================= */

@@ -166,32 +166,32 @@ test: all
 	@echo "$(CYAN)Running test suite...$(RESET)"
 	@./tests/run_tests.sh
 
-test_parser:
+test_parser: $(LIBFT) $(MLX_LIB) $(filter-out $(OBJ_DIR)/main.o,$(OBJS))
 	@echo "$(CYAN)Compiling and running parser tests...$(RESET)"
 	@gcc -o test_parser tests/test_parser.c tests/test_framework.c \
 		-I$(INC_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR) \
-		-L$(LIBFT_DIR) -lft -lm \
-		$(filter-out $(OBJ_DIR)/main.o,$(OBJS))
+		$(filter-out $(OBJ_DIR)/main.o,$(OBJS)) \
+		$(LDFLAGS)
 	@./test_parser
 
-test_parser_exhaustive:
+test_parser_exhaustive: $(LIBFT) $(MLX_LIB) $(filter-out $(OBJ_DIR)/main.o,$(OBJS))
 	@echo "$(CYAN)Compiling and running EXHAUSTIVE parser tests...$(RESET)"
 	@gcc -o test_parser_exhaustive tests/test_parser_exhaustive.c tests/test_framework.c \
 		-I$(INC_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR) \
-		-L$(LIBFT_DIR) -lft -lm \
-		$(filter-out $(OBJ_DIR)/main.o,$(OBJS))
+		$(filter-out $(OBJ_DIR)/main.o,$(OBJS)) \
+		$(LDFLAGS)
 	@./test_parser_exhaustive
 
 test_memory: all
 	@echo "$(CYAN)Running memory leak tests...$(RESET)"
 	@./tests/run_tests.sh memory
 
-test_integration:
+test_integration: $(LIBFT) $(MLX_LIB) $(filter-out $(OBJ_DIR)/main.o,$(OBJS))
 	@echo "$(CYAN)Compiling and running integration tests...$(RESET)"
 	@gcc -o test_integration tests/test_integration.c tests/test_framework.c \
 		-I$(INC_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR) \
-		-L$(LIBFT_DIR) -lft -lm \
-		$(filter-out $(OBJ_DIR)/main.o,$(OBJS))
+		$(filter-out $(OBJ_DIR)/main.o,$(OBJS)) \
+		$(LDFLAGS)
 	@./test_integration
 
 test_all: test_parser test_parser_exhaustive test_integration test_memory
