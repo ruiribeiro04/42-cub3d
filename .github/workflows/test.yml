@@ -15,6 +15,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         path: cub3d
+        submodules: recursive
 
     - name: Install dependencies
       run: |
