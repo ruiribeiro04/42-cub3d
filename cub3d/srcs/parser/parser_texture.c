@@ -13,6 +13,7 @@
 static char	*extract_path(char *line, int start)
 {
 	int		i;
+	int		len;
 	char	*path;
 
 	i = start;
@@ -25,6 +26,17 @@ static char	*extract_path(char *line, int start)
 	while (path[i] && path[i] != '\n')
 		i++;
 	path[i] = '\0';
+	len = ft_strlen(path);
+	while (len > 0 && (path[len - 1] == ' ' || path[len - 1] == '\t'))
+	{
+		path[len - 1] = '\0';
+		len--;
+	}
+	if (len == 0)
+	{
+		free(path);
+		return (NULL);
+	}
 	return (path);
 }
 
@@ -38,7 +50,7 @@ static char	*extract_path(char *line, int start)
 */
 static int	validate_texture_path(char *path)
 {
-	int	fd;
+	int		fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
@@ -68,18 +80,40 @@ static int	parse_north_south(char *line, t_game *game, char **path)
 	if (!ft_strncmp(line, "NO ", 3))
 	{
 		*path = extract_path(line, 3);
-		if (*path && !validate_texture_path(*path) && !game->path_north)
-			game->path_north = *path;
-		else
+		if (!*path)
 			return (1);
+		if (validate_texture_path(*path))
+		{
+			free(*path);
+			*path = NULL;
+			return (1);
+		}
+		if (game->path_north)
+		{
+			free(*path);
+			*path = NULL;
+			return (1);
+		}
+		game->path_north = *path;
 	}
 	else if (!ft_strncmp(line, "SO ", 3))
 	{
 		*path = extract_path(line, 3);
-		if (*path && !validate_texture_path(*path) && !game->path_south)
-			game->path_south = *path;
-		else
+		if (!*path)
 			return (1);
+		if (validate_texture_path(*path))
+		{
+			free(*path);
+			*path = NULL;
+			return (1);
+		}
+		if (game->path_south)
+		{
+			free(*path);
+			*path = NULL;
+			return (1);
+		}
+		game->path_south = *path;
 	}
 	return (0);
 }
@@ -100,18 +134,40 @@ static int	parse_west_east(char *line, t_game *game, char **path)
 	if (!ft_strncmp(line, "WE ", 3))
 	{
 		*path = extract_path(line, 3);
-		if (*path && !validate_texture_path(*path) && !game->path_west)
-			game->path_west = *path;
-		else
+		if (!*path)
 			return (1);
+		if (validate_texture_path(*path))
+		{
+			free(*path);
+			*path = NULL;
+			return (1);
+		}
+		if (game->path_west)
+		{
+			free(*path);
+			*path = NULL;
+			return (1);
+		}
+		game->path_west = *path;
 	}
 	else if (!ft_strncmp(line, "EA ", 3))
 	{
 		*path = extract_path(line, 3);
-		if (*path && !validate_texture_path(*path) && !game->path_east)
-			game->path_east = *path;
-		else
+		if (!*path)
 			return (1);
+		if (validate_texture_path(*path))
+		{
+			free(*path);
+			*path = NULL;
+			return (1);
+		}
+		if (game->path_east)
+		{
+			free(*path);
+			*path = NULL;
+			return (1);
+		}
+		game->path_east = *path;
 	}
 	return (0);
 }
@@ -141,7 +197,7 @@ int	ft_parse_texture(char *line, t_game *game)
 		if (path)
 			free(path);
 		ft_putstr_fd("Error: Invalid or duplicate texture\n", 2);
-		return (-1);
+		return (1);
 	}
-	return (1);
+	return (0);
 }

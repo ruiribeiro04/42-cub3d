@@ -31,6 +31,8 @@ static int	ft_init_mlx(t_game *game)
 int	ft_init_game(t_game *game, char *map_file)
 {
 	ft_memset(game, 0, sizeof(t_game));
+	game->floor_color = -1;
+	game->ceiling_color = -1;
 	ft_init_player_keys(&game->player);
 	if (ft_parse_cub_file(map_file, game))
 		return (1);

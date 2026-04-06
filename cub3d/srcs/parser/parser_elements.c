@@ -22,12 +22,12 @@ static int	ft_is_element_line(char *line)
 
 /**
 * @brief Parses an element line.
-* 
+*
 * Directs the line to the appropriate function (texture or color).
-* 
+*
 * @param line Element line to be processed.
 * @param game Pointer to the game structure.
-* @return int Parsing result (1 success, -1 error, 0 not processed).
+* @return int Parsing result (0 success, 1 error, -1 not processed).
 */
 static int	ft_parse_element_line(char *line, t_game *game)
 {
@@ -36,7 +36,7 @@ static int	ft_parse_element_line(char *line, t_game *game)
 		return (ft_parse_texture(line, game));
 	else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
 		return (ft_parse_color(line, game));
-	return (0);
+	return (-1);
 }
 
 /**
@@ -62,11 +62,11 @@ static char	*ft_skip_empty_lines(int fd)
 
 /**
 * @brief Parses all configuration elements.
-* 
+*
 * Processes all configuration lines (textures and colors) until
 * it finds the beginning of the map. Checks if all 6 elements
 * (4 textures + 2 colors) have been defined.
-* 
+*
 * @param fd File descriptor of the open file.
 * @param game Pointer to the game structure.
 * @return char* First line of the map, or NULL in case of error.
@@ -75,12 +75,21 @@ char	*ft_parse_elements(int fd, t_game *game)
 {
 	char	*line;
 	int		count;
+	int		ret;
 
 	line = ft_skip_empty_lines(fd);
 	count = 0;
 	while (line && ft_is_element_line(line))
 	{
-		count += ft_parse_element_line(line, game);
+		ret = ft_parse_element_line(line, game);
+		if (ret == 1)
+		{
+			free(line);
+			ft_putstr_fd("Error: Invalid or duplicate config elements\n", 2);
+			return (NULL);
+		}
+		if (ret == 0)
+			count++;
 		free(line);
 		line = ft_skip_empty_lines(fd);
 	}

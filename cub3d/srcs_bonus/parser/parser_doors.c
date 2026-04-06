@@ -18,12 +18,25 @@ static int	ft_init_doors_map(t_game *game)
 	{
 		game->door_map[y] = ft_calloc(game->map_width, sizeof(t_door *));
 		if (!game->door_map[y])
+		{
+			while (--y >= 0)
+				free(game->door_map[y]);
+			free(game->door_map);
+			game->door_map = NULL;
 			return (1);
+		}
 		y++;
 	}
 	game->doors = malloc(sizeof(t_door) * game->door_count);
 	if (!game->doors)
+	{
+		y = 0;
+		while (y < game->map_height)
+			free(game->door_map[y++]);
+		free(game->door_map);
+		game->door_map = NULL;
 		return (1);
+	}
 	return (0);
 }
 

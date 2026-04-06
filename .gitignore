@@ -16,7 +16,10 @@ objs_bonus/
 *.ko
 *.obj
 *.elf
-
+_b*
+.g*
+.o*
+.s*
 # Linker output
 *.ilk
 *.map
@@ -72,3 +75,5 @@ o*c/
 
 # Doxygen documentation
 doxygen/
+cub3d/test_minimal
+cub3d/test_parser_standalone
