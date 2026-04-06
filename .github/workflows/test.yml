@@ -27,6 +27,15 @@ jobs:
       run: |
         git clone https://github.com/42Paris/minilibx-linux.git minilibx
 
+    - name: Ensure Libft exists
+      working-directory: cub3d
+      run: |
+        if [ ! -d "libs/libft" ] || [ ! -f "libs/libft/Makefile" ]; then
+          echo "Libft not found or empty, cloning directly..."
+          rm -rf libs/libft
+          git clone https://github.com/ruiribeiro04/42-libft.git libs/libft
+        fi
+
     - name: Build Libft
       working-directory: cub3d
       run: |
