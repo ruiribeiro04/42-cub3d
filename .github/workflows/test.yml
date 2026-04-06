@@ -48,8 +48,9 @@ jobs:
       run: |
         echo "test_output<<EOF" >> $GITHUB_OUTPUT
         make test_parser 2>&1 | tee -a $GITHUB_OUTPUT
+        EXIT_CODE=${PIPESTATUS[0]}
         echo "EOF" >> $GITHUB_OUTPUT
-        echo "exit_code=$?" >> $GITHUB_OUTPUT
+        echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
 
     - name: Run exhaustive parser tests
       id: exhaustive_tests
@@ -57,8 +58,9 @@ jobs:
       run: |
         echo "test_output<<EOF" >> $GITHUB_OUTPUT
         make test_parser_exhaustive 2>&1 | tee -a $GITHUB_OUTPUT
+        EXIT_CODE=${PIPESTATUS[0]}
         echo "EOF" >> $GITHUB_OUTPUT
-        echo "exit_code=$?" >> $GITHUB_OUTPUT
+        echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
 
     - name: Run integration tests
       id: integration_tests
@@ -67,8 +69,9 @@ jobs:
       run: |
         echo "test_output<<EOF" >> $GITHUB_OUTPUT
         make test_integration 2>&1 | tee -a $GITHUB_OUTPUT
+        EXIT_CODE=${PIPESTATUS[0]}
         echo "EOF" >> $GITHUB_OUTPUT
-        echo "exit_code=$?" >> $GITHUB_OUTPUT
+        echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
 
     - name: Show test results summary
       if: always()
@@ -99,6 +102,7 @@ jobs:
 
     - name: Determine overall test status
       id: status
+      if: always()
       run: |
         if [ "${{ steps.parser_tests.outputs.exit_code }}" != "0" ] || \
            [ "${{ steps.exhaustive_tests.outputs.exit_code }}" != "0" ] || \
@@ -120,19 +124,22 @@ jobs:
         REPO: ${{ github.repository }}
       run: |
         if [ -n "$DISCORD_WEBHOOK_URL" ]; then
-          if [ "${{ steps.status.outputs.overall_status }}" == "failed" ]; then
+          if [ "${{ job.status }}" != "success" ]; then
             COLOR="15158332"
-            STATUS="❌ Tests FAILED"
+            STATUS="❌ Pipeline FAILED"
             # Extract failures for Discord message
             FAILURES=""
-            if [ "${{ steps.parser_tests.outputs.exit_code }}" != "0" ]; then
+            if [ "${{ steps.parser_tests.outputs.exit_code }}" != "0" ] && [ "${{ steps.parser_tests.outputs.exit_code }}" != "" ]; then
               FAILURES="${FAILURES}\n• Parser Tests Failed"
             fi
-            if [ "${{ steps.exhaustive_tests.outputs.exit_code }}" != "0" ]; then
+            if [ "${{ steps.exhaustive_tests.outputs.exit_code }}" != "0" ] && [ "${{ steps.exhaustive_tests.outputs.exit_code }}" != "" ]; then
               FAILURES="${FAILURES}\n• Exhaustive Parser Tests Failed"
             fi
-            if [ "${{ steps.integration_tests.outputs.exit_code }}" != "0" ]; then
+            if [ "${{ steps.integration_tests.outputs.exit_code }}" != "0" ] && [ "${{ steps.integration_tests.outputs.exit_code }}" != "" ]; then
               FAILURES="${FAILURES}\n• Integration Tests Failed"
+            fi
+            if [ -z "$FAILURES" ]; then
+              FAILURES="Build phase or setup failed before tests."
             fi
           else
             COLOR="3066993"
