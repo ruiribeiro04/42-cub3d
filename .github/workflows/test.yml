@@ -31,9 +31,8 @@ jobs:
       working-directory: cub3d
       run: |
         if [ ! -d "libs/libft" ] || [ ! -f "libs/libft/Makefile" ]; then
-          echo "Libft not found or empty, cloning directly..."
-          rm -rf libs/libft
-          git clone https://github.com/ruiribeiro04/42-libft.git libs/libft
+          echo "Libft not found or empty, checking if it can be fetched via submodule..."
+          git submodule update --init --recursive libs/libft || echo "Submodule update failed, but proceeding."
         fi
 
     - name: Build Libft
