@@ -22,6 +22,8 @@ static int	is_valid_char(char c)
 		return (1);
 	if (c == 'A')  // Animated sprite
 		return (1);
+	if (c == '2')  // Wall/Door variant (bonus)
+		return (1);
 	return (0);
 }
 

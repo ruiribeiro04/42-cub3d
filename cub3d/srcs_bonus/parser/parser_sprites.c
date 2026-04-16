@@ -13,7 +13,7 @@ static int	count_sprites(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			if (game->map[y][x] == 'A')
+			if (game->map[y][x] == 'A' || game->map[y][x] == '2')
 				count++;
 			x++;
 		}
@@ -53,7 +53,7 @@ int	ft_extract_sprites(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			if (game->map[y][x] == 'A')
+			if (game->map[y][x] == 'A' || game->map[y][x] == '2')
 				store_sprite_pos(game, i++, x, y);
 			x++;
 		}
