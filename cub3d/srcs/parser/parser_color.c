@@ -124,15 +124,17 @@ int	ft_parse_color(char *line, t_game *game)
 	color = (r << 16) | (g << 8) | b;
 	if (!ft_strncmp(line, "F ", 2))
 	{
-		if (game->floor_color != -1)
+		if (game->floor_color_set)
 			return (ft_putstr_fd("Error: Duplicate floor color\n", 2), 1);
 		game->floor_color = color;
+		game->floor_color_set = 1;
 	}
 	else if (!ft_strncmp(line, "C ", 2))
 	{
-		if (game->ceiling_color != -1)
+		if (game->ceiling_color_set)
 			return (ft_putstr_fd("Error: Duplicate ceiling color\n", 2), 1);
 		game->ceiling_color = color;
+		game->ceiling_color_set = 1;
 	}
 	return (0);
 }

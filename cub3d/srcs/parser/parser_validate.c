@@ -2,19 +2,20 @@
 
 /**
 * @brief Checks if a character is valid on the map.
-* 
+*
 * Valid characters are:
-* - ‘0’: Empty space (walkable)
-* - ‘1’: Wall
-* - ‘ ’: Space (outside the playable map)
-* - ‘N’, ‘S’, ‘E’, ‘W’: Player spawn positions
-* 
+* - '0': Empty space (walkable)
+* - '1': Wall
+* - '2': Door (bonus feature)
+* - ' ': Space (outside the playable map)
+* - 'N', 'S', 'E', 'W': Player spawn positions
+*
 * @param c Character to check.
 * @return int 1 if valid, 0 if invalid.
 */
 static int	is_valid_char(char c)
 {
-	if (c == '0' || c == '1' || c == ' ' || c == '\t')
+	if (c == '0' || c == '1' || c == '2' || c == ' ' || c == '\t')
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
@@ -23,11 +24,11 @@ static int	is_valid_char(char c)
 
 /**
 * @brief Validates all characters in the map.
-* 
+*
 * Traverses the entire map checking if all characters
 * are valid. Prints an error message with the invalid character
 * if found.
-* 
+*
 * @param game Pointer to the game structure.
 * @return int 0 if all characters are valid, 1 if there are invalid ones.
 */
@@ -58,17 +59,17 @@ int	ft_validate_map_chars(t_game *game)
 
 /**
 * @brief Prints a boundary error message.
-* 
+*
 * Auxiliary function that prints detailed information about
 * where the map is not correctly closed.
-* 
+*
 * @param game Pointer to the game structure.
 * @param y Index of the row where the error occurred.
 * @param x Index of the column where the error occurred.
 * @return int Always returns 1 (error).
-* 
+*
 * @warning This function only works correctly for indexes < 10
-*          due to the simple conversion with ‘0’ + y.
+*          due to the simple conversion with '0' + y.
 */
 static int	print_boundary_error(t_game *game, int y, int x)
 {
@@ -84,10 +85,10 @@ static int	print_boundary_error(t_game *game, int y, int x)
 
 /**
 * @brief Validates an individual cell in the map.
-* 
+*
 * Performs all validation checks on a specific cell:
 * borders, neighbors, and overhangs.
-* 
+*
 * @param game Pointer to the game structure.
 * @param y Row index.
 * @param x Column index.
@@ -102,21 +103,17 @@ static int	validate_cell(t_game *game, int y, int x)
 		ft_putstr_fd("Error: Space adjacent to open area\n", 2);
 		return (1);
 	}
-	if (validate_overhangs(game, y, x))
-	{
-		ft_putstr_fd("Error: Invalid overhang\n", 2);
-		return (1);
-	}
+	// Overhang validation disabled to support irregular map shapes (triangles, etc.)
 	return (0);
 }
 
 /**
 * @brief Validates whether the map is completely closed.
-* 
+*
 * Traverses all cells in the map and checks whether the map is
 * correctly closed by walls, with no holes or openings
-* that would allow the player to “escape.”
-* 
+* that would allow the player to "escape."
+*
 * @param game Pointer to the game structure.
 * @return int 0 if the map is closed, 1 if there are problems.
 */

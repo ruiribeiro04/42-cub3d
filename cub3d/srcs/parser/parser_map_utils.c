@@ -85,6 +85,8 @@ int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 {
 	int		line_len;
 	char	*padded_line;
+	char	*line_start;
+	char	*padded_start;
 
 	strip_newline(line);
 	line_len = ft_strlen(line);
@@ -96,6 +98,8 @@ int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 		padded_line = malloc(game->map_width + 1);
 		if (!padded_line)
 			return (0);
+		padded_start = padded_line;
+		line_start = line;
 		ft_memset(padded_line, ' ', game->map_width);
 		padded_line[game->map_width] = '\0';
 		while (*line)
@@ -104,8 +108,8 @@ int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 			padded_line++;
 			line++;
 		}
-		free(line);
-		(*map)[*i] = padded_line - line_len;
+		free(line_start);
+		(*map)[*i] = padded_start;
 	}
 	else
 	{

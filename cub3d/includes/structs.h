@@ -105,6 +105,8 @@ typedef struct s_game
 	char			*path_west;
 	int				floor_color;
 	int				ceiling_color;
+	int				floor_color_set;
+	int				ceiling_color_set;
 	t_sprite		*sprites;
 	int				sprite_count;
 	double			*z_buffer;

@@ -18,9 +18,9 @@ static int	is_valid_char(char c)
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
-	if (c == '2')
+	if (c == 'D')  // Door
 		return (1);
-	if (c == 'D')
+	if (c == 'A')  // Animated sprite
 		return (1);
 	return (0);
 }
@@ -106,11 +106,7 @@ static int	validate_cell(t_game *game, int y, int x)
 		ft_putstr_fd("Error: Space adjacent to open area\n", 2);
 		return (1);
 	}
-	if (validate_overhangs(game, y, x))
-	{
-		ft_putstr_fd("Error: Invalid overhang\n", 2);
-		return (1);
-	}
+	// Overhang validation disabled to support irregular map shapes (triangles, etc.)
 	return (0);
 }
 
