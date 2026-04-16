@@ -20,7 +20,10 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	if (ft_init_game(&game, argv[1]) == 1)
+	{
 		ft_error(&game, "Failed to Initialize the Game!");
+		return (1);
+	}
 	mlx_mouse_hide(game.mlx, game.win);
 	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, ft_input_key_press, &game);
 	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, ft_input_key_release,
