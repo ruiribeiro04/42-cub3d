@@ -71,10 +71,11 @@ char	*skip_empty_and_read(int fd)
 
 /**
 * @brief Adds a line to the map array.
-* 
+*
 * Removes the newline from the line, reallocates the map, adds the line,
 * and updates the maximum width of the map if necessary.
-* 
+* Lines are stored as-is without padding to preserve original map structure.
+*
 * @param line Line to be added.
 * @param map Pointer to the map array pointer.
 * @param i Pointer to the current index (will be incremented).
@@ -84,39 +85,16 @@ char	*skip_empty_and_read(int fd)
 int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 {
 	int		line_len;
-	char	*padded_line;
-	char	*line_start;
-	char	*padded_start;
 
 	strip_newline(line);
 	line_len = ft_strlen(line);
 	*map = realloc_map(*map, *i);
 	if (!*map)
 		return (0);
-	if (line_len < game->map_width)
-	{
-		padded_line = malloc(game->map_width + 1);
-		if (!padded_line)
-			return (0);
-		padded_start = padded_line;
-		line_start = line;
-		ft_memset(padded_line, ' ', game->map_width);
-		padded_line[game->map_width] = '\0';
-		while (*line)
-		{
-			*padded_line = *line;
-			padded_line++;
-			line++;
-		}
-		free(line_start);
-		(*map)[*i] = padded_start;
-	}
-	else
-	{
-		(*map)[*i] = line;
-		if (line_len > game->map_width)
-			game->map_width = line_len;
-	}
+	// Store line as-is without padding
+	(*map)[*i] = line;
+	if (line_len > game->map_width)
+		game->map_width = line_len;
 	(*i)++;
 	return (1);
 }

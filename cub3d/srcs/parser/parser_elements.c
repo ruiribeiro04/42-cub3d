@@ -23,30 +23,31 @@ static int	ft_is_element_line(char *line)
 /**
 * @brief Checks whether a line is the start of map data.
 *
-* Map data consists only of: spaces, 0, 1, N, S, E, W, and tabs.
-* If a line contains any other character (like letters in path names),
-* it's not a map line.
+* Uses lenient detection: any line STARTING with '0', '1', 'N', 'S', 'E', 'W', or '2'
+* is considered a map line. However, 'N', 'S', 'E', 'W' must be followed by whitespace or
+* end of line to distinguish from config lines like 'NO', 'SO', etc.
 *
 * @param line Line to be checked.
 * @return int 1 if it appears to be a map line, 0 otherwise.
 */
 static int	ft_is_map_line(char *line)
 {
-	int		i;
-
 	if (!line || line[0] == '\n' || line[0] == '\0')
 		return (0);
-	// Check if the line contains ONLY map characters
-	i = 0;
-	while (line[i] && line[i] != '\n')
+	// Skip leading whitespace
+	while (line[0] == ' ' || line[0] == '\t')
+		line++;
+	// Check if line starts with a wall or floor character
+	if (line[0] == '0' || line[0] == '1' || line[0] == '2')
+		return (1);
+	// Check for player positions - must be single character followed by whitespace/end
+	if (line[0] == 'N' || line[0] == 'S' || line[0] == 'E' || line[0] == 'W')
 	{
-		if (line[i] != ' ' && line[i] != '0' && line[i] != '1'
-			&& line[i] != 'N' && line[i] != 'S' && line[i] != 'E'
-			&& line[i] != 'W' && line[i] != '\t')
-			return (0);  // Found a non-map character
-		i++;
+		// Check if next character is whitespace, newline, or end of string
+		if (line[1] == ' ' || line[1] == '\t' || line[1] == '\n' || line[1] == '\0')
+			return (1);
 	}
-	return (1);  // Line contains only map characters
+	return (0);
 }
 
 /**

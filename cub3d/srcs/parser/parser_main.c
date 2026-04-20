@@ -127,11 +127,11 @@ static void	ft_free_map(t_game *game)
 
 /**
 * @brief Parses the map and validates it.
-* 
+*
 * This function parses the map grid, validates the characters,
-* checks if the map is closed, and initializes the player's position.
+* checks if the map is closed, validates textures, and initializes the player's position.
 * In case of error, it frees all allocated memory.
-* 
+*
 * @param game Pointer to the game structure.
 * @param fd File descriptor of the open file.
 * @param first_line First line of the map (already read previously).
@@ -142,12 +142,21 @@ static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
 	game->map = ft_parse_map_grid(fd, game, first_line);
 	if (!game->map)
 		return (1);
+	// Validate map characters and closure
 	if (ft_validate_map_chars(game) || ft_validate_map_closed(game))
 	{
 		ft_free_paths(game);
 		ft_free_map(game);
 		return (1);
 	}
+	// Validate texture files exist
+	if (validate_all_textures(game))
+	{
+		ft_free_paths(game);
+		ft_free_map(game);
+		return (1);
+	}
+	// Initialize player from map
 	if (ft_init_player_from_map(game) == 1)
 	{
 		ft_free_paths(game);

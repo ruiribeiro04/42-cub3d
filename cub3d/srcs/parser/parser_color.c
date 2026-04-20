@@ -71,8 +71,20 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 	if (!values)
 		return (1);
 	result = 0;
-	if (!values[0] || !values[1] || !values[2] || values[3])
+	// Count non-empty values
+	i = 0;
+	while (values[i])
+		i++;
+	if (i != 3)
+	{
+		ft_putstr_fd("Error: Invalid color format. Expected: F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
 		result = 1;
+	}
+	else if (!values[0] || !values[1] || !values[2] || !*values[0] || !*values[1] || !*values[2])
+	{
+		ft_putstr_fd("Error: Invalid color format. Expected: F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
+		result = 1;
+	}
 	// Strip newlines from values
 	i = 0;
 	while (!result && i < 3)
@@ -86,14 +98,26 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 	}
 	if (!result && (!is_valid_number(values[0]) || !is_valid_number(values[1])
 			|| !is_valid_number(values[2])))
+	{
+		ft_putstr_fd("Error: Color values must be numeric (0-255)\n", 2);
 		result = 1;
+	}
 	if (!result)
 	{
 		*r = ft_atoi(values[0]);
 		*g = ft_atoi(values[1]);
 		*b = ft_atoi(values[2]);
 		if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
+		{
+			ft_putstr_fd("Error: Color values must be in range 0-255 (got: ", 2);
+			ft_putnbr_fd(*r, 2);
+			ft_putstr_fd(", ", 2);
+			ft_putnbr_fd(*g, 2);
+			ft_putstr_fd(", ", 2);
+			ft_putnbr_fd(*b, 2);
+			ft_putstr_fd(")\n", 2);
 			result = 1;
+		}
 	}
 	ft_free_split(values);
 	return (result);

@@ -67,12 +67,12 @@ static void	find_spawn_position(t_game *game, int *spawn_x,
 
 /**
 * @brief Initializes the player based on map information.
-* 
+*
 * Finds the spawn position, validates that there is exactly one,
 * and calculates the player's position in pixels (centered on the block).
-* 
+*
 * @param game Pointer to the game structure.
-* 
+*
 * @note The position is calculated by adding 0.5 to the index and multiplying
 *       by BLOCK to center the player in the cell.
 */
@@ -85,12 +85,14 @@ int	ft_init_player_from_map(t_game *game)
 	find_spawn_position(game, &spawn_x, &spawn_y, &spawn_count);
 	if (spawn_count == 0)
 	{
-		ft_putstr_fd("Error: No player spawn position found\n", 2);
+		ft_putstr_fd("Error: No player spawn position found (N, S, E, or W)\n", 2);
 		return (1);
 	}
 	if (spawn_count > 1)
 	{
-		ft_putstr_fd("Error: Multiple player spawn positions found\n", 2);
+		ft_putstr_fd("Error: Multiple player spawn positions found (", 2);
+		ft_putnbr_fd(spawn_count, 2);
+		ft_putstr_fd(" found, only 1 allowed)\n", 2);
 		return (1);
 	}
 	game->player.x = (spawn_x + 0.5) * BLOCK;
