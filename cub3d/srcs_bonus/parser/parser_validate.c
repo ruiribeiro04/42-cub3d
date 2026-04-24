@@ -50,7 +50,7 @@ int	ft_validate_map_chars(t_game *game)
 		{
 			if (!is_valid_char(game->map[y][x]))
 			{
-				ft_putstr_fd("Error: Invalid character '", 2);
+				ft_putstr_fd("Error\nInvalid character '", 2);
 				ft_putchar_fd(game->map[y][x], 2);
 				ft_putstr_fd("' in map\n", 2);
 				return (1);
@@ -78,7 +78,7 @@ int	ft_validate_map_chars(t_game *game)
 */
 static int	print_boundary_error(t_game *game, int y, int x)
 {
-	ft_putstr_fd("Error: Map not properly closed at row ", 2);
+	ft_putstr_fd("Error\nMap not properly closed at row ", 2);
 	ft_putchar_fd('0' + y, 2);
 	ft_putstr_fd(" col ", 2);
 	ft_putchar_fd('0' + x, 2);
@@ -105,7 +105,7 @@ static int	validate_cell(t_game *game, int y, int x)
 		return (print_boundary_error(game, y, x));
 	if (validate_space_neighbors(game, y, x))
 	{
-		ft_putstr_fd("Error: Space adjacent to open area\n", 2);
+		ft_putstr_fd("Error\nSpace adjacent to open area\n", 2);
 		return (1);
 	}
 	// Overhang validation disabled to support irregular map shapes (triangles, etc.)

@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("Error: Usage: ./cub3d <map_file.cub>\n", STDERR_FILENO);
+		ft_putstr_fd("Error\nUsage: ./cub3d <map_file.cub>\n", STDERR_FILENO);
 		return (1);
 	}
 	if (ft_init_game(&game, argv[1]) == 1)

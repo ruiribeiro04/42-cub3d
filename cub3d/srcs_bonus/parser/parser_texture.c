@@ -36,14 +36,14 @@ static char	*extract_path(char *line, int start)
 * @param path Path to the texture file.
 * @return int 0 if valid, 1 if unable to open the file.
 */
-static int	validate_texture_path(char *path)
+int	validate_texture_path(char *path)
 {
 	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Error: Cannot open texture file: ", 2);
+		ft_putstr_fd("Error\nCannot open texture file: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd("\n", 2);
 		return (1);
@@ -140,7 +140,7 @@ int	ft_parse_texture(char *line, t_game *game)
 	{
 		if (path)
 			free(path);
-		ft_putstr_fd("Error: Invalid or duplicate texture\n", 2);
+		ft_putstr_fd("Error\nInvalid or duplicate texture\n", 2);
 		return (-1);
 	}
 	return (1);

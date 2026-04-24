@@ -137,7 +137,7 @@ char	*ft_parse_elements(int fd, t_game *game)
 			if (ret == 1)
 			{
 				free(line);
-				ft_putstr_fd("Error: Invalid or duplicate config elements\n", 2);
+				ft_putstr_fd("Error\nInvalid or duplicate config elements\n", 2);
 				return (NULL);
 			}
 			if (ret == 0)
@@ -151,7 +151,7 @@ char	*ft_parse_elements(int fd, t_game *game)
 	{
 		if (line)
 			free(line);
-		ft_putstr_fd("Error: Missing required config elements (NO, SO, WE, EA, F, C)\n", 2);
+		ft_putstr_fd("Error\nMissing required config elements (NO, SO, WE, EA, F, C)\n", 2);
 		return (NULL);
 	}
 	return (line);

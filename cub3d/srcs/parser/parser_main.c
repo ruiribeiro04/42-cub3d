@@ -58,13 +58,13 @@ int	ft_open_and_validate(char *filename)
 		len++;
 	if (len < 4 || ft_strncmp(&filename[len - 4], ".cub", 4))
 	{
-		ft_putstr_fd("Error: Invalid file extension. Must be .cub\n", 2);
+		ft_putstr_fd("Error\nInvalid file extension. Must be .cub\n", 2);
 		return (-1);
 	}
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Error: Cannot open file ", 2);
+		ft_putstr_fd("Error\nCannot open file ", 2);
 		ft_putstr_fd(filename, 2);
 		ft_putstr_fd("\n", 2);
 	}

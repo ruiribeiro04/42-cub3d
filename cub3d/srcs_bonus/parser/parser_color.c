@@ -76,18 +76,18 @@ int	ft_parse_color(char *line, t_game *game)
 	int	color;
 
 	if (ft_parse_rgb_values(line, &r, &g, &b))
-		return (ft_putstr_fd("Error: Invalid RGB color format\n", 2), -1);
+		return (ft_putstr_fd("Error\nInvalid RGB color format\n", 2), -1);
 	color = (r << 16) | (g << 8) | b;
 	if (!ft_strncmp(line, "F ", 2))
 	{
 		if (game->floor_color != 0)
-			return (ft_putstr_fd("Error: Duplicate floor color\n", 2), -1);
+			return (ft_putstr_fd("Error\nDuplicate floor color\n", 2), -1);
 		game->floor_color = color;
 	}
 	else if (!ft_strncmp(line, "C ", 2))
 	{
 		if (game->ceiling_color != 0)
-			return (ft_putstr_fd("Error: Duplicate ceiling color\n", 2), -1);
+			return (ft_putstr_fd("Error\nDuplicate ceiling color\n", 2), -1);
 		game->ceiling_color = color;
 	}
 	return (1);

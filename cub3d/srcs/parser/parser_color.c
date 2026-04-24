@@ -77,12 +77,12 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 		i++;
 	if (i != 3)
 	{
-		ft_putstr_fd("Error: Invalid color format. Expected: F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
+		ft_putstr_fd("Error\nInvalid color format. Expected: F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
 		result = 1;
 	}
 	else if (!values[0] || !values[1] || !values[2] || !*values[0] || !*values[1] || !*values[2])
 	{
-		ft_putstr_fd("Error: Invalid color format. Expected: F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
+		ft_putstr_fd("Error\nInvalid color format. Expected: F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
 		result = 1;
 	}
 	// Strip newlines from values
@@ -99,7 +99,7 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 	if (!result && (!is_valid_number(values[0]) || !is_valid_number(values[1])
 			|| !is_valid_number(values[2])))
 	{
-		ft_putstr_fd("Error: Color values must be numeric (0-255)\n", 2);
+		ft_putstr_fd("Error\nColor values must be numeric (0-255)\n", 2);
 		result = 1;
 	}
 	if (!result)
@@ -109,7 +109,7 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 		*b = ft_atoi(values[2]);
 		if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
 		{
-			ft_putstr_fd("Error: Color values must be in range 0-255 (got: ", 2);
+			ft_putstr_fd("Error\nColor values must be in range 0-255 (got: ", 2);
 			ft_putnbr_fd(*r, 2);
 			ft_putstr_fd(", ", 2);
 			ft_putnbr_fd(*g, 2);
@@ -144,19 +144,19 @@ int	ft_parse_color(char *line, t_game *game)
 	int	color;
 
 	if (ft_parse_rgb_values(line, &r, &g, &b))
-		return (ft_putstr_fd("Error: Invalid RGB color format\n", 2), 1);
+		return (ft_putstr_fd("Error\nInvalid RGB color format\n", 2), 1);
 	color = (r << 16) | (g << 8) | b;
 	if (!ft_strncmp(line, "F ", 2))
 	{
 		if (game->floor_color_set)
-			return (ft_putstr_fd("Error: Duplicate floor color\n", 2), 1);
+			return (ft_putstr_fd("Error\nDuplicate floor color\n", 2), 1);
 		game->floor_color = color;
 		game->floor_color_set = 1;
 	}
 	else if (!ft_strncmp(line, "C ", 2))
 	{
 		if (game->ceiling_color_set)
-			return (ft_putstr_fd("Error: Duplicate ceiling color\n", 2), 1);
+			return (ft_putstr_fd("Error\nDuplicate ceiling color\n", 2), 1);
 		game->ceiling_color = color;
 		game->ceiling_color_set = 1;
 	}

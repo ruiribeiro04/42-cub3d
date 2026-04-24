@@ -85,12 +85,12 @@ int	ft_init_player_from_map(t_game *game)
 	find_spawn_position(game, &spawn_x, &spawn_y, &spawn_count);
 	if (spawn_count == 0)
 	{
-		ft_putstr_fd("Error: No player spawn position found (N, S, E, or W)\n", 2);
+		ft_putstr_fd("Error\nNo player spawn position found (N, S, E, or W)\n", 2);
 		return (1);
 	}
 	if (spawn_count > 1)
 	{
-		ft_putstr_fd("Error: Multiple player spawn positions found (", 2);
+		ft_putstr_fd("Error\nMultiple player spawn positions found (", 2);
 		ft_putnbr_fd(spawn_count, 2);
 		ft_putstr_fd(" found, only 1 allowed)\n", 2);
 		return (1);

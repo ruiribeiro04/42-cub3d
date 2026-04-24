@@ -20,7 +20,7 @@ int	ft_error(t_game *game, char *error_msg)
 {
 	if (game)
 		ft_free_game(game);
-	ft_putstr_fd("Error: ", STDERR_FILENO);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putstr_fd(error_msg, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	return (1);

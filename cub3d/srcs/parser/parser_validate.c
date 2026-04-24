@@ -58,7 +58,7 @@ static int	flood_fill(char **map_copy, int height, int y, int x)
 	// Boundary detection: check if we've escaped the map
 	if (y < 0 || y >= height)
 	{
-		ft_putstr_fd("Error: Map not properly closed - boundary breach at (", 2);
+		ft_putstr_fd("Error\nMap not properly closed - boundary breach at (", 2);
 		ft_putnbr_fd(y, 2);
 		ft_putstr_fd(", ", 2);
 		ft_putnbr_fd(x, 2);
@@ -68,7 +68,7 @@ static int	flood_fill(char **map_copy, int height, int y, int x)
 	line_length = ft_strlen(map_copy[y]);
 	if (x < 0 || x >= line_length)
 	{
-		ft_putstr_fd("Error: Map not properly closed - boundary breach at (", 2);
+		ft_putstr_fd("Error\nMap not properly closed - boundary breach at (", 2);
 		ft_putnbr_fd(y, 2);
 		ft_putstr_fd(", ", 2);
 		ft_putnbr_fd(x, 2);
@@ -142,7 +142,7 @@ int	ft_validate_map_chars(t_game *game)
 		{
 			if (!is_valid_char(game->map[y][x]))
 			{
-				ft_putstr_fd("Error: Invalid character '", 2);
+				ft_putstr_fd("Error\nInvalid character '", 2);
 				ft_putchar_fd(game->map[y][x], 2);
 				ft_putstr_fd("' at map position (", 2);
 				ft_putnbr_fd(y, 2);
@@ -228,7 +228,7 @@ int	ft_validate_map_closed(t_game *game)
 	// Find player position on map
 	if (find_player_position(game, &player_y, &player_x))
 	{
-		ft_putstr_fd("Error: No player position found for flood-fill validation\n", 2);
+		ft_putstr_fd("Error\nNo player position found for flood-fill validation\n", 2);
 		return (1);
 	}
 	// Find map height
@@ -239,7 +239,7 @@ int	ft_validate_map_closed(t_game *game)
 	map_copy = copy_map(game);
 	if (!map_copy)
 	{
-		ft_putstr_fd("Error: Memory allocation failed for map validation\n", 2);
+		ft_putstr_fd("Error\nMemory allocation failed for map validation\n", 2);
 		return (1);
 	}
 	// Perform flood-fill from player position

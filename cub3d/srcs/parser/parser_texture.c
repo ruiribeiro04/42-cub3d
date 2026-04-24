@@ -56,7 +56,7 @@ int	validate_texture_path(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Error: Cannot open texture file: ", 2);
+		ft_putstr_fd("Error\nCannot open texture file: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd("\n", 2);
 		return (1);
@@ -81,28 +81,28 @@ int	validate_all_textures(t_game *game)
 	errors = 0;
 	if (!game->path_north)
 	{
-		ft_putstr_fd("Error: Missing north texture (NO)\n", 2);
+		ft_putstr_fd("Error\nMissing north texture (NO)\n", 2);
 		errors++;
 	}
 	else if (validate_texture_path(game->path_north))
 		errors++;
 	if (!game->path_south)
 	{
-		ft_putstr_fd("Error: Missing south texture (SO)\n", 2);
+		ft_putstr_fd("Error\nMissing south texture (SO)\n", 2);
 		errors++;
 	}
 	else if (validate_texture_path(game->path_south))
 		errors++;
 	if (!game->path_east)
 	{
-		ft_putstr_fd("Error: Missing east texture (EA)\n", 2);
+		ft_putstr_fd("Error\nMissing east texture (EA)\n", 2);
 		errors++;
 	}
 	else if (validate_texture_path(game->path_east))
 		errors++;
 	if (!game->path_west)
 	{
-		ft_putstr_fd("Error: Missing west texture (WE)\n", 2);
+		ft_putstr_fd("Error\nMissing west texture (WE)\n", 2);
 		errors++;
 	}
 	else if (validate_texture_path(game->path_west))
@@ -131,7 +131,7 @@ static int	parse_north_south(char *line, t_game *game, char **path)
 			return (1);
 		if (game->path_north)
 		{
-			ft_putstr_fd("Error: Duplicate north texture (NO)\n", 2);
+			ft_putstr_fd("Error\nDuplicate north texture (NO)\n", 2);
 			free(*path);
 			*path = NULL;
 			return (1);
@@ -145,7 +145,7 @@ static int	parse_north_south(char *line, t_game *game, char **path)
 			return (1);
 		if (game->path_south)
 		{
-			ft_putstr_fd("Error: Duplicate south texture (SO)\n", 2);
+			ft_putstr_fd("Error\nDuplicate south texture (SO)\n", 2);
 			free(*path);
 			*path = NULL;
 			return (1);
@@ -176,7 +176,7 @@ static int	parse_west_east(char *line, t_game *game, char **path)
 			return (1);
 		if (game->path_west)
 		{
-			ft_putstr_fd("Error: Duplicate west texture (WE)\n", 2);
+			ft_putstr_fd("Error\nDuplicate west texture (WE)\n", 2);
 			free(*path);
 			*path = NULL;
 			return (1);
@@ -190,7 +190,7 @@ static int	parse_west_east(char *line, t_game *game, char **path)
 			return (1);
 		if (game->path_east)
 		{
-			ft_putstr_fd("Error: Duplicate east texture (EA)\n", 2);
+			ft_putstr_fd("Error\nDuplicate east texture (EA)\n", 2);
 			free(*path);
 			*path = NULL;
 			return (1);
@@ -224,7 +224,7 @@ int	ft_parse_texture(char *line, t_game *game)
 	{
 		if (path)
 			free(path);
-		ft_putstr_fd("Error: Invalid or duplicate texture\n", 2);
+		ft_putstr_fd("Error\nInvalid or duplicate texture\n", 2);
 		return (1);
 	}
 	return (0);
