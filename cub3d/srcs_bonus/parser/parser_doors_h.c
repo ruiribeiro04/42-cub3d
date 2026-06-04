@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_doors_h.c
+ * @brief Door parsing helper functions.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 void	ft_free_door_map(t_game *game)
 {
 	int	y;
@@ -20,6 +28,9 @@ void	ft_free_door_map(t_game *game)
 	while (y < game->map_height)
 		free(game->door_map[y++]);
 	free(game->door_map);
+	/**
+	 * @ingroup parser
+	 */
 	game->door_map = NULL;
 }
 

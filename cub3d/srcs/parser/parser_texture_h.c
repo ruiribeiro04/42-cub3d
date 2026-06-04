@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_texture_h.c
+ * @brief Texture validation helper functions.
+ */
+
 #include "cub3d.h"
 
 char	**ft_select_texture_slot(char *line, t_game *game)

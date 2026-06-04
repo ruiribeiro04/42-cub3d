@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_color_utils.c
+ * @brief Color parsing utility helpers.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 void	ft_free_split_arr(char **values)
 {
 	int	i;
@@ -20,6 +28,9 @@ void	ft_free_split_arr(char **values)
 	while (values[i])
 	{
 		free(values[i]);
+		/**
+		 * @ingroup parser
+		 */
 		i++;
 	}
 	free(values);
@@ -31,6 +42,9 @@ int	ft_is_valid_number(char *str)
 		return (0);
 	while (*str)
 	{
+		/**
+		 * @ingroup parser
+		 */
 		if (*str < '0' || *str > '9')
 			return (0);
 		str++;
@@ -38,6 +52,9 @@ int	ft_is_valid_number(char *str)
 	return (1);
 }
 
+/**
+ * @ingroup parser
+ */
 void	ft_replace_commas_with_spaces(char *str)
 {
 	while (*str)

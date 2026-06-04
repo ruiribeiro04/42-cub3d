@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_map.c
+ * @brief Read the map grid from the open .cub file descriptor.
+ */
+
 #include "cub3d.h"
 
 /**

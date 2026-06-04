@@ -76,6 +76,18 @@ norminette:
 	@norminette srcs/ srcs_bonus/ includes/ 2>&1 | tee norminette.log
 	@echo "$(GREEN)Norminette OK! See norminette.log for evidence.$(RESET)"
 
+lint:
+	@echo "$(CYAN)Running forbidden-function scan...$(RESET)"
+	@bash scripts/scan_forbidden.sh
+	@echo "$(CYAN)Checking for unprefixed libft calls in srcs_bonus/...$(RESET)"
+	@OUTPUT=$$(grep -rnw 'strlen\|strchr\|strrchr\|strstr\|strncmp\|memset\|calloc\|atoi' srcs_bonus/ 2>/dev/null | grep -v 'libs/libft/'); \
+	if [ -n "$$OUTPUT" ]; then \
+		echo "$$OUTPUT" | tee forbidden-functions.log; \
+		echo "$(RED)FAIL: unprefixed libft calls found$(RESET)"; \
+		exit 1; \
+	fi
+	@echo "$(GREEN)Lint OK!$(RESET)"
+
 # ---------------------- MiniLibX ----------------------------------------------
  $(MLX_DIR):
 	@echo "$(CYAN)Downloading MiniLibX...$(RESET)"
@@ -169,6 +181,10 @@ docs_clean:
 	@$(RM) -r $(DOXYGEN_DIR)
 	@echo "$(GREEN)Documentation cleaned!$(RESET)"
 
+docs_check: docs
+	@echo "$(CYAN)Checking Doxygen warnings...$(RESET)"
+	@bash tests/check_doxygen_warnings.sh
+
 # ---------------------- Testing -----------------------------------------------
 test: all
 	@echo "$(CYAN)Running test suite...$(RESET)"
@@ -210,4 +226,4 @@ test_clean:
 	@$(RM) test_parser test_parser_exhaustive test_memory test_integration
 	@$(RM) -r tests/maps_invalid
 
-.PHONY: all bonus clean fclean re debug debug_bonus valgrind valgrind_bonus docs docs_clean test test_parser test_parser_exhaustive test_memory test_integration test_all test_clean norminette
+.PHONY: all bonus clean fclean re debug debug_bonus valgrind valgrind_bonus docs docs_clean docs_check test test_parser test_parser_exhaustive test_memory test_integration test_all test_clean norminette lint

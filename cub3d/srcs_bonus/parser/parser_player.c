@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_player.c
+ * @brief Initialize the player position and orientation from the map.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -87,7 +92,8 @@ static void	find_spawn_position(t_game *game, int *spawn_x,
 * 
 * @note The position is calculated by adding 0.5 to the index and multiplying
 *       by BLOCK to center the player in the cell.
-*/
+ * @ingroup parser
+ */
 int	ft_init_player_from_map(t_game *game)
 {
 	int	spawn_count;

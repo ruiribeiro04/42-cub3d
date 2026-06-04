@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file main.c
+ * @brief Bonus entry point: parse arguments, init game, start the MLX loop.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup graphics
+ */
 int	ft_draw_loop(t_game *game)
 {
 	ft_player_move(game);

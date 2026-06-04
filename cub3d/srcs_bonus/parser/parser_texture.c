@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_texture.c
+ * @brief Validate wall texture files exist and are readable.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -137,7 +142,8 @@ static int	parse_west_east(char *line, t_game *game, char **path)
 * @param line Texture configuration line.
 * @param game Pointer to the game structure.
 * @return int 1 on success, -1 on error.
-*/
+ * @ingroup parser
+ */
 int	ft_parse_texture(char *line, t_game *game)
 {
 	char	*path;

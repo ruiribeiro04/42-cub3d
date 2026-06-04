@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_texture.c
+ * @brief Validate the four wall texture files exist and are readable.
+ */
+
 #include "cub3d.h"
 
 static char	*extract_path(char *line, int start)
@@ -96,6 +101,9 @@ int	validate_all_textures(t_game *game)
 	return (errors);
 }
 
+/**
+ * @ingroup parser
+ */
 int	ft_parse_texture(char *line, t_game *game)
 {
 	if (parse_one_cardinal(line, game) == 1)

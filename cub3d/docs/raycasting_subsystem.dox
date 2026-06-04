@@ -1,0 +1,21 @@
+/**
+ * @page raycasting_subsystem Raycasting subsystem
+ * @brief Per-column DDA raycasting and wall-slice projection.
+ *
+ * The raycaster runs once per frame and fills the screen column by
+ * column.  For each column:
+ *
+ * 1. **Init ray** (`ft_raycasting_init_ray`) -- compute the ray angle
+ *    from the player's field of view.
+ * 2. **Calc step** (`ft_raycasting_calc_step`) -- determine the DDA
+ *    step direction and initial side distances.
+ * 3. **Perform DDA** (`ft_raycasting_perform_dda`) -- march through
+ *    the grid until a wall cell is hit, recording the side and
+ *    perpendicular distance.
+ * 4. **Calc wall height** (`ft_raycasting_calc_wall_height`) -- convert
+ *    the perpendicular distance to a projected wall-strip height.
+ * 5. **Draw column** (`ft_raycasting_draw_column`) -- sample the
+ *    texture and write the textured column into the image buffer.
+ *
+ * @see @ref raycasting
+ */

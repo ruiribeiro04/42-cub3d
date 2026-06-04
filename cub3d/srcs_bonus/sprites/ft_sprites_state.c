@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_sprites_state.c
+ * @brief Manage sprite animation state.
+ */
+
 #include "cub3d.h"
 
 static void	update_animation(t_sprite *sp, double delta_time)

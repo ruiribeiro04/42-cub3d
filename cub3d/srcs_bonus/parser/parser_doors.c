@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_doors.c
+ * @brief Parse door cells from the map grid.
+ */
+
 #include "cub3d.h"
 
 static int	ft_init_doors_map(t_game *game)
@@ -81,6 +86,9 @@ static int	ft_load_door_textures(t_game *game)
 	return (0);
 }
 
+/**
+ * @ingroup parser
+ */
 int	ft_parse_doors(t_game *game)
 {
 	int	y;
@@ -101,6 +109,9 @@ int	ft_parse_doors(t_game *game)
 	}
 	if (ft_init_doors_map(game))
 		return (1);
+	/**
+	 * @ingroup parser
+	 */
 	ft_setup_door_data(game);
 	return (0);
 }

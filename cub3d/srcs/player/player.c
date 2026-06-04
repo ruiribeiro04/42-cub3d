@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file player.c
+ * @brief Player state and movement update helpers.
+ */
+
 #include "cub3d.h"
 
 static void	ft_player_rotate_player(t_player *player)
@@ -102,6 +107,9 @@ static void	ft_player_move_strafe(t_game *game, float cos_a, float sin_a)
 	}
 }
 
+/**
+ * @ingroup player
+ */
 void	ft_player_move(t_game *game)
 {
 	float	cos_a;

@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_sprites.c
+ * @brief Parse sprite cells from the map grid.
+ */
+
 #include "cub3d.h"
 
 static int	count_sprites(t_game *game)
@@ -46,6 +51,9 @@ static void	store_sprite_pos(t_game *game, int index, int x, int y)
 	game->map[y][x] = '0';
 }
 
+/**
+ * @ingroup parser
+ */
 int	ft_extract_sprites(t_game *game)
 {
 	int	y;
@@ -68,6 +76,9 @@ int	ft_extract_sprites(t_game *game)
 			if (game->map[y][x] == 'A' || game->map[y][x] == '2')
 				store_sprite_pos(game, i++, x, y);
 			x++;
+		/**
+		 * @ingroup parser
+		 */
 		}
 		y++;
 	}

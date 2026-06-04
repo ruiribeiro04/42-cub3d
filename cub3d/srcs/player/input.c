@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file input.c
+ * @brief Map MLX key and mouse events to player state transitions.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup player
+ */
 int	ft_input_key_press(int keycode, t_game *game)
 {
 	if (keycode == W)
@@ -27,6 +35,9 @@ int	ft_input_key_press(int keycode, t_game *game)
 	if (keycode == RIGHT)
 		game->player.right_rotate = true;
 	if (keycode == ESC || keycode == Q)
+		/**
+		 * @ingroup player
+		 */
 		ft_exit_game(game);
 	return (0);
 }

@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_map_utils.c
+ * @brief Map grid utility helpers.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -82,17 +87,18 @@ char	*skip_empty_and_read(int fd)
 }
 
 /**
-* @brief Adds a line to the map array.
-* 
-* Removes the newline from the line, reallocates the map, adds the line,
-* and updates the maximum width of the map if necessary.
-* 
-* @param line Line to be added.
-* @param map Pointer to the map array pointer.
-* @param i Pointer to the current index (will be incremented).
-* @param game Pointer to the game structure.
-* @return int 1 on success, 0 on error.
-*/
+ * @brief Adds a line to the map array.
+ *
+ * Removes the newline from the line, reallocates the map, adds the line,
+ * and updates the maximum width of the map if necessary.
+ *
+ * @param line Line to be added.
+ * @param map Pointer to the map array pointer.
+ * @param i Pointer to the current index (will be incremented).
+ * @param game Pointer to the game structure.
+ * @return int 1 on success, 0 on error.
+ * @ingroup parser
+ */
 int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 {
 	strip_newline(line);

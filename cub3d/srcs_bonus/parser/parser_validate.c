@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_validate.c
+ * @brief Validate the parsed map for the bonus tree.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -63,6 +68,7 @@ static int	check_row_chars(char **map, int y)
  * 
  * @param game Pointer to the game structure.
  * @return int 0 if all characters are valid, 1 if there are invalid ones.
+  * @ingroup parser
  */
 int	ft_validate_map_chars(t_game *game)
 {
@@ -105,13 +111,16 @@ static int	print_boundary_error(t_game *game, int y, int x)
 }
 
 /**
-* @brief Validates whether the map is completely closed.
-*
-* Traverses all cells in the map and checks whether the map is
-* correctly closed by walls, with no holes or openings
-* that would allow the player to “escape.”
-*
-* @param game Pointer to the game structure.
+ * @brief Validates whether the map is completely closed.
+ *
+ * Traverses all cells in the map and checks whether the map is
+ * correctly closed by walls, with no holes or openings
+ * that would allow the player to "escape."
+ *
+ * @param game Pointer to the game structure.
+ * @return int 0 if the map is closed, 1 if there are problems.
+ * @ingroup parser
+ */
 * @return int 0 if the map is closed, 1 if there are problems.
 */
 int	ft_validate_map_closed(t_game *game)

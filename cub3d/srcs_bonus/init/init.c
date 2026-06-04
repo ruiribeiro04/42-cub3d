@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file init.c
+ * @brief Initialize bonus game state, parse the map, and load textures.
+ */
+
 #include "cub3d.h"
 
 static void	ft_init_player_keys(t_player *player)
@@ -68,6 +73,9 @@ static int	ft_init_mlx(t_game *game)
 	return (0);
 }
 
+/**
+ * @ingroup init
+ */
 int	ft_init_game(t_game *game, char *map_file)
 {
 	ft_memset(game, 0, sizeof(t_game));

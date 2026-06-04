@@ -38,3 +38,10 @@ No entanto, para resolver o erro do Valgrind que mostraste (que acontece ao sair
 - sprites animados
     - meter so para ter 125!
     - potencialmente fazer animacao das paredes, com fogo ou algo do genero
+
+---
+
+## Tracked TODOs
+
+- [cub3D-#TBD] srcs/textures/ft_textures.c: refactor texture column rendering — see Epic 5 S5.2
+- [cub3D-#TBD] srcs_bonus/textures/ft_textures.c: refactor texture column rendering — see Epic 5 S5.2

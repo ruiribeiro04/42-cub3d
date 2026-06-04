@@ -61,6 +61,7 @@ t_texture	*ft_get_wall_texture(t_game *game)
  * @param tex Pointer to the texture structure to populate.
  * @param path Filesystem path to the XPM texture file.
  * @return 0 on success, non-zero on failure.
+ * @ingroup textures
  */
 int	ft_load_texture(t_game *game, t_texture *tex, char *path)
 {
@@ -84,6 +85,7 @@ int	ft_load_texture(t_game *game, t_texture *tex, char *path)
  *
  * @param game Pointer to the main game structure with texture paths.
  * @return 0 on success, 1 on any texture load failure.
+ * @ingroup textures
  */
 int	ft_load_all_textures(t_game *game)
 {
@@ -108,6 +110,7 @@ int	ft_load_all_textures(t_game *game)
  * @param x X coordinate inside the texture (0-based).
  * @param y Y coordinate inside the texture (0-based).
  * @return 32-bit color value at (x, y) or 0 if out of bounds.
+ * @ingroup textures
  */
 unsigned int	ft_get_texture_pixel(t_texture *tex, int x, int y)
 {
@@ -128,6 +131,7 @@ unsigned int	ft_get_texture_pixel(t_texture *tex, int x, int y)
  * textures were not loaded.
  *
  * @param game Pointer to the main game structure containing textures.
+ * @ingroup textures
  */
 void	ft_free_textures(t_game *game)
 {

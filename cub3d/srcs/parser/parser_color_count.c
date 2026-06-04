@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_color_count.c
+ * @brief Count and validate comma-separated color values.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 int	ft_count_split(char **values)
 {
 	int	i;

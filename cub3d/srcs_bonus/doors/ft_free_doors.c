@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_free_doors.c
+ * @brief Free door resources on exit.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup graphics
+ */
 void	ft_free_doors(t_game *game)
 {
 	int	y;

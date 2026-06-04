@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_raycasting_init.c
+ * @brief Initialize raycasting parameters for each frame.
+ */
+
 #include "cub3d.h"
 
 static void	ft_raycasting_calc_delta(t_game *game)
@@ -24,6 +29,9 @@ static void	ft_raycasting_calc_delta(t_game *game)
 		game->ray.delta_y = fabs(1.0 / game->ray.dir_y);
 }
 
+/**
+ * @ingroup raycasting
+ */
 void	ft_raycasting_init_ray(t_game *game, float angle)
 {
 	game->ray.dir_x = cos(angle);
@@ -67,6 +75,9 @@ static void	ft_raycasting_calc_step_y(t_game *game)
 	else
 	{
 		game->ray.step_y = 1;
+		/**
+		 * @ingroup raycasting
+		 */
 		game->ray.side_y = (game->ray.map_y + 1.0 - player_cell_y)
 			* game->ray.delta_y;
 	}

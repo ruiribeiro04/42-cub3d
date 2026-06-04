@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_validate.c
+ * @brief Validate the parsed map: character set and wall closure.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 int	ft_validate_map_chars(t_game *game)
 {
 	int	y;
@@ -32,6 +40,9 @@ static void	ft_free_map_copy(char **map_copy)
 
 	i = 0;
 	while (map_copy[i])
+		/**
+		 * @ingroup parser
+		 */
 		free(map_copy[i++]);
 	free(map_copy);
 }

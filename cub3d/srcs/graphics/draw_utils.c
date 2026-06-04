@@ -34,6 +34,9 @@
 * @param color 32-bit color value
 * 	to write into the buffer (0xAARRGGBB or 0xRRGGBB).
  */
+/**
+ * @ingroup graphics
+ */
 void	ft_put_pixel_to_img(t_game *game, int x, int y, int color)
 {
 	char	*dst;
@@ -53,6 +56,7 @@ void	ft_put_pixel_to_img(t_game *game, int x, int y, int color)
  *
  * @param game Pointer to the main game structure containing image data.
  * @param color 32-bit color value used to clear the image.
+ * @ingroup graphics
  */
 void	ft_clear_image(t_game *game, int color)
 {

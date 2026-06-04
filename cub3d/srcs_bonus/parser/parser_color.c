@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_color.c
+ * @brief Parse floor and ceiling color triplets from the .cub file.
+ */
+
 #include "cub3d.h"
 
 static void	print_color_format_error(void)
@@ -67,7 +72,8 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 * @param line Color configuration line.
 * @param game Pointer to the game structure.
 * @return int 1 on success, -1 on error.
-*/
+ * @ingroup parser
+ */
 int	ft_parse_color(char *line, t_game *game)
 {
 	int	r;

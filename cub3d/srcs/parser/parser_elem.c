@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_elem.c
+ * @brief Parse a single element line (texture or color) from the .cub file.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 int	ft_is_element_line(char *line)
 {
 	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3))
@@ -19,6 +27,9 @@ int	ft_is_element_line(char *line)
 	if (!ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
 		return (1);
 	if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
+		/**
+		 * @ingroup parser
+		 */
 		return (1);
 	return (0);
 }
@@ -33,6 +44,9 @@ int	ft_is_map_line(char *line)
 		return (1);
 	if (line[0] == 'N' || line[0] == 'S' || line[0] == 'E' || line[0] == 'W')
 	{
+		/**
+		 * @ingroup parser
+		 */
 		if (line[1] == ' ' || line[1] == '\t' || line[1] == '\n'
 			|| line[1] == '\0')
 			return (1);
@@ -56,6 +70,9 @@ char	*ft_skip_empty_lines(int fd)
 	char	*line;
 
 	line = get_next_line(fd);
+	/**
+	 * @ingroup parser
+	 */
 	while (line && line[0] == '\n')
 	{
 		free(line);

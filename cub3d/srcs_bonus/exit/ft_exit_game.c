@@ -25,6 +25,7 @@
  *
  * @param game Game struct
  * @return int Always returns 0 to indicate successful exit
+  * @ingroup exit
  */
 int	ft_exit_game(t_game *game)
 {

@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_color_check.c
+ * @brief Validate color value ranges for bonus parser.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 int	ft_check_numeric_values(char **values)
 {
 	int	i;

@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_minimap.c
+ * @brief Render the minimap overlay on screen.
+ */
+
 #include "cub3d.h"
 
 static void	ft_draw_player_marker(t_game *game, t_point *draw_pos)
@@ -19,6 +24,9 @@ static void	ft_draw_player_marker(t_game *game, t_point *draw_pos)
 	ft_draw_rect(game, *draw_pos, MAP_TILE, MAP_COLOR_PLAYER);
 }
 
+/**
+ * @ingroup graphics
+ */
 void	ft_draw_minimap(t_game *game)
 {
 	t_point	draw_pos;

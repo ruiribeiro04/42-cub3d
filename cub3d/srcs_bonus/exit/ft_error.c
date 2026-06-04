@@ -21,12 +21,18 @@
 #include "cub3d.h"
 
 /**
- * @brief Responsible for freeing the game and 
- * instructing the user what went wrong
- * 
- * @param game Game struct
- * @param error_msg Message to show to user
- * @return int Always returns 1 to indicate an error occurred
+ * @brief Free game resources and report an error to the user on stderr.
+ *
+ * If @p game is non-NULL, calls ft_free_game() on it first.  Always
+ * prints "Error\\n<error_msg>\\n" to stderr (fd 2).  Returns 1 so
+ * callers can use the idiom: return (ft_error(game, "msg"));
+ *
+ * @param game      Pointer to the game structure; may be NULL (NULL-safe).
+ * @param error_msg Human-readable error description, printed after "Error\\n".
+ * @return Always 1 to allow the return (ft_error(...)) idiom.
+ */
+/**
+ * @ingroup exit
  */
 int	ft_error(t_game *game, char *error_msg)
 {

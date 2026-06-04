@@ -1,0 +1,17 @@
+/**
+ * @page player_subsystem Player subsystem
+ * @brief Input handling, movement, and collision.
+ *
+ * The player subsystem bridges MLX events to game-state mutations:
+ *
+ * 1. **Key press** (`ft_input_key_press`) -- map scancodes (W/A/S/D,
+ *    Left/Right arrows, ESC) to boolean flags in `t_player`.
+ * 2. **Key release** (`ft_input_key_release`) -- clear the flag when the
+ *    key is released.
+ * 3. **Movement** (`ft_player_move`) -- translate the accumulated
+ *    direction into a position delta, scaled by elapsed time.
+ * 4. **Collision** (`ft_player_check_collisions`) -- reject the move if
+ *    the target cell is a wall (`1`).
+ *
+ * @see @ref player
+ */

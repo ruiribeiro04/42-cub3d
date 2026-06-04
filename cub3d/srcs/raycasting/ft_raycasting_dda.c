@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_raycasting_dda.c
+ * @brief DDA raycasting algorithm implementation.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup raycasting
+ */
 void	ft_raycasting_calc_wall_x(t_game *game, float eucl_dist)
 {
 	float	wall_x;
@@ -21,6 +29,9 @@ void	ft_raycasting_calc_wall_x(t_game *game, float eucl_dist)
 	else
 		wall_x = (game->player.x / BLOCK) + eucl_dist * game->ray.dir_x;
 	wall_x -= floor(wall_x);
+	/**
+	 * @ingroup raycasting
+	 */
 	game->ray.wall_x = wall_x;
 }
 
@@ -28,6 +39,9 @@ int	ft_raycasting_is_wall(t_game *game, int x, int y)
 {
 	if (x < 0 || x >= game->map_width)
 		return (1);
+	/**
+	 * @ingroup raycasting
+	 */
 	if (y < 0 || y >= game->map_height)
 		return (1);
 	return (game->map[y][x] == '1');
@@ -50,6 +64,9 @@ void	ft_raycasting_perform_dda(t_game *game)
 		{
 			game->ray.side_y += game->ray.delta_y;
 			game->ray.map_y += game->ray.step_y;
+			/**
+			 * @ingroup raycasting
+			 */
 			game->ray.side = 1;
 		}
 		if (ft_raycasting_is_wall(game, game->ray.map_x, game->ray.map_y))

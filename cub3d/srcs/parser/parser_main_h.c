@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_main_h.c
+ * @brief Parser main helper functions for element and map parsing.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 void	ft_free_parser_paths(t_game *game)
 {
 	if (game->path_north)
@@ -32,6 +40,9 @@ void	ft_free_parser_paths(t_game *game)
 	if (game->path_west)
 	{
 		free(game->path_west);
+		/**
+		 * @ingroup parser
+		 */
 		game->path_west = NULL;
 	}
 }
@@ -45,6 +56,9 @@ void	ft_free_parser_map(t_game *game)
 	i = 0;
 	while (game->map[i])
 	{
+		/**
+		 * @ingroup parser
+		 */
 		free(game->map[i]);
 		i++;
 	}

@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_elem.c
+ * @brief Parse a single element line from the .cub file.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 int	ft_is_element_line(char *line)
 {
 	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3))

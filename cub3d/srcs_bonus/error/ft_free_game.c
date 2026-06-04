@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_free_game.c
+ * @brief Free all game resources on exit.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -100,6 +105,7 @@ static void	ft_free_config_paths(t_game *game)
  * @brief Frees all allocated variables to safely exit
  * 
  * @param game Game struct
+  * @ingroup error
  */
 void	ft_free_game(t_game *game)
 {

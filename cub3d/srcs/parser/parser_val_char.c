@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_val_char.c
+ * @brief Validate individual map characters against allowed set.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup parser
+ */
 void	ft_print_invalid_char_error(char c, int y, int x)
 {
 	ft_putstr_fd("Error\nInvalid character '", 2);
@@ -20,6 +28,9 @@ void	ft_print_invalid_char_error(char c, int y, int x)
 	ft_putnbr_fd(y, 2);
 	ft_putstr_fd(", ", 2);
 	ft_putnbr_fd(x, 2);
+	/**
+	 * @ingroup parser
+	 */
 	ft_putstr_fd(")\n", 2);
 }
 
@@ -27,6 +38,9 @@ int	ft_is_valid_map_char(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == '\t')
 		return (1);
+	/**
+	 * @ingroup parser
+	 */
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
 	return (0);
@@ -41,6 +55,9 @@ int	ft_check_row_chars(char **map, int y)
 	{
 		if (!ft_is_valid_map_char(map[y][x]))
 		{
+			/**
+			 * @ingroup parser
+			 */
 			ft_print_invalid_char_error(map[y][x], y, x);
 			return (1);
 		}

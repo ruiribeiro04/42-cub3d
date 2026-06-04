@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_main.c
+ * @brief Main parser orchestration: open file, read elements, validate, init player.
+ */
+
 #include "cub3d.h"
 
 static int	ft_parse_and_validate(t_game *game, int fd, char *first_line);
@@ -24,7 +29,8 @@ static int	ft_parse_and_validate(t_game *game, int fd, char *first_line);
 * @param filename Path to the .cub file to be parsed.
 * @param game Pointer to the game structure where the data will be stored.
 * @return int 0 if successful, 1 if an error occurs.
-*/
+ * @ingroup parser
+ */
 int	ft_parse_cub_file(char *filename, t_game *game)
 {
 	int		fd;
@@ -52,13 +58,14 @@ int	ft_parse_cub_file(char *filename, t_game *game)
 }
 
 /**
-* @brief Opens and validates the .cub file.
-*
-* Checks if the file has the .cub extension and attempts to open it.
-*
-* @param filename Path to the file to be opened.
-* @return int File descriptor if successful, -1 if an error occurs.
-*/
+ * @brief Opens and validates the .cub file.
+ *
+ * Checks if the file has the .cub extension and attempts to open it.
+ *
+ * @param filename Path to the file to be opened.
+ * @return int File descriptor if successful, -1 if an error occurs.
+ * @ingroup parser
+ */
 int	ft_open_and_validate(char *filename)
 {
 	int	len;

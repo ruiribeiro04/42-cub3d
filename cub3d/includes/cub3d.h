@@ -32,6 +32,7 @@
 # include "doors.h"
 # include "raycasting.h"
 # include "parser.h"
+# include "doxygen_groups.h"
 # include "../minilibx/mlx.h"
 
 /* init.c */

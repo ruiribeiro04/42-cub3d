@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_elements.c
+ * @brief Parse all element lines from the .cub file.
+ */
+
 #include "cub3d.h"
 
 /**

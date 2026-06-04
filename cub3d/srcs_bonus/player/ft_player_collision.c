@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_player_collision.c
+ * @brief Player wall collision detection.
+ */
+
 #include "cub3d.h"
 
 static int	ft_is_blocked_tile(t_game *game, int map_x, int map_y)
@@ -31,6 +36,9 @@ static int	ft_is_blocked_tile(t_game *game, int map_x, int map_y)
 	return (0);
 }
 
+/**
+ * @ingroup player
+ */
 int	ft_player_check_collisions(t_game *game, float x, float y)
 {
 	int	map_x;

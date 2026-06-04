@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_validate_utils.c
+ * @brief Map validation utility helpers.
+ */
+
 #include "cub3d.h"
 
-/**
- * @brief Validates the boundaries of a row in the map.
- * 
- * Checks whether the cells at the edges (first/last row or
- * first/last column) contain only valid boundary characters
- * ('1', ' ', 'N', 'S', 'E', 'W').
- * 
- * @param game Pointer to the game structure.
- * @param y Index of the row to check.
- * @param x Index of the column to check.
- * @return int 0 if valid, 1 if invalid.
- */
 static int	check_edge_char(char c)
 {
 	if (c != '1' && c != ' ' && c != 'D')
@@ -31,6 +24,19 @@ static int	check_edge_char(char c)
 	return (0);
 }
 
+/**
+ * @brief Validates the boundaries of a row in the map.
+ *
+ * Checks whether the cells at the edges (first/last row or
+ * first/last column) contain only valid boundary characters
+ * ('1', ' ', 'N', 'S', 'E', 'W').
+ *
+ * @param game Pointer to the game structure.
+ * @param y Index of the row to check.
+ * @param x Index of the column to check.
+ * @return int 0 if valid, 1 if invalid.
+ * @ingroup parser
+ */
 int	validate_row_boundaries(t_game *game, int y, int x)
 {
 	int	len;

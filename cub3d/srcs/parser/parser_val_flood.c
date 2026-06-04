@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_val_flood.c
+ * @brief Flood-fill algorithm for map closure validation.
+ */
+
 #include "cub3d.h"
 
 static void	ft_print_breach(int y, int x)
@@ -33,6 +38,9 @@ static int	ft_flood_step(char **map_copy, int y, int x)
 	return (0);
 }
 
+/**
+ * @ingroup parser
+ */
 int	ft_flood_fill(char **map_copy, int y, int x)
 {
 	char	c;

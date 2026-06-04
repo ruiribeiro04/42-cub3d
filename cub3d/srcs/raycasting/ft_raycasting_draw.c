@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_raycasting_draw.c
+ * @brief Draw the rendered raycasting frame to the image buffer.
+ */
+
 #include "cub3d.h"
 
 static void	ft_raycasting_draw_ceiling(t_game *game, int col)
@@ -93,6 +98,9 @@ static void	ft_raycasting_draw_floor(t_game *game, int col)
 	}
 }
 
+/**
+ * @ingroup raycasting
+ */
 void	ft_raycasting_draw_column(t_game *game, int col)
 {
 	ft_raycasting_draw_ceiling(game, col);

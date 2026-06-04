@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_elements.c
+ * @brief Parse all NO/SO/WE/EA/F/C element lines from the .cub file.
+ */
+
 #include "cub3d.h"
 
 static int	ft_parse_element_line(char *line, t_game *game)

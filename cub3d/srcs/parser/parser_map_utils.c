@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file parser_map_utils.c
+ * @brief Map grid utility helpers.
+ */
+
 #include "cub3d.h"
 
 /**
