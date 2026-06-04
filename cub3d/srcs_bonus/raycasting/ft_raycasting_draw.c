@@ -66,7 +66,7 @@ static void	ft_raycasting_draw_wall(t_game *game, int col)
 	if (game->ray.hit_door && game->ray.hit_door->tex.img)
 		tex = &game->ray.hit_door->tex;
 	else
-		tex = ft_get_wall_texture(game);
+		tex = ft_select_wall_texture(game);
 	ft_raycasting_calc_tex_x(game, tex);
 	if (game->ray.tex_x < 0)
 		return ;

@@ -157,6 +157,46 @@ valgrind: $(NAME)
 			./$(NAME) $(ARGS)
 		@echo "$(GREEN)Valgrind finished! Check valgrind-out.txt$(RESET)"
 
+# make valgrind_all - run valgrind on every mandatory map
+valgrind_all: CFLAGS += -g
+valgrind_all: $(NAME)
+	@mkdir -p valgrind-maps
+	@SUMMARY=valgrind-maps/summary.txt; \
+	rm -f $$SUMMARY; \
+	FAIL=0; \
+	MAP_COUNT=0; \
+	for map in maps/mandatory/*.cub; do \
+		[ -f "$$map" ] || continue; \
+		MAP_COUNT=$$((MAP_COUNT + 1)); \
+		name=$$(basename $$map .cub); \
+		log=valgrind-maps/$$name.log; \
+		echo "$(CYAN)Valgrind on $$map...$(RESET)"; \
+		timeout 5 valgrind --leak-check=full --show-leak-kinds=all \
+			--suppressions=mlx.supp \
+			--log-file=$$log \
+			./$(NAME) $$map > /dev/null 2>&1; \
+		DEF=$$(grep 'definitely lost:' $$log | awk '{print $$4}'); \
+		DEF=$${DEF:-0}; \
+		REA=$$(grep 'still reachable:' $$log | awk '{print $$4}'); \
+		REA=$${REA:-0}; \
+		echo "$$name: definitely_lost=$$DEF still_reachable=$$REA" >> $$SUMMARY; \
+		if [ "$$DEF" != "0" ] || [ "$$REA" != "0" ]; then \
+			echo "$(RED)$$name: leak detected$(RESET)"; \
+			FAIL=1; \
+		else \
+			echo "$(GREEN)$$name: OK$(RESET)"; \
+		fi; \
+	done; \
+	if [ $$MAP_COUNT -eq 0 ]; then \
+		echo "$(RED)No .cub files found in maps/mandatory/$(RESET)"; \
+		exit 1; \
+	fi; \
+	if [ $$FAIL = 1 ]; then \
+		echo "$(RED)FAIL: at least one map has non-MLX leaks$(RESET)"; \
+		exit 1; \
+	fi; \
+	echo "$(GREEN)OK: all maps clean$(RESET)"
+
 # make valgrind_bonus ARGS="maps/mapa_bonus.cub"
 valgrind_bonus: CFLAGS += -g
 valgrind_bonus: $(NAME_BONUS)
@@ -226,4 +266,4 @@ test_clean:
 	@$(RM) test_parser test_parser_exhaustive test_memory test_integration
 	@$(RM) -r tests/maps_invalid
 
-.PHONY: all bonus clean fclean re debug debug_bonus valgrind valgrind_bonus docs docs_clean docs_check test test_parser test_parser_exhaustive test_memory test_integration test_all test_clean norminette lint
+.PHONY: all bonus clean fclean re debug debug_bonus valgrind valgrind_bonus valgrind_all docs docs_clean docs_check test test_parser test_parser_exhaustive test_memory test_integration test_all test_clean norminette lint

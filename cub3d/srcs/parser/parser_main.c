@@ -12,25 +12,13 @@
 
 /**
  * @file parser_main.c
- * @brief Main parser orchestration: open file, read elements, validate, init player.
+ * @brief Main parser orchestration.
  */
 
 #include "cub3d.h"
 
 static int	ft_parse_and_validate(t_game *game, int fd, char *first_line);
 
-/**
-* @brief Performs complete parsing of the .cub file.
-*
-* This function orchestrates the entire parsing process: it opens the file,
-* parses the configuration elements (textures and colors), and then
-* parses and validates the map.
-*
-* @param filename Path to the .cub file to be parsed.
-* @param game Pointer to the game structure where the data will be stored.
-* @return int 0 if successful, 1 if an error occurs.
- * @ingroup parser
- */
 int	ft_parse_cub_file(char *filename, t_game *game)
 {
 	int		fd;
@@ -57,15 +45,6 @@ int	ft_parse_cub_file(char *filename, t_game *game)
 	return (0);
 }
 
-/**
- * @brief Opens and validates the .cub file.
- *
- * Checks if the file has the .cub extension and attempts to open it.
- *
- * @param filename Path to the file to be opened.
- * @return int File descriptor if successful, -1 if an error occurs.
- * @ingroup parser
- */
 int	ft_open_and_validate(char *filename)
 {
 	int	len;
@@ -89,19 +68,6 @@ int	ft_open_and_validate(char *filename)
 	return (fd);
 }
 
-/**
-* @brief Parses the map and validates it.
-*
-* This function parses the map grid, validates the characters,
-* checks if the map is closed, validates textures, and initializes
-* the player's position.
-* In case of error, it frees all allocated memory.
-*
-* @param game Pointer to the game structure.
-* @param fd File descriptor of the open file.
-* @param first_line First line of the map (already read previously).
-* @return int 0 in case of success, 1 in case of error.
-*/
 static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
 {
 	game->map = ft_parse_map_grid(fd, game, first_line);

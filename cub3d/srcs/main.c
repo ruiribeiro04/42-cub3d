@@ -28,7 +28,10 @@ int	ft_draw_loop(void *param)
 	ft_player_move(game);
 	ft_clear_image(game, 0x00000000);
 	if (ft_raycasting(game) == 1)
-		ft_error(game, "Raycasting failed!");
+	{
+		game->error_flag = true;
+		return (1);
+	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
 }
@@ -70,6 +73,8 @@ int	main(int argc, char **argv)
 		(int (*)())ft_exit_hook, &game);
 	mlx_loop_hook(game.mlx, (int (*)())ft_draw_loop, &game);
 	mlx_loop(game.mlx);
+	if (game.error_flag)
+		ft_putstr_fd("Error\nRaycasting failed!\n", STDERR_FILENO);
 	ft_free_game(&game);
 	return (0);
 }

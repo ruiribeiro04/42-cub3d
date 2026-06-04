@@ -35,6 +35,25 @@
 # include "doxygen_groups.h"
 # include "../minilibx/mlx.h"
 
+/**
+ * @def ft_safe_free
+ * @brief Free a pointer and set it to NULL in a single statement.
+ *
+ * The argument is the *address* of the pointer (e.g.,
+ * `ft_safe_free((void **)&game->path_north);`). The macro is NULL-safe
+ * at both levels: a NULL address or a NULL `*ptr` is a no-op.
+ *
+ * @param ptr Address of the pointer to free and reset.
+ */
+# define ft_safe_free(ptr) \
+	do { \
+		if ((ptr) && *(ptr)) \
+		{ \
+			free(*(ptr)); \
+			*(ptr) = NULL; \
+		} \
+	} while (0)
+
 /* init.c */
 int		ft_init_game(t_game *game, char *map_file);
 

@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.h                                         :+:      :+:    :+:   */
+/*   parser_gnl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
-/*   Updated: 2026/06/04 15:18:50 by ruiferna         ###   ########.fr       */
+/*   Updated: 2026/06/04 15:52:34 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEXTURES_H
-# define TEXTURES_H
+/**
+ * @file parser_gnl.c
+ * @brief GNL buffer flush helper.
+ */
 
-int				ft_load_all_textures(t_game *game);
-t_texture		*ft_select_wall_texture(t_game *game);
-unsigned int	ft_get_texture_pixel(t_texture *tex, int x, int y);
+#include "cub3d.h"
 
-#endif
+void	ft_flush_gnl_buffer(int fd)
+{
+	char	*line;
+
+	if (fd < 0)
+		return ;
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+}

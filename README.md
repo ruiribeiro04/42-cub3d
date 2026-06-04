@@ -369,6 +369,14 @@ make norminette
 
 Runs norminette on `srcs/`, `srcs_bonus/`, and `includes/` with the full default ruleset (norminette v3 ignores `-R` rule-suppression flags — they exist only for v2 backward compatibility). Output is saved to `norminette.log`. The recipe uses `pipefail`, so a non-zero norminette exit fails the `make` target.
 
+### Lint
+
+```bash
+make lint
+```
+
+Runs the forbidden-function scan (`scripts/scan_forbidden.sh`) and a secondary check for unprefixed-but-wrapped libc calls (`strlen(`, `strchr(`, etc.) in `srcs_bonus/`. Exit 0 = clean; exit non-zero = forbidden or unwrapped function found. Output is saved to `forbidden-functions.log`.
+
 ### Usage
 
 ```bash
@@ -391,6 +399,13 @@ Runs norminette on `srcs/`, `srcs_bonus/`, and `includes/` with the full default
 | `←` | Rotate view left |
 | `→` | Rotate view right |
 | `ESC` | Exit game |
+
+### Bonus features
+
+- **Doors** -- run `./cub3D_bonus maps/bonus/doors_basic.cub`, walk up to the door, press `E`, the door opens.
+- **Minimap** -- run `./cub3D_bonus maps/bonus/minimap_visible.cub`, the minimap is drawn in the top-left corner.
+- **Animated sprites** -- run `./cub3D_bonus maps/bonus/sprites_animated.cub`, the sprite cycles through its frames.
+- **Mouse look** -- run `./cub3D_bonus maps/bonus/mouse_look.cub`, move the mouse to look around.
 
 ### Additional Make Commands
 
@@ -429,6 +444,12 @@ make debug         # Compile with debug symbols and AddressSanitizer
    ```bash
    ./cub3D your_map.cub
    ```
+
+---
+
+## Code Conventions
+
+- Use `ft_safe_free((void **)&ptr)` to free and NULL a pointer uniformly.
 
 ---
 

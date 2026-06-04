@@ -40,11 +40,44 @@ static void	ft_free_map_copy(char **map_copy)
 
 	i = 0;
 	while (map_copy[i])
-		/**
-		 * @ingroup parser
-		 */
 		free(map_copy[i++]);
 	free(map_copy);
+}
+
+static int	ft_count_height(char **map)
+{
+	int	h;
+
+	h = 0;
+	while (map[h])
+		h++;
+	return (h);
+}
+
+char	**ft_copy_map(t_game *game)
+{
+	char	**map_copy;
+	int		y;
+	int		h;
+
+	h = ft_count_height(game->map);
+	map_copy = (char **)ft_calloc(h + 1, sizeof(char *));
+	if (!map_copy)
+		return (NULL);
+	y = 0;
+	while (y < h)
+	{
+		map_copy[y] = ft_strdup(game->map[y]);
+		if (!map_copy[y])
+		{
+			while (y > 0)
+				free(map_copy[--y]);
+			free(map_copy);
+			return (NULL);
+		}
+		y++;
+	}
+	return (map_copy);
 }
 
 int	ft_validate_map_closed(t_game *game)

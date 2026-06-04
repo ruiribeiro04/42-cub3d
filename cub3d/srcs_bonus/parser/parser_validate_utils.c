@@ -113,5 +113,13 @@ int	validate_overhangs(t_game *game, int y, int x)
 		if (x >= len_bottom && game->map[y][x] != '1')
 			return (1);
 	}
+	if (y > 0 && x < (int)ft_strlen(game->map[y]))
+	{
+		len_top = ft_strlen(game->map[y - 1]);
+		if (len_top > (int)ft_strlen(game->map[y])
+			&& x == (int)ft_strlen(game->map[y]) - 1
+			&& game->map[y][x] != '1')
+			return (1);
+	}
 	return (0);
 }

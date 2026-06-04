@@ -34,12 +34,12 @@ void	ft_draw_minimap(t_game *game)
 	int		y;
 	int		current_len;
 
-	y = -1;
-	while (++y < game->map_height)
+	y = 0;
+	while (y < game->map_height)
 	{
 		current_len = ft_strlen(game->map[y]);
-		x = -1;
-		while (++x < game->map_width)
+		x = 0;
+		while (x < game->map_width)
 		{
 			draw_pos.x = MAP_OFFSET_X + (x * MAP_TILE);
 			draw_pos.y = MAP_OFFSET_Y + (y * MAP_TILE);
@@ -49,7 +49,9 @@ void	ft_draw_minimap(t_game *game)
 				ft_draw_rect(game, draw_pos, MAP_TILE, MAP_COLOR_DOOR);
 			else
 				ft_draw_rect(game, draw_pos, MAP_TILE, MAP_COLOR_BG);
+			x++;
 		}
+		y++;
 	}
 	ft_draw_player_marker(game, &draw_pos);
 }

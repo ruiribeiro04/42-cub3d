@@ -17,6 +17,8 @@
 
 #include "cub3d.h"
 
+#define FLOOD_STACK_MAX 4096
+
 static void	ft_print_breach(int y, int x)
 {
 	ft_putstr_fd("Error\nMap not closed - boundary breach at (", 2);
@@ -30,7 +32,7 @@ static int	ft_flood_step(char **map_copy, int y, int x)
 {
 	int	line_length;
 
-	if (y < 0)
+	if (y < 0 || !map_copy[y])
 		return (ft_print_breach(y, x), 1);
 	line_length = ft_strlen(map_copy[y]);
 	if (x < 0 || x >= line_length)
@@ -38,60 +40,56 @@ static int	ft_flood_step(char **map_copy, int y, int x)
 	return (0);
 }
 
+static int	ft_is_wall(char c)
+{
+	return (c == '1' || c == '2' || c == 'D' || c == ' ' || c == 'V');
+}
+
+static int	ft_push_neighbor(t_point *stack, int top, int ny, int nx)
+{
+	t_point	p;
+
+	if (top >= FLOOD_STACK_MAX - 1)
+		return (ft_putstr_fd("Error\nMap too complex\n", 2), -1);
+	p.x = nx;
+	p.y = ny;
+	stack[top] = p;
+	return (top + 1);
+}
+
 /**
  * @ingroup parser
  */
 int	ft_flood_fill(char **map_copy, int y, int x)
 {
-	char	c;
+	t_point	stack[FLOOD_STACK_MAX];
+	int		top;
+	t_point	cur;
 
-	if (ft_flood_step(map_copy, y, x) == 1)
+	top = 0;
+	top = ft_push_neighbor(stack, top, y, x);
+	if (top == -1)
 		return (1);
-	c = map_copy[y][x];
-	if (c == '1' || c == '2' || c == 'D' || c == ' ' || c == 'V')
-		return (0);
-	map_copy[y][x] = 'V';
-	if (ft_flood_fill(map_copy, y - 1, x))
-		return (1);
-	if (ft_flood_fill(map_copy, y + 1, x))
-		return (1);
-	if (ft_flood_fill(map_copy, y, x - 1))
-		return (1);
-	return (ft_flood_fill(map_copy, y, x + 1));
-}
-
-static int	ft_count_height(char **map)
-{
-	int	h;
-
-	h = 0;
-	while (map[h])
-		h++;
-	return (h);
-}
-
-char	**ft_copy_map(t_game *game)
-{
-	char	**map_copy;
-	int		y;
-	int		h;
-
-	h = ft_count_height(game->map);
-	map_copy = (char **)ft_calloc(h + 1, sizeof(char *));
-	if (!map_copy)
-		return (NULL);
-	y = 0;
-	while (y < h)
+	while (top > 0)
 	{
-		map_copy[y] = ft_strdup(game->map[y]);
-		if (!map_copy[y])
-		{
-			while (y > 0)
-				free(map_copy[--y]);
-			free(map_copy);
-			return (NULL);
-		}
-		y++;
+		cur = stack[--top];
+		if (ft_flood_step(map_copy, cur.y, cur.x) == 1)
+			return (1);
+		if (ft_is_wall(map_copy[cur.y][cur.x]))
+			continue ;
+		map_copy[cur.y][cur.x] = 'V';
+		top = ft_push_neighbor(stack, top, cur.y - 1, cur.x);
+		if (top == -1)
+			return (1);
+		top = ft_push_neighbor(stack, top, cur.y + 1, cur.x);
+		if (top == -1)
+			return (1);
+		top = ft_push_neighbor(stack, top, cur.y, cur.x - 1);
+		if (top == -1)
+			return (1);
+		top = ft_push_neighbor(stack, top, cur.y, cur.x + 1);
+		if (top == -1)
+			return (1);
 	}
-	return (map_copy);
+	return (0);
 }

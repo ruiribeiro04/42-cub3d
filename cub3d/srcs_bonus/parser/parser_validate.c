@@ -121,8 +121,6 @@ static int	print_boundary_error(t_game *game, int y, int x)
  * @return int 0 if the map is closed, 1 if there are problems.
  * @ingroup parser
  */
-* @return int 0 if the map is closed, 1 if there are problems.
-*/
 int	ft_validate_map_closed(t_game *game)
 {
 	int	y;
@@ -139,6 +137,11 @@ int	ft_validate_map_closed(t_game *game)
 			if (validate_space_neighbors(game, y, x))
 			{
 				ft_putstr_fd("Error\nSpace adjacent to open area\n", 2);
+				return (1);
+			}
+			if (validate_overhangs(game, y, x))
+			{
+				ft_putstr_fd("Error\nMap cell overhangs adjacent row\n", 2);
 				return (1);
 			}
 			x++;

@@ -21,8 +21,6 @@
  * and free texture resources.
  */
 
-/* TODO(cub3D-#TBD): refactor texture column rendering — see Epic 5 S5.2 */
-
 /**
  * @brief Select the correct wall texture for the current ray.
  *
@@ -32,7 +30,7 @@
  * @param game Pointer to the main game structure with ray and texture data.
  * @return Pointer to the `t_texture` corresponding to the wall hit.
  */
-t_texture	*ft_get_wall_texture(t_game *game)
+t_texture	*ft_select_wall_texture(t_game *game)
 {
 	if (game->ray.side == 0)
 	{

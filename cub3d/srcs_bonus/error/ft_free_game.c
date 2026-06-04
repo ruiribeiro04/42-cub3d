@@ -79,26 +79,10 @@ static void	ft_free_textures(t_game *game)
  */
 static void	ft_free_config_paths(t_game *game)
 {
-	if (game->path_north)
-	{
-		free(game->path_north);
-		game->path_north = NULL;
-	}
-	if (game->path_south)
-	{
-		free(game->path_south);
-		game->path_south = NULL;
-	}
-	if (game->path_east)
-	{
-		free(game->path_east);
-		game->path_east = NULL;
-	}
-	if (game->path_west)
-	{
-		free(game->path_west);
-		game->path_west = NULL;
-	}
+	ft_safe_free((void **)&game->path_north);
+	ft_safe_free((void **)&game->path_south);
+	ft_safe_free((void **)&game->path_east);
+	ft_safe_free((void **)&game->path_west);
 }
 
 /**

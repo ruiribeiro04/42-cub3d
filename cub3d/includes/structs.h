@@ -126,6 +126,7 @@ typedef struct s_game
 	t_door			*doors;
 	int				door_count;
 	t_door			***door_map;
+	bool			error_flag;
 }					t_game;
 
 #endif

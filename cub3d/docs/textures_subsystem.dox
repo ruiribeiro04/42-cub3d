@@ -11,7 +11,7 @@
  * 2. **Load all** (`ft_load_all_textures`) -- load the north, south,
  *    east, and west textures from the paths specified in the `.cub`
  *    file.
- * 3. **Select** (`ft_get_wall_texture`) -- choose the correct texture
+ * 3. **Select** (`ft_select_wall_texture`) -- choose the correct texture
  *    based on the ray's side and step direction.
  * 4. **Sample** (`ft_get_texture_pixel`) -- read the 32-bit color at
  *    (tex_x, tex_y) inside a given texture.
