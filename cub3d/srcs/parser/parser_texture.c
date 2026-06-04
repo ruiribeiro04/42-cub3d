@@ -47,14 +47,13 @@ static int	parse_one_cardinal(char *line, t_game *game)
 	path = extract_path(line, 3);
 	if (!path)
 		return (1);
-	if (!ft_strncmp(line, "NO ", 3))
-		slot = &game->path_north;
-	else if (!ft_strncmp(line, "SO ", 3))
-		slot = &game->path_south;
-	else if (!ft_strncmp(line, "WE ", 3))
-		slot = &game->path_west;
-	else
-		slot = &game->path_east;
+	slot = ft_select_texture_slot(line, game);
+	if (!slot)
+	{
+		ft_putstr_fd("Error\nUnknown texture direction\n", 2);
+		free(path);
+		return (1);
+	}
 	if (*slot)
 	{
 		ft_putstr_fd("Error\nDuplicate texture\n", 2);

@@ -25,7 +25,7 @@ void	ft_free_split_arr(char **values)
 	free(values);
 }
 
-int	is_valid_number(char *str)
+int	ft_is_valid_number(char *str)
 {
 	if (!str || !*str)
 		return (0);
@@ -74,7 +74,7 @@ int	ft_check_numeric_values(char **values)
 	i = 0;
 	while (i < 3)
 	{
-		if (!is_valid_number(values[i]))
+		if (!ft_is_valid_number(values[i]))
 		{
 			ft_putstr_fd("Error\nColor values must be numeric (0-255)\n", 2);
 			return (1);

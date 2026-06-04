@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	ft_free_split(char **values)
+void	ft_free_split_arr(char **values)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ void	ft_free_split(char **values)
 	free(values);
 }
 
-int	is_valid_number(char *str)
+int	ft_is_valid_number(char *str)
 {
 	if (!str || !*str)
 		return (0);
@@ -46,16 +46,6 @@ void	ft_replace_commas_with_spaces(char *str)
 			*str = ' ';
 		str++;
 	}
-}
-
-int	ft_count_values(char **values)
-{
-	int	i;
-
-	i = 0;
-	while (values[i])
-		i++;
-	return (i);
 }
 
 int	ft_validate_range_and_assign(int *r, int *g, int *b, char **values)

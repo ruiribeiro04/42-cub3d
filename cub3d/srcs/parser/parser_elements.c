@@ -24,8 +24,7 @@ static int	ft_parse_element_line(char *line, t_game *game)
 
 static int	ft_handle_element_line(char *line, t_game *game)
 {
-	int		ret;
-	char	*next;
+	int	ret;
 
 	if (!ft_is_element_line(line))
 		return (0);
@@ -35,12 +34,6 @@ static int	ft_handle_element_line(char *line, t_game *game)
 		ft_putstr_fd("Error\nInvalid or duplicate config elements\n", 2);
 		return (1);
 	}
-	if (ret == -1)
-		return (0);
-	next = ft_skip_empty_lines(0);
-	if (next)
-		free(next);
-	(void)game;
 	return (0);
 }
 

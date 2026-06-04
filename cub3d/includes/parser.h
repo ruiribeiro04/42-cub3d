@@ -18,6 +18,7 @@ int		ft_open_and_validate(char *filename);
 char	*ft_parse_elements(int fd, t_game *game);
 int		ft_parse_texture(char *line, t_game *game);
 int		ft_parse_color(char *line, t_game *game);
+char	**ft_select_texture_slot(char *line, t_game *game);
 char	**ft_parse_map_grid(int fd, t_game *game, char *first_line);
 int		ft_validate_map_chars(t_game *game);
 int		ft_validate_map_closed(t_game *game);
@@ -34,9 +35,13 @@ int		add_line_to_map(char *line, char ***map, int *i, t_game *game);
 int		ft_extract_sprites(t_game *game);
 void	ft_free_parsed_sprites(t_game *game);
 
+void	ft_free_door_map(t_game *game);
+int		ft_alloc_door_grid(t_game *game);
+
 void	ft_free_split_arr(char **values);
-int		is_valid_number(char *str);
+int		ft_is_valid_number(char *str);
 void	ft_replace_commas_with_spaces(char *str);
+int		ft_count_split(char **values);
 int		ft_validate_range_and_assign(int *r, int *g, int *b, char **values);
 int		ft_check_numeric_values(char **values);
 int		ft_is_element_line(char *line);

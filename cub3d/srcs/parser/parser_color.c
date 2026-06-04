@@ -36,41 +36,23 @@ static int	ft_strip_newlines_in_values(char **values, int count)
 	return (1);
 }
 
-static int	ft_count_split(char **values)
-{
-	int	count;
-
-	count = 0;
-	while (values[count])
-		count++;
-	return (count);
-}
-
 static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 {
-	char	*str;
 	char	**values;
-	int		result;
 
-	str = &line[2];
-	ft_replace_commas_with_spaces(str);
-	values = ft_split(str, ' ');
+	ft_replace_commas_with_spaces(&line[2]);
+	values = ft_split(&line[2], ' ');
 	if (!values)
 		return (1);
-	result = 0;
 	if (ft_count_split(values) != 3)
-	{
-		print_color_format_error();
-		result = 1;
-	}
-	if (!result)
-		ft_strip_newlines_in_values(values, 3);
-	if (!result)
-		result = ft_check_numeric_values(values);
-	if (!result)
-		result = ft_validate_range_and_assign(r, g, b, values);
+		return (ft_free_split_arr(values), print_color_format_error(), 1);
+	ft_strip_newlines_in_values(values, 3);
+	if (ft_check_numeric_values(values))
+		return (ft_free_split_arr(values), 1);
+	if (ft_validate_range_and_assign(r, g, b, values))
+		return (ft_free_split_arr(values), 1);
 	ft_free_split_arr(values);
-	return (result);
+	return (0);
 }
 
 int	ft_parse_color(char *line, t_game *game)

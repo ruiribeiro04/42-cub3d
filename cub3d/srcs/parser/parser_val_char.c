@@ -25,7 +25,7 @@ void	ft_print_invalid_char_error(char c, int y, int x)
 
 int	ft_is_valid_map_char(char c)
 {
-	if (c == '0' || c == '1' || c == '2' || c == 'D' || c == ' ' || c == '\t')
+	if (c == '0' || c == '1' || c == ' ' || c == '\t')
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);

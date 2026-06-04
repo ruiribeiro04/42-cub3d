@@ -77,7 +77,12 @@ char	**ft_copy_map(t_game *game)
 	{
 		map_copy[y] = ft_strdup(game->map[y]);
 		if (!map_copy[y])
+		{
+			while (y > 0)
+				free(map_copy[--y]);
+			free(map_copy);
 			return (NULL);
+		}
 		y++;
 	}
 	return (map_copy);
