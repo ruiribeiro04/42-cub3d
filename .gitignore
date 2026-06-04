@@ -25,6 +25,8 @@ _b*
 *.map
 *.exp
 .vscode/
+.a*/
+o*.*on
 
 # Precompiled Headers
 *.gch
@@ -86,3 +88,4 @@ cub3d/cub3D
 error_logs.log
 cub3d/simple_test
 cub3d/debug_test
+cub3d/norminette.log

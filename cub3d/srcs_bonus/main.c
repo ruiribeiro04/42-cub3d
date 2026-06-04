@@ -1,5 +1,10 @@
 #include "cub3d.h"
 
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+#endif
+
 int	ft_draw_loop(t_game *game)
 {
 	ft_player_move(game);
@@ -37,3 +42,7 @@ int	main(int argc, char **argv)
 	ft_free_game(&game);
 	return (0);
 }
+
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif

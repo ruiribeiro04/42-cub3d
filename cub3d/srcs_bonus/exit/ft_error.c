@@ -24,5 +24,4 @@ int	ft_error(t_game *game, char *error_msg)
 	ft_putstr_fd(error_msg, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	return (1);
-	//exit(EXIT_FAILURE);
 }

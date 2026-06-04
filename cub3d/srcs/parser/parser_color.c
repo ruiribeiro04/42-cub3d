@@ -20,8 +20,14 @@ static void	ft_free_split(char **values)
 	free(values);
 }
 
+static void	print_color_format_error(void)
+{
+	ft_putstr_fd("Error\nInvalid color format. Expected: ", 2);
+	ft_putstr_fd("F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
+}
+
 /**
-* @brief Extracts the RGB values from a configuration line.
+ * @brief Extracts the RGB values from a configuration line.
 * 
 * Splits the line and converts the values to integers,
 * validating that they are in the range [0, 255].
@@ -71,21 +77,22 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 	if (!values)
 		return (1);
 	result = 0;
-	// Count non-empty values
+	/* Count non-empty values */
 	i = 0;
 	while (values[i])
 		i++;
 	if (i != 3)
 	{
-		ft_putstr_fd("Error\nInvalid color format. Expected: F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
+		print_color_format_error();
 		result = 1;
 	}
-	else if (!values[0] || !values[1] || !values[2] || !*values[0] || !*values[1] || !*values[2])
+	else if (!values[0] || !values[1] || !values[2]
+		|| !*values[0] || !*values[1] || !*values[2])
 	{
-		ft_putstr_fd("Error\nInvalid color format. Expected: F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
+		print_color_format_error();
 		result = 1;
 	}
-	// Strip newlines from values
+	/* Strip newlines from values */
 	i = 0;
 	while (!result && i < 3)
 	{

@@ -68,6 +68,14 @@ all: $(NAME)
 
 bonus: $(NAME_BONUS)
 
+# ---------------------- Norminette ---------------------------------------------
+norminette:
+	@echo "$(CYAN)Running norminette on srcs/, srcs_bonus/, includes/...$(RESET)"
+	@norminette -R CheckForbiddenSourceHeader srcs/ srcs_bonus/ includes/ \
+		-R CheckFunctionLength -R CheckLineLength \
+		| tee norminette.log
+	@echo "$(GREEN)Norminette OK! See norminette.log for evidence.$(RESET)"
+
 # ---------------------- MiniLibX ----------------------------------------------
  $(MLX_DIR):
 	@echo "$(CYAN)Downloading MiniLibX...$(RESET)"
@@ -202,4 +210,4 @@ test_clean:
 	@$(RM) test_parser test_parser_exhaustive test_memory test_integration
 	@$(RM) -r tests/maps_invalid
 
-.PHONY: all bonus clean fclean re debug debug_bonus valgrind valgrind_bonus docs docs_clean test test_parser test_parser_exhaustive test_memory test_integration test_all test_clean
+.PHONY: all bonus clean fclean re debug debug_bonus valgrind valgrind_bonus docs docs_clean test test_parser test_parser_exhaustive test_memory test_integration test_all test_clean norminette

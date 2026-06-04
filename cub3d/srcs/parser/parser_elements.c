@@ -23,9 +23,10 @@ static int	ft_is_element_line(char *line)
 /**
 * @brief Checks whether a line is the start of map data.
 *
-* Uses lenient detection: any line STARTING with '0', '1', 'N', 'S', 'E', 'W', or '2'
-* is considered a map line. However, 'N', 'S', 'E', 'W' must be followed by whitespace or
-* end of line to distinguish from config lines like 'NO', 'SO', etc.
+ * Uses lenient detection: any line STARTING with '0', '1', 'N', 'S',
+ * 'E', 'W', or '2' is considered a map line. However, 'N', 'S', 'E',
+ * 'W' must be followed by whitespace or end of line to distinguish from
+ * config lines like 'NO', 'SO', etc.
 *
 * @param line Line to be checked.
 * @return int 1 if it appears to be a map line, 0 otherwise.
@@ -34,16 +35,16 @@ static int	ft_is_map_line(char *line)
 {
 	if (!line || line[0] == '\n' || line[0] == '\0')
 		return (0);
-	// Skip leading whitespace
+	/* Skip leading whitespace */
 	while (line[0] == ' ' || line[0] == '\t')
 		line++;
-	// Check if line starts with a wall or floor character
+	/* Check if line starts with a wall or floor character */
 	if (line[0] == '0' || line[0] == '1' || line[0] == '2')
 		return (1);
-	// Check for player positions - must be single character followed by whitespace/end
+	/* Check for player positions - must be single char + ws/end */
 	if (line[0] == 'N' || line[0] == 'S' || line[0] == 'E' || line[0] == 'W')
 	{
-		// Check if next character is whitespace, newline, or end of string
+		/* Check if next character is whitespace, newline, or end of string */
 		if (line[1] == ' ' || line[1] == '\t' || line[1] == '\n' || line[1] == '\0')
 			return (1);
 	}
@@ -109,8 +110,14 @@ static char	*ft_skip_empty_lines(int fd)
 	return (line);
 }
 
+static void	print_missing_elements_error(void)
+{
+	ft_putstr_fd("Error\nMissing required config elements", 2);
+	ft_putstr_fd(" (NO, SO, WE, EA, F, C)\n", 2);
+}
+
 /**
-* @brief Parses all configuration elements.
+ * @brief Parses all configuration elements.
 *
 * Processes all configuration lines (textures and colors) until
 * it finds the beginning of the map. Ignores unknown/invalid elements
@@ -143,7 +150,7 @@ char	*ft_parse_elements(int fd, t_game *game)
 			if (ret == 0)
 				count++;
 		}
-		// Unknown/invalid lines are silently ignored
+		/* Unknown/invalid lines are silently ignored */
 		free(line);
 		line = ft_skip_empty_lines(fd);
 	}
@@ -151,7 +158,7 @@ char	*ft_parse_elements(int fd, t_game *game)
 	{
 		if (line)
 			free(line);
-		ft_putstr_fd("Error\nMissing required config elements (NO, SO, WE, EA, F, C)\n", 2);
+		print_missing_elements_error();
 		return (NULL);
 	}
 	return (line);

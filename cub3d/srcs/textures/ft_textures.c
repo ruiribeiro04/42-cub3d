@@ -9,7 +9,7 @@
  * and free texture resources.
  */
 
-// TODO: Talvez a logica de display das texturas, esteja errada!
+/* TODO(cub3D-#TBD): refactor texture column rendering — see Epic 5 S5.2 */
 
 /**
  * @brief Select the correct wall texture for the current ray.

@@ -91,7 +91,7 @@ int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 	*map = realloc_map(*map, *i);
 	if (!*map)
 		return (0);
-	// Store line as-is without padding
+	/* Store line as-is without padding */
 	(*map)[*i] = line;
 	if (line_len > game->map_width)
 		game->map_width = line_len;

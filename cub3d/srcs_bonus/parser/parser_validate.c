@@ -18,45 +18,49 @@ static int	is_valid_char(char c)
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
-	if (c == 'D')  // Door
-		return (1);
-	if (c == 'A')  // Animated sprite
-		return (1);
-	if (c == '2')  // Wall/Door variant (bonus)
+	if (c == 'D' || c == 'A' || c == '2')
 		return (1);
 	return (0);
 }
 
+static int	check_row_chars(char **map, int y)
+{
+	int	x;
+
+	x = 0;
+	while (map[y][x])
+	{
+		if (!is_valid_char(map[y][x]))
+		{
+			ft_putstr_fd("Error\nInvalid character '", 2);
+			ft_putchar_fd(map[y][x], 2);
+			ft_putstr_fd("' in map\n", 2);
+			return (1);
+		}
+		x++;
+	}
+	return (0);
+}
+
 /**
-* @brief Validates all characters in the map.
-* 
-* Traverses the entire map checking if all characters
-* are valid. Prints an error message with the invalid character
-* if found.
-* 
-* @param game Pointer to the game structure.
-* @return int 0 if all characters are valid, 1 if there are invalid ones.
-*/
+ * @brief Validates all characters in the map.
+ * 
+ * Traverses the entire map checking if all characters
+ * are valid. Prints an error message with the invalid character
+ * if found.
+ * 
+ * @param game Pointer to the game structure.
+ * @return int 0 if all characters are valid, 1 if there are invalid ones.
+ */
 int	ft_validate_map_chars(t_game *game)
 {
 	int	y;
-	int	x;
 
 	y = 0;
 	while (game->map[y])
 	{
-		x = 0;
-		while (game->map[y][x])
-		{
-			if (!is_valid_char(game->map[y][x]))
-			{
-				ft_putstr_fd("Error\nInvalid character '", 2);
-				ft_putchar_fd(game->map[y][x], 2);
-				ft_putstr_fd("' in map\n", 2);
-				return (1);
-			}
-			x++;
-		}
+		if (check_row_chars(game->map, y))
+			return (1);
 		y++;
 	}
 	return (0);
@@ -108,7 +112,8 @@ static int	validate_cell(t_game *game, int y, int x)
 		ft_putstr_fd("Error\nSpace adjacent to open area\n", 2);
 		return (1);
 	}
-	// Overhang validation disabled to support irregular map shapes (triangles, etc.)
+	/* Overhang validation disabled to support irregular map shapes
+	** (triangles, etc.) */
 	return (0);
 }
 

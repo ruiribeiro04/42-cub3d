@@ -136,7 +136,7 @@ static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
 		ft_free_map(game);
 		return (1);
 	}
-	// Parse door positions from map (don't load textures yet)
+	/* Parse door positions from map (don't load textures yet) */
 	if (ft_parse_doors(game) == 1)
 	{
 		ft_free_paths(game);
@@ -154,8 +154,3 @@ static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
 	return (0);
 }
 
-// void	ft_free_config(t_game *game)
-// {
-// 	ft_free_paths(game);
-// 	ft_free_map(game);
-// }

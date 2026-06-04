@@ -80,10 +80,11 @@ static int	ft_load_door_textures(t_game *game)
 
 	if (game->door_count == 0)
 		return (0);
-	// Try to load door texture, fallback to gold texture if not available
+	/* Try to load door texture, fallback to gold texture if not available */
 	if (ft_load_texture(game, &game->doors[0].tex, "textures/door.xpm"))
 	{
-		if (ft_load_texture(game, &game->doors[0].tex, "../cub3d-tester/textures/gold.xpm"))
+		if (ft_load_texture(game, &game->doors[0].tex,
+				"../cub3d-tester/textures/gold.xpm"))
 			return (1);
 	}
 	i = 1;

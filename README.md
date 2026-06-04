@@ -361,6 +361,14 @@ int ft_validate_map_closed(t_game *game)
    - Compile all source files with flags: `-Wall -Wextra -Werror`
    - Generate the `cub3D` executable
 
+### Norminette
+
+```bash
+make norminette
+```
+
+Runs norminette with the three blocking checks (comments, function length, line length); output is saved to `norminette.log`.
+
 ### Usage
 
 ```bash
