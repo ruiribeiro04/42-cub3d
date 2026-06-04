@@ -69,11 +69,11 @@ all: $(NAME)
 bonus: $(NAME_BONUS)
 
 # ---------------------- Norminette ---------------------------------------------
+norminette: SHELL := /bin/bash
+norminette: .SHELLFLAGS := -o pipefail -c
 norminette:
 	@echo "$(CYAN)Running norminette on srcs/, srcs_bonus/, includes/...$(RESET)"
-	@norminette -R CheckForbiddenSourceHeader srcs/ srcs_bonus/ includes/ \
-		-R CheckFunctionLength -R CheckLineLength \
-		| tee norminette.log
+	@norminette srcs/ srcs_bonus/ includes/ 2>&1 | tee norminette.log
 	@echo "$(GREEN)Norminette OK! See norminette.log for evidence.$(RESET)"
 
 # ---------------------- MiniLibX ----------------------------------------------

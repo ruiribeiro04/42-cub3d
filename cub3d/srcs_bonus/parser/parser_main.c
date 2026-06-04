@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_main.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:21:41 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static int	ft_parse_and_validate(t_game *game, int fd, char *first_line);
@@ -136,7 +148,6 @@ static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
 		ft_free_map(game);
 		return (1);
 	}
-	/* Parse door positions from map (don't load textures yet) */
 	if (ft_parse_doors(game) == 1)
 	{
 		ft_free_paths(game);
@@ -153,4 +164,3 @@ static int	ft_parse_and_validate(t_game *game, int fd, char *first_line)
 	}
 	return (0);
 }
-

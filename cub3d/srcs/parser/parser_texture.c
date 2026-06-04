@@ -1,15 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_texture.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:52:06 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-/**
-* @brief Extracts the texture path from a configuration line.
-* 
-* Skips spaces after the identifier and copies the path,
-* removing the newline character if it exists.
-* 
-* @param line Complete configuration line.
-* @param start Starting position to begin searching for the path.
-* @return char* Extracted path (allocated), or NULL in case of error.
-*/
 static char	*extract_path(char *line, int start)
 {
 	int		i;
@@ -33,25 +35,39 @@ static char	*extract_path(char *line, int start)
 		len--;
 	}
 	if (len == 0)
-	{
-		free(path);
-		return (NULL);
-	}
+		return (free(path), NULL);
 	return (path);
 }
 
-/**
-* @brief Validates whether the texture file exists and can be opened.
-*
-* Attempts to open the file in read mode to verify its existence.
-* This is called after parsing is complete.
-*
-* @param path Path to the texture file.
-* @return int 0 if valid, 1 if unable to open the file.
-*/
+static int	parse_one_cardinal(char *line, t_game *game)
+{
+	char	*path;
+	char	**slot;
+
+	path = extract_path(line, 3);
+	if (!path)
+		return (1);
+	if (!ft_strncmp(line, "NO ", 3))
+		slot = &game->path_north;
+	else if (!ft_strncmp(line, "SO ", 3))
+		slot = &game->path_south;
+	else if (!ft_strncmp(line, "WE ", 3))
+		slot = &game->path_west;
+	else
+		slot = &game->path_east;
+	if (*slot)
+	{
+		ft_putstr_fd("Error\nDuplicate texture\n", 2);
+		free(path);
+		return (1);
+	}
+	*slot = path;
+	return (0);
+}
+
 int	validate_texture_path(char *path)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
@@ -65,167 +81,25 @@ int	validate_texture_path(char *path)
 	return (0);
 }
 
-/**
-* @brief Validates all texture paths after parsing.
-*
-* Checks that all 4 required textures exist and can be opened.
-* Provides specific error messages for missing textures.
-*
-* @param game Pointer to the game structure.
-* @return int 0 if all textures are valid, 1 if any are missing.
-*/
 int	validate_all_textures(t_game *game)
 {
-	int		errors;
+	int	errors;
 
 	errors = 0;
-	if (!game->path_north)
-	{
-		ft_putstr_fd("Error\nMissing north texture (NO)\n", 2);
+	if (!game->path_north || validate_texture_path(game->path_north))
 		errors++;
-	}
-	else if (validate_texture_path(game->path_north))
+	if (!game->path_south || validate_texture_path(game->path_south))
 		errors++;
-	if (!game->path_south)
-	{
-		ft_putstr_fd("Error\nMissing south texture (SO)\n", 2);
+	if (!game->path_east || validate_texture_path(game->path_east))
 		errors++;
-	}
-	else if (validate_texture_path(game->path_south))
-		errors++;
-	if (!game->path_east)
-	{
-		ft_putstr_fd("Error\nMissing east texture (EA)\n", 2);
-		errors++;
-	}
-	else if (validate_texture_path(game->path_east))
-		errors++;
-	if (!game->path_west)
-	{
-		ft_putstr_fd("Error\nMissing west texture (WE)\n", 2);
-		errors++;
-	}
-	else if (validate_texture_path(game->path_west))
+	if (!game->path_west || validate_texture_path(game->path_west))
 		errors++;
 	return (errors);
 }
 
-/**
-* @brief Parses North and South textures.
-*
-* Processes lines beginning with “NO “ or “SO “, extracts the path,
-* and stores it in the game structure. Checks for duplicates.
-* Validation is deferred until after parsing completes.
-*
-* @param line Configuration line.
-* @param game Pointer to the game structure.
-* @param path Pointer to store the extracted path.
-* @return int 0 on success, 1 on error.
-*/
-static int	parse_north_south(char *line, t_game *game, char **path)
-{
-	if (!ft_strncmp(line, "NO ", 3))
-	{
-		*path = extract_path(line, 3);
-		if (!*path)
-			return (1);
-		if (game->path_north)
-		{
-			ft_putstr_fd("Error\nDuplicate north texture (NO)\n", 2);
-			free(*path);
-			*path = NULL;
-			return (1);
-		}
-		game->path_north = *path;
-	}
-	else if (!ft_strncmp(line, "SO ", 3))
-	{
-		*path = extract_path(line, 3);
-		if (!*path)
-			return (1);
-		if (game->path_south)
-		{
-			ft_putstr_fd("Error\nDuplicate south texture (SO)\n", 2);
-			free(*path);
-			*path = NULL;
-			return (1);
-		}
-		game->path_south = *path;
-	}
-	return (0);
-}
-
-/**
-* @brief Parses West and East textures.
-*
-* Processes lines beginning with “WE “ or “EA “, extracts the path,
-* and stores it in the game structure. Checks for duplicates.
-* Validation is deferred until after parsing completes.
-*
-* @param line Configuration line.
-* @param game Pointer to the game structure.
-* @param path Pointer to store the extracted path.
-* @return int 0 on success, 1 on error.
-*/
-static int	parse_west_east(char *line, t_game *game, char **path)
-{
-	if (!ft_strncmp(line, "WE ", 3))
-	{
-		*path = extract_path(line, 3);
-		if (!*path)
-			return (1);
-		if (game->path_west)
-		{
-			ft_putstr_fd("Error\nDuplicate west texture (WE)\n", 2);
-			free(*path);
-			*path = NULL;
-			return (1);
-		}
-		game->path_west = *path;
-	}
-	else if (!ft_strncmp(line, "EA ", 3))
-	{
-		*path = extract_path(line, 3);
-		if (!*path)
-			return (1);
-		if (game->path_east)
-		{
-			ft_putstr_fd("Error\nDuplicate east texture (EA)\n", 2);
-			free(*path);
-			*path = NULL;
-			return (1);
-		}
-		game->path_east = *path;
-	}
-	return (0);
-}
-
-/**
-* @brief Parses a texture line.
-* 
-* Main function that coordinates the parsing of any texture line,
-* delegating to the specific functions for each direction.
-* 
-* @param line Texture configuration line.
-* @param game Pointer to the game structure.
-* @return int 1 on success, -1 on error.
-*/
 int	ft_parse_texture(char *line, t_game *game)
 {
-	char	*path;
-	int		result;
-
-	result = 0;
-	path = NULL;
-	result = parse_north_south(line, game, &path);
-	if (!result)
-		result = parse_west_east(line, game, &path);
-	if (result)
-	{
-		if (path)
-			free(path);
-		ft_putstr_fd("Error\nInvalid or duplicate texture\n", 2);
+	if (parse_one_cardinal(line, game) == 1)
 		return (1);
-	}
 	return (0);
 }

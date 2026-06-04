@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_map_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:19:36 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /**
@@ -91,7 +103,6 @@ int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 	*map = realloc_map(*map, *i);
 	if (!*map)
 		return (0);
-	/* Store line as-is without padding */
 	(*map)[*i] = line;
 	if (line_len > game->map_width)
 		game->map_width = line_len;

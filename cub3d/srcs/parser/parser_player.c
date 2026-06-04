@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_player.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:19:43 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /**
@@ -85,7 +97,7 @@ int	ft_init_player_from_map(t_game *game)
 	find_spawn_position(game, &spawn_x, &spawn_y, &spawn_count);
 	if (spawn_count == 0)
 	{
-		ft_putstr_fd("Error\nNo player spawn position found (N, S, E, or W)\n", 2);
+		ft_putstr_fd("Error\nNo player spawn (N, S, E, or W) in map\n", 2);
 		return (1);
 	}
 	if (spawn_count > 1)

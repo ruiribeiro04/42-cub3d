@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_minimap.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:53:06 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
+
+static void	ft_draw_player_marker(t_game *game, t_point *draw_pos)
+{
+	draw_pos->x = MAP_OFFSET_X + ((int)(game->player.x / BLOCK) * MAP_TILE);
+	draw_pos->y = MAP_OFFSET_Y + ((int)(game->player.y / BLOCK) * MAP_TILE);
+	ft_draw_rect(game, *draw_pos, MAP_TILE, MAP_COLOR_PLAYER);
+}
 
 void	ft_draw_minimap(t_game *game)
 {
@@ -24,9 +43,5 @@ void	ft_draw_minimap(t_game *game)
 				ft_draw_rect(game, draw_pos, MAP_TILE, MAP_COLOR_BG);
 		}
 	}
-	/* Se apagarmos o (int), o mapa fica fluido,
-	mas depois tem o bug de passar pelas paredes */
-	draw_pos.x = MAP_OFFSET_X + ((int)(game->player.x / BLOCK) * MAP_TILE);
-	draw_pos.y = MAP_OFFSET_Y + ((int)(game->player.y / BLOCK) * MAP_TILE);
-	ft_draw_rect(game, draw_pos, MAP_TILE, MAP_COLOR_PLAYER);
+	ft_draw_player_marker(game, &draw_pos);
 }

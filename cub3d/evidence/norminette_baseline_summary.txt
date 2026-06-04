@@ -1,0 +1,23 @@
+NORMINETTE BASELINE SUMMARY
+===========================
+Captured: 2026-06-04
+Commit:   8fbb784908164ff74dca4cdf3b53cb75be2cbffa (post-Epic-1)
+
+Command:  make norminette (cub3d/Makefile)
+          → norminette srcs/ srcs_bonus/ includes/
+
+Total:    63 files Error!, 0 files OK!, 0 passes.
+
+PER-RULE BREAKDOWN (from norminette_baseline.log)
+-------------------------------------------------
+INVALID_HEADER            63       43
+WRONG_SCOPE_COMMENT       15       7
+TOO_MANY_FUNCS            14       6
+TOO_MANY_LINES            8        5
+LINE_TOO_LONG             6        4
+PREPROC_BAD_INDENT        5        1
+EMPTY_LINE_EOF            2        1
+BRACE_SHOULD_EOL          1        1
+ASSIGN_IN_CONTROL         1        1
+RULE                      ERRORS   FILES
+----                      ------   -----

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_doors.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:53:11 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static int	ft_init_doors_map(t_game *game)
@@ -18,36 +30,13 @@ static int	ft_init_doors_map(t_game *game)
 	{
 		game->door_map[y] = ft_calloc(game->map_width, sizeof(t_door *));
 		if (!game->door_map[y])
-		{
-			while (--y >= 0)
-				free(game->door_map[y]);
-			free(game->door_map);
-			game->door_map = NULL;
 			return (1);
-		}
 		y++;
 	}
 	game->doors = malloc(sizeof(t_door) * game->door_count);
 	if (!game->doors)
-	{
-		y = 0;
-		while (y < game->map_height)
-			free(game->door_map[y++]);
-		free(game->door_map);
-		game->door_map = NULL;
 		return (1);
-	}
 	return (0);
-}
-
-static void	ft_init_single_door(t_game *game, int i, int x, int y)
-{
-	game->doors[i].x = x;
-	game->doors[i].y = y;
-	game->doors[i].state = DOOR_CLOSED;
-	game->doors[i].progress = 0.0f;
-	game->doors[i].tex.img = NULL;
-	game->door_map[y][x] = &game->doors[i];
 }
 
 static void	ft_setup_door_data(t_game *game)
@@ -65,7 +54,12 @@ static void	ft_setup_door_data(t_game *game)
 		{
 			if (game->map[y][x] == 'D')
 			{
-				ft_init_single_door(game, i, x, y);
+				game->doors[i].x = x;
+				game->doors[i].y = y;
+				game->doors[i].state = DOOR_CLOSED;
+				game->doors[i].progress = 0.0f;
+				game->doors[i].tex.img = NULL;
+				game->door_map[y][x] = &game->doors[i];
 				i++;
 			}
 			x++;
@@ -80,7 +74,6 @@ static int	ft_load_door_textures(t_game *game)
 
 	if (game->door_count == 0)
 		return (0);
-	/* Try to load door texture, fallback to gold texture if not available */
 	if (ft_load_texture(game, &game->doors[0].tex, "textures/door.xpm"))
 	{
 		if (ft_load_texture(game, &game->doors[0].tex,
@@ -124,7 +117,5 @@ int	ft_parse_and_load_doors(t_game *game)
 {
 	if (game->door_count == 0)
 		return (0);
-	if (ft_load_door_textures(game))
-		return (1);
-	return (0);
+	return (ft_load_door_textures(game));
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_validate_utils.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:06 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /**
@@ -43,26 +55,6 @@ int	validate_row_boundaries(t_game *game, int y, int x)
  * @param x Column index.
  * @return int 0 if valid, 1 if there is space adjacent to the open area.
  */
-static int	check_horizontal_neighbors(t_game *game, int y, int x)
-{
-	if (x > 0 && game->map[y][x - 1] == ' ')
-		return (1);
-	if (game->map[y][x + 1] && game->map[y][x + 1] == ' ')
-		return (1);
-	return (0);
-}
-
-static int	check_vertical_neighbors(t_game *game, int y, int x)
-{
-	if (y > 0 && x < (int)ft_strlen(game->map[y - 1])
-		&& game->map[y - 1][x] == ' ')
-		return (1);
-	if (game->map[y + 1] && x < (int)ft_strlen(game->map[y + 1])
-		&& game->map[y + 1][x] == ' ')
-		return (1);
-	return (0);
-}
-
 int	validate_space_neighbors(t_game *game, int y, int x)
 {
 	char	curr;
@@ -70,14 +62,19 @@ int	validate_space_neighbors(t_game *game, int y, int x)
 	curr = game->map[y][x];
 	if (curr == ' ')
 		return (0);
-	if (curr == '0' || curr == 'N' || curr == 'S' || curr == 'E'
-		|| curr == 'W' || curr == '2' || curr == 'D')
-	{
-		if (check_horizontal_neighbors(game, y, x))
-			return (1);
-		if (check_vertical_neighbors(game, y, x))
-			return (1);
-	}
+	if (curr != '0' && curr != 'N' && curr != 'S' && curr != 'E'
+		&& curr != 'W' && curr != '2' && curr != 'D')
+		return (0);
+	if (x > 0 && game->map[y][x - 1] == ' ')
+		return (1);
+	if (game->map[y][x + 1] && game->map[y][x + 1] == ' ')
+		return (1);
+	if (y > 0 && x < (int)ft_strlen(game->map[y - 1])
+		&& game->map[y - 1][x] == ' ')
+		return (1);
+	if (game->map[y + 1] && x < (int)ft_strlen(game->map[y + 1])
+		&& game->map[y + 1][x] == ' ')
+		return (1);
 	return (0);
 }
 

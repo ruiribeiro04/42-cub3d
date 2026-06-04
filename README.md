@@ -367,7 +367,7 @@ int ft_validate_map_closed(t_game *game)
 make norminette
 ```
 
-Runs norminette with the three blocking checks (comments, function length, line length); output is saved to `norminette.log`.
+Runs norminette on `srcs/`, `srcs_bonus/`, and `includes/` with the full default ruleset (norminette v3 ignores `-R` rule-suppression flags — they exist only for v2 backward compatibility). Output is saved to `norminette.log`. The recipe uses `pipefail`, so a non-zero norminette exit fails the `make` target.
 
 ### Usage
 

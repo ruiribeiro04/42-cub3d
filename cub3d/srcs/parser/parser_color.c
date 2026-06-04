@@ -1,24 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_color.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:19:21 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-/**
-* @brief Frees the memory of a string array.
-* 
-* Auxiliary function to free arrays created by ft_split.
-* 
-* @param values Array of strings to be freed.
-*/
-static void	ft_free_split(char **values)
-{
-	int	i;
-
-	i = 0;
-	while (values[i])
-	{
-		free(values[i]);
-		i++;
-	}
-	free(values);
-}
 
 static void	print_color_format_error(void)
 {
@@ -26,35 +18,32 @@ static void	print_color_format_error(void)
 	ft_putstr_fd("F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
 }
 
-/**
- * @brief Extracts the RGB values from a configuration line.
-* 
-* Splits the line and converts the values to integers,
-* validating that they are in the range [0, 255].
-* 
-* @param line Line containing the RGB values (format: “F/C R G B”).
-* @param r Pointer to store the red value.
-* @param g Pointer to store the green value.
-* @param b Pointer to store the blue value.
-* @return int 0 on success, 1 on error.
-*/
-/**
-* @brief Validates if a string represents a valid number.
-*
-* @param str String to validate.
-* @return int 1 if valid number, 0 otherwise.
-*/
-static int	is_valid_number(char *str)
+static int	ft_strip_newlines_in_values(char **values, int count)
 {
-	if (!str || !*str)
-		return (0);
-	while (*str)
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (i < count)
 	{
-		if (*str < '0' || *str > '9')
-			return (0);
-		str++;
+		tmp = values[i];
+		while (tmp && *tmp && *tmp != '\n')
+			tmp++;
+		if (tmp && *tmp == '\n')
+			*tmp = '\0';
+		i++;
 	}
 	return (1);
+}
+
+static int	ft_count_split(char **values)
+{
+	int	count;
+
+	count = 0;
+	while (values[count])
+		count++;
+	return (count);
 }
 
 static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
@@ -62,87 +51,28 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 	char	*str;
 	char	**values;
 	int		result;
-	char	*tmp;
-	int		i;
 
 	str = &line[2];
-	tmp = str;
-	while (*tmp)
-	{
-		if (*tmp == ',')
-			*tmp = ' ';
-		tmp++;
-	}
+	ft_replace_commas_with_spaces(str);
 	values = ft_split(str, ' ');
 	if (!values)
 		return (1);
 	result = 0;
-	/* Count non-empty values */
-	i = 0;
-	while (values[i])
-		i++;
-	if (i != 3)
+	if (ft_count_split(values) != 3)
 	{
 		print_color_format_error();
-		result = 1;
-	}
-	else if (!values[0] || !values[1] || !values[2]
-		|| !*values[0] || !*values[1] || !*values[2])
-	{
-		print_color_format_error();
-		result = 1;
-	}
-	/* Strip newlines from values */
-	i = 0;
-	while (!result && i < 3)
-	{
-		tmp = values[i];
-		while (tmp && *tmp && *tmp != '\n')
-			tmp++;
-		if (*tmp == '\n')
-			*tmp = '\0';
-		i++;
-	}
-	if (!result && (!is_valid_number(values[0]) || !is_valid_number(values[1])
-			|| !is_valid_number(values[2])))
-	{
-		ft_putstr_fd("Error\nColor values must be numeric (0-255)\n", 2);
 		result = 1;
 	}
 	if (!result)
-	{
-		*r = ft_atoi(values[0]);
-		*g = ft_atoi(values[1]);
-		*b = ft_atoi(values[2]);
-		if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
-		{
-			ft_putstr_fd("Error\nColor values must be in range 0-255 (got: ", 2);
-			ft_putnbr_fd(*r, 2);
-			ft_putstr_fd(", ", 2);
-			ft_putnbr_fd(*g, 2);
-			ft_putstr_fd(", ", 2);
-			ft_putnbr_fd(*b, 2);
-			ft_putstr_fd(")\n", 2);
-			result = 1;
-		}
-	}
-	ft_free_split(values);
+		ft_strip_newlines_in_values(values, 3);
+	if (!result)
+		result = ft_check_numeric_values(values);
+	if (!result)
+		result = ft_validate_range_and_assign(r, g, b, values);
+	ft_free_split_arr(values);
 	return (result);
 }
 
-/**
-* @brief Parses a color line (floor or ceiling).
-* 
-* Identifies whether it is floor color (F) or ceiling color (C),
-* 	extracts the RGB values,
-* combines them into a single 32-bit integer,
-* 	and stores them in the game structure.
-* Also checks for duplicate colors.
-* 
-* @param line Color configuration line.
-* @param game Pointer to the game structure.
-* @return int 1 on success, -1 on error.
-*/
 int	ft_parse_color(char *line, t_game *game)
 {
 	int	r;

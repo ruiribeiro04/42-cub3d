@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit_game.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:19:06 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /**
  * @file ft_exit_game.c
  * @brief Shutdown hooks for cleanly exiting the game.
@@ -17,6 +29,8 @@
 int	ft_exit_game(t_game *game)
 {
 	mlx_loop_end(game->mlx);
-	ft_putstr_fd("GANHASTE POCKET ES O MAIOR PLAYER DO SERVER\n", STDOUT_FILENO);
+	ft_putstr_fd("GANHASTE POCKET ES O MAIOR PLAYER DO SERVER",
+		STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
 }

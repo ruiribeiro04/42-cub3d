@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_validate.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:10 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /**
@@ -93,37 +105,12 @@ static int	print_boundary_error(t_game *game, int y, int x)
 }
 
 /**
-* @brief Validates an individual cell in the map.
-* 
-* Performs all validation checks on a specific cell:
-* borders, neighbors, and overhangs.
-* 
-* @param game Pointer to the game structure.
-* @param y Row index.
-* @param x Column index.
-* @return int 0 if the cell is valid, 1 if there is an error.
-*/
-static int	validate_cell(t_game *game, int y, int x)
-{
-	if (validate_row_boundaries(game, y, x))
-		return (print_boundary_error(game, y, x));
-	if (validate_space_neighbors(game, y, x))
-	{
-		ft_putstr_fd("Error\nSpace adjacent to open area\n", 2);
-		return (1);
-	}
-	/* Overhang validation disabled to support irregular map shapes
-	** (triangles, etc.) */
-	return (0);
-}
-
-/**
 * @brief Validates whether the map is completely closed.
-* 
+*
 * Traverses all cells in the map and checks whether the map is
 * correctly closed by walls, with no holes or openings
 * that would allow the player to “escape.”
-* 
+*
 * @param game Pointer to the game structure.
 * @return int 0 if the map is closed, 1 if there are problems.
 */
@@ -138,8 +125,13 @@ int	ft_validate_map_closed(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			if (validate_cell(game, y, x))
+			if (validate_row_boundaries(game, y, x))
+				return (print_boundary_error(game, y, x));
+			if (validate_space_neighbors(game, y, x))
+			{
+				ft_putstr_fd("Error\nSpace adjacent to open area\n", 2);
 				return (1);
+			}
 			x++;
 		}
 		y++;
