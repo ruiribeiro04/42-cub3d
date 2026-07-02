@@ -5,7 +5,7 @@
 # define HEIGHT 720
 # define BLOCK 64
 
-# define COLLISION_MARGIN 5
+# define COLLISION_MARGIN 0.15f
 
 # define MOUSE_SPEED 0.002f
 
@@ -22,7 +22,8 @@
 # define PI 3.14159265359
 # define TWO_PI 6.283185307f
 # define FOV 1.0471975512f
-# define MOVE_SPEED 3
+# define PLANE_LEN 0.57735026919f
+# define MOVE_SPEED 0.05f
 # define ROTATE_SPEED 0.03f
 
 # define KEY_PRESS 2
@@ -34,9 +35,6 @@
 
 # define MOTION_NOTIFY 6
 # define POINTER_MOTION_MASK 64
-
-# define CEILING_COLOR 0x7F5B6F
-# define FLOOR_COLOR 0xBF772F
 
 # define MAP_TILE 10
 # define MAP_OFFSET_X 10
