@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sprites_render.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:47 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file ft_sprites_render.c
+ * @brief Render sprites with distance-based sorting.
+ */
+
 #include "cub3d.h"
 
 static void	draw_stripe(t_game *g, t_sprite *sp, int stripe, t_spr_draw *d)
@@ -89,6 +106,9 @@ static void	draw_sprite(t_game *game, t_sprite *sp)
 	}
 }
 
+/**
+ * @ingroup sprites
+ */
 void	ft_draw_sprites(t_game *game)
 {
 	struct timeval	current_time;

@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_player_move.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:19 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file ft_player_move.c
+ * @brief Player movement with collision checking.
+ */
+
 #include "cub3d.h"
 
 static void	ft_player_rotate_player(t_player *player)
@@ -71,6 +88,9 @@ static void	ft_player_move_strafe(t_game *game)
 	}
 }
 
+/**
+ * @ingroup player
+ */
 void	ft_player_move(t_game *game)
 {
 	ft_player_rotate_player(&game->player);

@@ -1,5 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:22 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file input.c
+ * @brief Map MLX key and mouse events to player state transitions.
+ */
+
 #include "cub3d.h"
 
+/**
+ * @ingroup player
+ */
 int	ft_input_key_press(int keycode, t_game *game)
 {
 	if (keycode == W)
@@ -17,6 +37,9 @@ int	ft_input_key_press(int keycode, t_game *game)
 	if (keycode == E)
 		ft_handle_door_interaction(game);
 	if (keycode == ESC || keycode == Q)
+		/**
+		 * @ingroup player
+		 */
 		ft_exit_game(game);
 	return (0);
 }
@@ -33,6 +56,9 @@ int	ft_input_key_release(int keycode, t_game *game)
 		game->player.key_right = false;
 	if (keycode == LEFT)
 		game->player.left_rotate = false;
+	/**
+	 * @ingroup player
+	 */
 	if (keycode == RIGHT)
 		game->player.right_rotate = false;
 	return (0);

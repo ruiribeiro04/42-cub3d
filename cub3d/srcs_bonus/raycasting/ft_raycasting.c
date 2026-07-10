@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_raycasting.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:39 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file ft_raycasting.c
+ * @brief Cast one ray per screen column and compute the wall slice.
+ */
+
 #include "cub3d.h"
 
 static int	ft_raycasting_validate_map(t_game *game)
@@ -30,6 +47,9 @@ static void	ft_raycasting_cast_ray(t_game *game, float ray_dir_x,
 	ft_raycasting_draw_column(game, col);
 }
 
+/**
+ * @ingroup raycasting
+ */
 int	ft_raycasting(t_game *game)
 {
 	int		col;

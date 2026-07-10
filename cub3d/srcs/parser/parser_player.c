@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_player.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:19:43 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file parser_player.c
+ * @brief Initialize the player position and orientation from the map.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -81,14 +98,16 @@ static void	find_spawn_position(t_game *game, int *spawn_x,
 
 /**
 * @brief Initializes the player based on map information.
- * 
- * Finds the spawn position, validates that there is exactly one,
- * and calculates the player's position in grid units (centered on the block).
- * 
- * @param game Pointer to the game structure.
- * 
- * @note The position is calculated by adding 0.5 to center the player in the cell.
-*/
+*
+* Finds the spawn position, validates that there is exactly one,
+* and calculates the player's position in pixels (centered on the block).
+*
+* @param game Pointer to the game structure.
+*
+* @note The position is calculated by adding 0.5 to the index and multiplying
+*       by BLOCK to center the player in the cell.
+ * @ingroup parser
+ */
 int	ft_init_player_from_map(t_game *game)
 {
 	int	spawn_count;
@@ -98,12 +117,14 @@ int	ft_init_player_from_map(t_game *game)
 	find_spawn_position(game, &spawn_x, &spawn_y, &spawn_count);
 	if (spawn_count == 0)
 	{
-		ft_putstr_fd("Error: No player spawn position found\n", 2);
+		ft_putstr_fd("Error\nNo player spawn (N, S, E, or W) in map\n", 2);
 		return (1);
 	}
 	if (spawn_count > 1)
 	{
-		ft_putstr_fd("Error: Multiple player spawn positions found\n", 2);
+		ft_putstr_fd("Error\nMultiple player spawn positions found (", 2);
+		ft_putnbr_fd(spawn_count, 2);
+		ft_putstr_fd(" found, only 1 allowed)\n", 2);
 		return (1);
 	}
 	game->player.x = spawn_x + 0.5f;

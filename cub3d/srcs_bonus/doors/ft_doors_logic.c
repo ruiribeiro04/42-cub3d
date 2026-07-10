@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_doors_logic.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:20:43 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file ft_doors_logic.c
+ * @brief Door open/close logic and state management.
+ */
+
 #include "cub3d.h"
 
 static t_door	*ft_get_target_door(t_game *game, float dir_x, float dir_y)
@@ -32,6 +49,9 @@ static int	ft_is_facing_door(t_game *game, t_door *door, float dir_x,
 	return (0);
 }
 
+/**
+ * @ingroup graphics
+ */
 void	ft_handle_door_interaction(t_game *game)
 {
 	t_door	*door;
@@ -62,6 +82,9 @@ static void	ft_handle_closing(t_door *door, int p_x, int p_y, double dt)
 		if (door->progress <= 0.0f)
 		{
 			door->progress = 0.0f;
+			/**
+			 * @ingroup graphics
+			 */
 			door->state = DOOR_CLOSED;
 		}
 	}

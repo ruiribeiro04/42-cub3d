@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_sprites.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:21:58 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file parser_sprites.c
+ * @brief Parse sprite cells from the map grid.
+ */
+
 #include "cub3d.h"
 
 static int	count_sprites(t_game *game)
@@ -13,7 +30,7 @@ static int	count_sprites(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			if (game->map[y][x] == '2')
+			if (game->map[y][x] == 'A' || game->map[y][x] == '2')
 				count++;
 			x++;
 		}
@@ -34,6 +51,9 @@ static void	store_sprite_pos(t_game *game, int index, int x, int y)
 	game->map[y][x] = '0';
 }
 
+/**
+ * @ingroup parser
+ */
 int	ft_extract_sprites(t_game *game)
 {
 	int	y;
@@ -53,9 +73,12 @@ int	ft_extract_sprites(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			if (game->map[y][x] == '2')
+			if (game->map[y][x] == 'A' || game->map[y][x] == '2')
 				store_sprite_pos(game, i++, x, y);
 			x++;
+		/**
+		 * @ingroup parser
+		 */
 		}
 		y++;
 	}

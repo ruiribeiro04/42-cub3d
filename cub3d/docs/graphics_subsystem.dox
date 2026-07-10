@@ -1,0 +1,17 @@
+/**
+ * @page graphics_subsystem Graphics subsystem
+ * @brief Image buffer management and window display.
+ *
+ * The graphics layer sits between the renderer and MiniLibX:
+ *
+ * 1. **Clear** (`ft_clear_image`) -- fill the entire image buffer with
+ *    a solid color (typically black) at the start of each frame.
+ * 2. **Put pixel** (`ft_put_pixel_to_img`) -- write a single 32-bit
+ *    color into the buffer at (x, y).
+ * 3. **Draw rect** (`ft_draw_rect`) -- fill a square area with a solid
+ *    color (used by the minimap in the bonus tree).
+ * 4. **Display** (`mlx_put_image_to_window`) -- blit the finished
+ *    buffer to the window surface.
+ *
+ * @see @ref graphics
+ */

@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sprites_memory.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:43 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file ft_sprites_memory.c
+ * @brief Allocate and free sprite resources.
+ */
+
 #include "cub3d.h"
 
 static int	load_single_frame(t_game *g, t_sprite *sp, char *base, int i)
@@ -20,6 +37,9 @@ static int	load_single_frame(t_game *g, t_sprite *sp, char *base, int i)
 	return (0);
 }
 
+/**
+ * @ingroup sprites
+ */
 int	ft_load_animation(t_game *game, t_sprite *sprite, char *base_path,
 		int count)
 {
@@ -51,6 +71,9 @@ static void	free_sprite_frames(t_game *game, t_sprite *sprite)
 		if (sprite->frames[j].img)
 			mlx_destroy_image(game->mlx, sprite->frames[j].img);
 		j++;
+	/**
+	 * @ingroup sprites
+	 */
 	}
 	free(sprite->frames);
 }

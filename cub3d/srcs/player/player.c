@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:20:04 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file player.c
+ * @brief Player state and movement update helpers.
+ */
+
 #include "cub3d.h"
 
 static void	ft_player_rotate_player(t_player *player)
@@ -99,6 +116,9 @@ static void	ft_player_move_strafe(t_game *game)
 	}
 }
 
+/**
+ * @ingroup player
+ */
 void	ft_player_move(t_game *game)
 {
 	ft_player_rotate_player(&game->player);

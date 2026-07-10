@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_map_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:19:36 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file parser_map_utils.c
+ * @brief Map grid utility helpers.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -71,10 +88,11 @@ char	*skip_empty_and_read(int fd)
 
 /**
 * @brief Adds a line to the map array.
-* 
+*
 * Removes the newline from the line, reallocates the map, adds the line,
 * and updates the maximum width of the map if necessary.
-* 
+* Lines are stored as-is without padding to preserve original map structure.
+*
 * @param line Line to be added.
 * @param map Pointer to the map array pointer.
 * @param i Pointer to the current index (will be incremented).
@@ -83,13 +101,16 @@ char	*skip_empty_and_read(int fd)
 */
 int	add_line_to_map(char *line, char ***map, int *i, t_game *game)
 {
+	int		line_len;
+
 	strip_newline(line);
+	line_len = ft_strlen(line);
 	*map = realloc_map(*map, *i);
 	if (!*map)
 		return (0);
 	(*map)[*i] = line;
-	if ((int)ft_strlen(line) > game->map_width)
-		game->map_width = ft_strlen(line);
+	if (line_len > game->map_width)
+		game->map_width = line_len;
 	(*i)++;
 	return (1);
 }

@@ -1,0 +1,19 @@
+/**
+ * @mainpage 42-cub3d Documentation
+ *
+ * @section intro Introduction
+ * 42-cub3d is a first-person 3D raycaster built with MiniLibX and
+ * libft, following the 42 School "cub3d" subject (v12).
+ *
+ * @section subsystems Subsystems
+ * - @subpage parser_subsystem
+ * - @subpage raycasting_subsystem
+ * - @subpage player_subsystem
+ * - @subpage graphics_subsystem
+ * - @subpage textures_subsystem
+ *
+ * @section groups Module groups
+ * See also the @ref parser, @ref raycasting, @ref player, @ref graphics,
+ * @ref textures, @ref error, @ref exit, @ref init, @ref sprites module
+ * groups.
+ */

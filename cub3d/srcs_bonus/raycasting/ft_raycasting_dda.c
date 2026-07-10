@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_raycasting_dda.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:28 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file ft_raycasting_dda.c
+ * @brief DDA raycasting algorithm implementation.
+ */
+
 #include "cub3d.h"
 
 void	ft_raycasting_calc_wall_x(t_game *game)
@@ -9,6 +26,9 @@ void	ft_raycasting_calc_wall_x(t_game *game)
 	else
 		wall_x = game->player.x + game->ray.perp_dist * game->ray.dir_x;
 	wall_x -= floor(wall_x);
+	/**
+	 * @ingroup raycasting
+	 */
 	game->ray.wall_x = wall_x;
 }
 
@@ -28,6 +48,9 @@ static int	ft_raycasting_check_door(t_game *game)
 	if (!game->door_map)
 		return (0);
 	door = game->door_map[game->ray.map_y][game->ray.map_x];
+	/**
+	 * @ingroup raycasting
+	 */
 	if (!door || door->state == DOOR_OPEN)
 		return (0);
 	game->ray.hit_door = door;
@@ -56,6 +79,9 @@ void	ft_raycasting_perform_dda(t_game *game)
 		}
 		if (ft_raycasting_is_wall(game, game->ray.map_x, game->ray.map_y))
 			hit = 1;
+		/**
+		 * @ingroup raycasting
+		 */
 		else if (game->map[game->ray.map_y][game->ray.map_x] == 'D')
 			hit = ft_raycasting_check_door(game);
 	}

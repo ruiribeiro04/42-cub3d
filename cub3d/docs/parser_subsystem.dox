@@ -1,0 +1,24 @@
+/**
+ * @page parser_subsystem Parser subsystem
+ * @brief .cub file reading, element parsing, and map validation.
+ *
+ * The parser turns a `.cub` file path into a fully populated `t_game`.
+ * The phases, in order:
+ *
+ * 1. **Open and validate extension** (`ft_open_and_validate`) -- fail
+ *    fast on missing or non-`.cub` files.
+ * 2. **Read elements** (`ft_parse_elements`) -- texture paths and
+ *    floor/ceiling color triplets.
+ * 3. **Read map grid** (`ft_parse_map_grid`) -- variable-width rows,
+ *    zero-padded implicitly by the validator.
+ * 4. **Validate map characters** (`ft_validate_map_chars`) -- only `0`,
+ *    `1`, `N`/`S`/`E`/`W`, and space are allowed.
+ * 5. **Validate map closure** (`ft_validate_map_closed`) -- flood-fill
+ *    from the player position must not reach the map boundary.
+ * 6. **Validate textures exist** (`validate_all_textures`) -- all four
+ *    `*.xpm` files must be readable.
+ * 7. **Init player** (`ft_init_player_from_map`) -- exactly one of
+ *    `N`/`S`/`E`/`W` sets the spawn and facing direction.
+ *
+ * @see @ref parser
+ */

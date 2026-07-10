@@ -1,0 +1,22 @@
+/**
+ * @page textures_subsystem Textures subsystem
+ * @brief XPM loading, pixel sampling, and side-to-texture mapping.
+ *
+ * The texture subsystem manages the four wall textures and provides
+ * random-access pixel reads for the raycaster:
+ *
+ * 1. **Load** (`ft_load_texture`) -- wrap `mlx_xpm_file_to_image` to
+ *    populate a `t_texture` struct (image handle, raw data pointer,
+ *    dimensions, bpp, stride).
+ * 2. **Load all** (`ft_load_all_textures`) -- load the north, south,
+ *    east, and west textures from the paths specified in the `.cub`
+ *    file.
+ * 3. **Select** (`ft_select_wall_texture`) -- choose the correct texture
+ *    based on the ray's side and step direction.
+ * 4. **Sample** (`ft_get_texture_pixel`) -- read the 32-bit color at
+ *    (tex_x, tex_y) inside a given texture.
+ * 5. **Free** (`ft_free_textures`) -- destroy all MiniLibX image
+ *    handles.
+ *
+ * @see @ref textures
+ */

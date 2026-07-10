@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:21:10 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file init.c
+ * @brief Initialize bonus game state, parse the map, and load textures.
+ */
+
 #include "cub3d.h"
 
 static void	ft_init_player_keys(t_player *player)
@@ -56,6 +73,9 @@ static int	ft_init_mlx(t_game *game)
 	return (0);
 }
 
+/**
+ * @ingroup init
+ */
 int	ft_init_game(t_game *game, char *map_file)
 {
 	ft_memset(game, 0, sizeof(t_game));
@@ -70,7 +90,7 @@ int	ft_init_game(t_game *game, char *map_file)
 	game->tex_west.img = NULL;
 	if (ft_load_all_textures(game))
 		return (1);
-	if (ft_parse_doors(game))
+	if (ft_parse_and_load_doors(game))
 		return (1);
 	if (ft_init_sprites(game))
 		return (1);

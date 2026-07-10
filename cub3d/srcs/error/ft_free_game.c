@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_free_game.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:18:57 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file ft_free_game.c
+ * @brief Free all game resources on exit.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -62,32 +79,17 @@ static void	ft_free_textures(t_game *game)
  */
 static void	ft_free_config_paths(t_game *game)
 {
-	if (game->path_north)
-	{
-		free(game->path_north);
-		game->path_north = NULL;
-	}
-	if (game->path_south)
-	{
-		free(game->path_south);
-		game->path_south = NULL;
-	}
-	if (game->path_east)
-	{
-		free(game->path_east);
-		game->path_east = NULL;
-	}
-	if (game->path_west)
-	{
-		free(game->path_west);
-		game->path_west = NULL;
-	}
+	ft_safe_free((void **)&game->path_north);
+	ft_safe_free((void **)&game->path_south);
+	ft_safe_free((void **)&game->path_east);
+	ft_safe_free((void **)&game->path_west);
 }
 
 /**
  * @brief Frees all allocated variables to safely exit
  * 
  * @param game Game struct
+  * @ingroup error
  */
 void	ft_free_game(t_game *game)
 {

@@ -1,0 +1,31 @@
+/**
+ * @page coding_standards Coding Standards
+ * @brief Project coding conventions derived from the 42 norm.
+ *
+ * ## While-loop convention
+ *
+ * 42 norm §II.4 forbids `for` loops. A `while` loop must follow the same
+ * "split init / condition / update" pattern: initialization on its own line
+ * above the `while`, and the update as the last statement inside the loop body.
+ *
+ * ### Correct
+ * @code
+ * i = 0;
+ * while (i < n)
+ * {
+ *     // ...
+ *     i = i + 1;
+ * }
+ * @endcode
+ *
+ * ### Incorrect (forbidden by 42 norm §II.4)
+ * @code
+ * while (i++ < n)  // hidden for
+ * {
+ *     // ...
+ * }
+ * @endcode
+ *
+ * The script @c cub3d/tests/check_while_loops.sh enforces this rule by
+ * searching for increment-in-condition anti-patterns.
+ */

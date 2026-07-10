@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_validate.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:10 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file parser_validate.c
+ * @brief Validate the parsed map for the bonus tree.
+ */
+
 #include "cub3d.h"
 
 /**
@@ -18,43 +35,50 @@ static int	is_valid_char(char c)
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
-	if (c == '2')
-		return (1);
-	if (c == 'D')
+	if (c == 'D' || c == 'A' || c == '2')
 		return (1);
 	return (0);
 }
 
+static int	check_row_chars(char **map, int y)
+{
+	int	x;
+
+	x = 0;
+	while (map[y][x])
+	{
+		if (!is_valid_char(map[y][x]))
+		{
+			ft_putstr_fd("Error\nInvalid character '", 2);
+			ft_putchar_fd(map[y][x], 2);
+			ft_putstr_fd("' in map\n", 2);
+			return (1);
+		}
+		x++;
+	}
+	return (0);
+}
+
 /**
-* @brief Validates all characters in the map.
-* 
-* Traverses the entire map checking if all characters
-* are valid. Prints an error message with the invalid character
-* if found.
-* 
-* @param game Pointer to the game structure.
-* @return int 0 if all characters are valid, 1 if there are invalid ones.
-*/
+ * @brief Validates all characters in the map.
+ * 
+ * Traverses the entire map checking if all characters
+ * are valid. Prints an error message with the invalid character
+ * if found.
+ * 
+ * @param game Pointer to the game structure.
+ * @return int 0 if all characters are valid, 1 if there are invalid ones.
+  * @ingroup parser
+ */
 int	ft_validate_map_chars(t_game *game)
 {
 	int	y;
-	int	x;
 
 	y = 0;
 	while (game->map[y])
 	{
-		x = 0;
-		while (game->map[y][x])
-		{
-			if (!is_valid_char(game->map[y][x]))
-			{
-				ft_putstr_fd("Error: Invalid character '", 2);
-				ft_putchar_fd(game->map[y][x], 2);
-				ft_putstr_fd("' in map\n", 2);
-				return (1);
-			}
-			x++;
-		}
+		if (check_row_chars(game->map, y))
+			return (1);
 		y++;
 	}
 	return (0);
@@ -76,7 +100,7 @@ int	ft_validate_map_chars(t_game *game)
 */
 static int	print_boundary_error(t_game *game, int y, int x)
 {
-	ft_putstr_fd("Error: Map not properly closed at row ", 2);
+	ft_putstr_fd("Error\nMap not properly closed at row ", 2);
 	ft_putchar_fd('0' + y, 2);
 	ft_putstr_fd(" col ", 2);
 	ft_putchar_fd('0' + x, 2);
@@ -87,43 +111,16 @@ static int	print_boundary_error(t_game *game, int y, int x)
 }
 
 /**
-* @brief Validates an individual cell in the map.
-* 
-* Performs all validation checks on a specific cell:
-* borders, neighbors, and overhangs.
-* 
-* @param game Pointer to the game structure.
-* @param y Row index.
-* @param x Column index.
-* @return int 0 if the cell is valid, 1 if there is an error.
-*/
-static int	validate_cell(t_game *game, int y, int x)
-{
-	if (validate_row_boundaries(game, y, x))
-		return (print_boundary_error(game, y, x));
-	if (validate_space_neighbors(game, y, x))
-	{
-		ft_putstr_fd("Error: Space adjacent to open area\n", 2);
-		return (1);
-	}
-	if (validate_overhangs(game, y, x))
-	{
-		ft_putstr_fd("Error: Invalid overhang\n", 2);
-		return (1);
-	}
-	return (0);
-}
-
-/**
-* @brief Validates whether the map is completely closed.
-* 
-* Traverses all cells in the map and checks whether the map is
-* correctly closed by walls, with no holes or openings
-* that would allow the player to “escape.”
-* 
-* @param game Pointer to the game structure.
-* @return int 0 if the map is closed, 1 if there are problems.
-*/
+ * @brief Validates whether the map is completely closed.
+ *
+ * Traverses all cells in the map and checks whether the map is
+ * correctly closed by walls, with no holes or openings
+ * that would allow the player to "escape."
+ *
+ * @param game Pointer to the game structure.
+ * @return int 0 if the map is closed, 1 if there are problems.
+ * @ingroup parser
+ */
 int	ft_validate_map_closed(t_game *game)
 {
 	int	y;
@@ -135,8 +132,18 @@ int	ft_validate_map_closed(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			if (validate_cell(game, y, x))
+			if (validate_row_boundaries(game, y, x))
+				return (print_boundary_error(game, y, x));
+			if (validate_space_neighbors(game, y, x))
+			{
+				ft_putstr_fd("Error\nSpace adjacent to open area\n", 2);
 				return (1);
+			}
+			if (validate_overhangs(game, y, x))
+			{
+				ft_putstr_fd("Error\nMap cell overhangs adjacent row\n", 2);
+				return (1);
+			}
 			x++;
 		}
 		y++;

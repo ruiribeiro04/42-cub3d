@@ -1030,7 +1030,9 @@ INPUT                  = README.md \
                          AGENTS.md \
                          CLAUDE.md \
                          cub3d/includes \
-                         cub3d/srcs
+                         cub3d/srcs \
+                         cub3d/srcs_bonus \
+                         cub3d/docs
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses

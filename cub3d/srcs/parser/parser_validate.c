@@ -1,141 +1,105 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_validate.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:52:13 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file parser_validate.c
+ * @brief Validate the parsed map: character set and wall closure.
+ */
+
 #include "cub3d.h"
 
 /**
-* @brief Checks if a character is valid on the map.
-* 
-* Valid characters are:
-* - ‘0’: Empty space (walkable)
-* - ‘1’: Wall
-* - ‘ ’: Space (outside the playable map)
-* - ‘N’, ‘S’, ‘E’, ‘W’: Player spawn positions
-* 
-* @param c Character to check.
-* @return int 1 if valid, 0 if invalid.
-*/
-static int	is_valid_char(char c)
-{
-	if (c == '0' || c == '1' || c == ' ')
-		return (1);
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (1);
-	return (0);
-}
-
-/**
-* @brief Validates all characters in the map.
-* 
-* Traverses the entire map checking if all characters
-* are valid. Prints an error message with the invalid character
-* if found.
-* 
-* @param game Pointer to the game structure.
-* @return int 0 if all characters are valid, 1 if there are invalid ones.
-*/
+ * @ingroup parser
+ */
 int	ft_validate_map_chars(t_game *game)
 {
 	int	y;
-	int	x;
 
 	y = 0;
 	while (game->map[y])
 	{
-		x = 0;
-		while (game->map[y][x])
-		{
-			if (!is_valid_char(game->map[y][x]))
-			{
-				ft_putstr_fd("Error: Invalid character '", 2);
-				ft_putchar_fd(game->map[y][x], 2);
-				ft_putstr_fd("' in map\n", 2);
-				return (1);
-			}
-			x++;
-		}
+		if (ft_check_row_chars(game->map, y))
+			return (1);
 		y++;
 	}
 	return (0);
 }
 
-/**
-* @brief Prints a boundary error message.
-* 
-* Auxiliary function that prints detailed information about
-* where the map is not correctly closed.
-* 
-* @param game Pointer to the game structure.
-* @param y Index of the row where the error occurred.
-* @param x Index of the column where the error occurred.
-* @return int Always returns 1 (error).
-* 
-* @warning This function only works correctly for indexes < 10
-*          due to the simple conversion with ‘0’ + y.
-*/
-static int	print_boundary_error(t_game *game, int y, int x)
+static void	ft_free_map_copy(char **map_copy)
 {
-	ft_putstr_fd("Error: Map not properly closed at row ", 2);
-	ft_putchar_fd('0' + y, 2);
-	ft_putstr_fd(" col ", 2);
-	ft_putchar_fd('0' + x, 2);
-	ft_putstr_fd(" char '", 2);
-	ft_putchar_fd(game->map[y][x], 2);
-	ft_putstr_fd("'\n", 2);
-	return (1);
+	int	i;
+
+	i = 0;
+	while (map_copy[i])
+		free(map_copy[i++]);
+	free(map_copy);
 }
 
-/**
-* @brief Validates an individual cell in the map.
-* 
-* Performs all validation checks on a specific cell:
-* borders, neighbors, and overhangs.
-* 
-* @param game Pointer to the game structure.
-* @param y Row index.
-* @param x Column index.
-* @return int 0 if the cell is valid, 1 if there is an error.
-*/
-static int	validate_cell(t_game *game, int y, int x)
+static int	ft_count_height(char **map)
 {
-	if (validate_row_boundaries(game, y, x))
-		return (print_boundary_error(game, y, x));
-	if (validate_space_neighbors(game, y, x))
-	{
-		ft_putstr_fd("Error: Space adjacent to open area\n", 2);
-		return (1);
-	}
-	if (validate_overhangs(game, y, x))
-	{
-		ft_putstr_fd("Error: Invalid overhang\n", 2);
-		return (1);
-	}
-	return (0);
+	int	h;
+
+	h = 0;
+	while (map[h])
+		h++;
+	return (h);
 }
 
-/**
-* @brief Validates whether the map is completely closed.
-* 
-* Traverses all cells in the map and checks whether the map is
-* correctly closed by walls, with no holes or openings
-* that would allow the player to “escape.”
-* 
-* @param game Pointer to the game structure.
-* @return int 0 if the map is closed, 1 if there are problems.
-*/
+char	**ft_copy_map(t_game *game)
+{
+	char	**map_copy;
+	int		y;
+	int		h;
+
+	h = ft_count_height(game->map);
+	map_copy = (char **)ft_calloc(h + 1, sizeof(char *));
+	if (!map_copy)
+		return (NULL);
+	y = 0;
+	while (y < h)
+	{
+		map_copy[y] = ft_strdup(game->map[y]);
+		if (!map_copy[y])
+		{
+			while (y > 0)
+				free(map_copy[--y]);
+			free(map_copy);
+			return (NULL);
+		}
+		y++;
+	}
+	return (map_copy);
+}
+
 int	ft_validate_map_closed(t_game *game)
 {
-	int	y;
-	int	x;
+	char	**map_copy;
+	int		result;
+	int		player_y;
+	int		player_x;
 
-	y = 0;
-	while (game->map[y])
+	if (ft_find_player_position(game, &player_y, &player_x))
 	{
-		x = 0;
-		while (game->map[y][x])
-		{
-			if (validate_cell(game, y, x))
-				return (1);
-			x++;
-		}
-		y++;
+		ft_putstr_fd("Error\nNo player position found", 2);
+		ft_putstr_fd(" for flood-fill validation\n", 2);
+		return (1);
 	}
-	return (0);
+	map_copy = ft_copy_map(game);
+	if (!map_copy)
+	{
+		ft_putstr_fd("Error\nMemory alloc failed for validation\n", 2);
+		return (1);
+	}
+	result = ft_flood_fill(map_copy, player_y, player_x);
+	ft_free_map_copy(map_copy);
+	return (result);
 }

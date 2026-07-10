@@ -1,58 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_color.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:21:31 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file parser_color.c
+ * @brief Parse floor and ceiling color triplets from the .cub file.
+ */
+
 #include "cub3d.h"
 
-/**
-* @brief Frees the memory of a string array.
-* 
-* Auxiliary function to free arrays created by ft_split.
-* 
-* @param values Array of strings to be freed.
-*/
-static void	ft_free_split(char **values)
+static void	print_color_format_error(void)
 {
-	int	i;
-
-	i = 0;
-	while (values[i])
-	{
-		free(values[i]);
-		i++;
-	}
-	free(values);
+	ft_putstr_fd("Error\nInvalid color format. Expected: ", 2);
+	ft_putstr_fd("F R,G,B or C R,G,B (example: F 255,255,255)\n", 2);
 }
 
-/**
-* @brief Extracts the RGB values from a configuration line.
-* 
-* Splits the line and converts the values to integers,
-* validating that they are in the range [0, 255].
-* 
-* @param line Line containing the RGB values (format: “F/C R G B”).
-* @param r Pointer to store the red value.
-* @param g Pointer to store the green value.
-* @param b Pointer to store the blue value.
-* @return int 0 on success, 1 on error.
-*/
+static int	ft_strip_newlines_in_values(char **values, int count)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (i < count)
+	{
+		tmp = values[i];
+		while (tmp && *tmp && *tmp != '\n')
+			tmp++;
+		if (tmp && *tmp == '\n')
+			*tmp = '\0';
+		i++;
+	}
+	return (1);
+}
+
 static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 {
 	char	**values;
-	int		result;
 
+	ft_replace_commas_with_spaces(&line[2]);
 	values = ft_split(&line[2], ' ');
 	if (!values)
 		return (1);
-	result = 0;
-	if (!values[0] || !values[1] || !values[2] || values[3])
-		result = 1;
-	if (!result)
-	{
-		*r = ft_atoi(values[0]);
-		*g = ft_atoi(values[1]);
-		*b = ft_atoi(values[2]);
-		if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
-			result = 1;
-	}
-	ft_free_split(values);
-	return (result);
+	if (ft_count_split(values) != 3)
+		return (ft_free_split_arr(values), print_color_format_error(), 1);
+	ft_strip_newlines_in_values(values, 3);
+	if (ft_check_numeric_values(values))
+		return (ft_free_split_arr(values), 1);
+	if (ft_validate_range_and_assign(r, g, b, values))
+		return (ft_free_split_arr(values), 1);
+	ft_free_split_arr(values);
+	return (0);
 }
 
 /**
@@ -67,7 +72,8 @@ static int	ft_parse_rgb_values(char *line, int *r, int *g, int *b)
 * @param line Color configuration line.
 * @param game Pointer to the game structure.
 * @return int 1 on success, -1 on error.
-*/
+ * @ingroup parser
+ */
 int	ft_parse_color(char *line, t_game *game)
 {
 	int	r;
@@ -76,18 +82,18 @@ int	ft_parse_color(char *line, t_game *game)
 	int	color;
 
 	if (ft_parse_rgb_values(line, &r, &g, &b))
-		return (ft_putstr_fd("Error: Invalid RGB color format\n", 2), -1);
+		return (ft_putstr_fd("Error\nInvalid RGB color format\n", 2), -1);
 	color = (r << 16) | (g << 8) | b;
 	if (!ft_strncmp(line, "F ", 2))
 	{
 		if (game->floor_color != 0)
-			return (ft_putstr_fd("Error: Duplicate floor color\n", 2), -1);
+			return (ft_putstr_fd("Error\nDuplicate floor color\n", 2), -1);
 		game->floor_color = color;
 	}
 	else if (!ft_strncmp(line, "C ", 2))
 	{
 		if (game->ceiling_color != 0)
-			return (ft_putstr_fd("Error: Duplicate ceiling color\n", 2), -1);
+			return (ft_putstr_fd("Error\nDuplicate ceiling color\n", 2), -1);
 		game->ceiling_color = color;
 	}
 	return (1);

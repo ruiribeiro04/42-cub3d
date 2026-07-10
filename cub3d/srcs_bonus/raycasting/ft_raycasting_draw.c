@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_raycasting_draw.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/04 15:15:05 by  ruiferna         #+#    #+#             */
+/*   Updated: 2026/06/04 15:22:31 by ruiferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @file ft_raycasting_draw.c
+ * @brief Draw the rendered raycasting frame to the image buffer.
+ */
+
 #include "cub3d.h"
 
 static void	ft_raycasting_draw_ceiling(t_game *game, int col)
@@ -51,7 +68,7 @@ static void	ft_raycasting_draw_wall(t_game *game, int col)
 	if (game->ray.hit_door && game->ray.hit_door->tex.img)
 		tex = &game->ray.hit_door->tex;
 	else
-		tex = ft_get_wall_texture(game);
+		tex = ft_select_wall_texture(game);
 	ft_raycasting_calc_tex_x(game, tex);
 	if (game->ray.tex_x < 0)
 		return ;
@@ -90,6 +107,9 @@ static void	ft_raycasting_draw_floor(t_game *game, int col)
 	}
 }
 
+/**
+ * @ingroup raycasting
+ */
 void	ft_raycasting_draw_column(t_game *game, int col)
 {
 	ft_raycasting_draw_ceiling(game, col);
