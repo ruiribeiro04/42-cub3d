@@ -18,28 +18,42 @@
 #include "cub3d.h"
 
 /**
-* @brief Sets the player's initial angle based on the spawn direction.
-* 
-* Converts the cardinal direction (N, S, E, W) to radians:
-* - N: 270° (3pi/2) - facing up
-* - S: 90° (pi/2) - facing down
-* - E: 0° - facing right
-* - W: 180° (pi) - facing left
+* @brief Sets the player's initial direction and camera plane vectors.
 * 
 * @param game Pointer to the game structure.
 * @param y Y coordinate of the spawn position.
 * @param x X coordinate of the spawn position.
 */
-static void	set_player_angle(t_game *game, int y, int x)
+static void	set_player_dir(t_game *game, int y, int x)
 {
 	if (game->map[y][x] == 'N')
-		game->player.angle = 3 * PI / 2;
+	{
+		game->player.dir_x = 0;
+		game->player.dir_y = -1;
+		game->player.plane_x = PLANE_LEN;
+		game->player.plane_y = 0;
+	}
 	else if (game->map[y][x] == 'S')
-		game->player.angle = PI / 2;
+	{
+		game->player.dir_x = 0;
+		game->player.dir_y = 1;
+		game->player.plane_x = -PLANE_LEN;
+		game->player.plane_y = 0;
+	}
 	else if (game->map[y][x] == 'E')
-		game->player.angle = 0;
+	{
+		game->player.dir_x = 1;
+		game->player.dir_y = 0;
+		game->player.plane_x = 0;
+		game->player.plane_y = PLANE_LEN;
+	}
 	else if (game->map[y][x] == 'W')
-		game->player.angle = PI;
+	{
+		game->player.dir_x = -1;
+		game->player.dir_y = 0;
+		game->player.plane_x = 0;
+		game->player.plane_y = -PLANE_LEN;
+	}
 }
 
 /**
@@ -73,7 +87,7 @@ static void	find_spawn_position(t_game *game, int *spawn_x,
 				*spawn_x = x;
 				*spawn_y = y;
 				(*spawn_count)++;
-				set_player_angle(game, y, x);
+				set_player_dir(game, y, x);
 				game->map[y][x] = '0';
 			}
 			x++;
@@ -84,16 +98,14 @@ static void	find_spawn_position(t_game *game, int *spawn_x,
 
 /**
 * @brief Initializes the player based on map information.
-*
-* Finds the spawn position, validates that there is exactly one,
-* and calculates the player's position in pixels (centered on the block).
-*
-* @param game Pointer to the game structure.
-*
-* @note The position is calculated by adding 0.5 to the index and multiplying
-*       by BLOCK to center the player in the cell.
- * @ingroup parser
- */
+ * 
+ * Finds the spawn position, validates that there is exactly one,
+ * and calculates the player's position in grid units (centered on the block).
+ * 
+ * @param game Pointer to the game structure.
+ * 
+ * @note The position is calculated by adding 0.5 to center the player in the cell.
+*/
 int	ft_init_player_from_map(t_game *game)
 {
 	int	spawn_count;
@@ -113,7 +125,7 @@ int	ft_init_player_from_map(t_game *game)
 		ft_putstr_fd(" found, only 1 allowed)\n", 2);
 		return (1);
 	}
-	game->player.x = (spawn_x + 0.5) * BLOCK;
-	game->player.y = (spawn_y + 0.5) * BLOCK;
+	game->player.x = spawn_x + 0.5f;
+	game->player.y = spawn_y + 0.5f;
 	return (0);
 }

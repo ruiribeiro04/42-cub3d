@@ -82,11 +82,21 @@ int	ft_input_mouse_move(int x, int y, t_game *game)
 	delta_x = x - center_x;
 	if (delta_x != 0)
 	{
-		game->player.angle += delta_x * MOUSE_SPEED;
-		if (game->player.angle > TWO_PI)
-			game->player.angle -= TWO_PI;
-		else if (game->player.angle < 0)
-			game->player.angle += TWO_PI;
+		float	rot;
+		float	old_dir_x;
+		float	old_plane_x;
+
+		rot = delta_x * MOUSE_SPEED;
+		old_dir_x = game->player.dir_x;
+		game->player.dir_x = game->player.dir_x * cos(rot)
+			- game->player.dir_y * sin(rot);
+		game->player.dir_y = old_dir_x * sin(rot)
+			+ game->player.dir_y * cos(rot);
+		old_plane_x = game->player.plane_x;
+		game->player.plane_x = game->player.plane_x * cos(rot)
+			- game->player.plane_y * sin(rot);
+		game->player.plane_y = old_plane_x * sin(rot)
+			+ game->player.plane_y * cos(rot);
 		mlx_mouse_move(game->mlx, game->win, center_x, center_y);
 	}
 	(void)y;

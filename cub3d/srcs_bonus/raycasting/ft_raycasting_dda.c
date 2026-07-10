@@ -17,17 +17,14 @@
 
 #include "cub3d.h"
 
-/**
- * @ingroup raycasting
- */
 void	ft_raycasting_calc_wall_x(t_game *game, float eucl_dist)
 {
 	float	wall_x;
 
 	if (game->ray.side == 0)
-		wall_x = (game->player.y / BLOCK) + eucl_dist * game->ray.dir_y;
+		wall_x = game->player.y + game->ray.perp_dist * game->ray.dir_y;
 	else
-		wall_x = (game->player.x / BLOCK) + eucl_dist * game->ray.dir_x;
+		wall_x = game->player.x + game->ray.perp_dist * game->ray.dir_x;
 	wall_x -= floor(wall_x);
 	/**
 	 * @ingroup raycasting
@@ -90,23 +87,18 @@ void	ft_raycasting_perform_dda(t_game *game)
 	}
 }
 
-void	ft_raycasting_calc_wall_height(t_game *game, float angle)
+void	ft_raycasting_calc_wall_height(t_game *game)
 {
-	float	eucl_dist;
-	float	perp_dist;
-	float	fish_eye;
-
 	if (game->ray.side == 0)
-		eucl_dist = game->ray.side_x - game->ray.delta_x;
+		game->ray.perp_dist = (game->ray.side_x - game->ray.delta_x);
 	else
-		eucl_dist = game->ray.side_y - game->ray.delta_y;
-	ft_raycasting_calc_wall_x(game, eucl_dist);
-	fish_eye = cos(angle - game->player.angle);
-	perp_dist = eucl_dist * fish_eye;
-	game->ray.perp_dist = perp_dist * BLOCK;
-	if (game->ray.perp_dist < 1.0f)
-		game->ray.perp_dist = 1.0f;
-	game->ray.wall_height = (int)((BLOCK / game->ray.perp_dist) * (WIDTH / 2));
-	game->ray.draw_start = (HEIGHT - game->ray.wall_height) / 2;
-	game->ray.draw_end = game->ray.draw_start + game->ray.wall_height;
+		game->ray.perp_dist = (game->ray.side_y - game->ray.delta_y);
+	ft_raycasting_calc_wall_x(game);
+	game->ray.wall_height = (int)(HEIGHT / game->ray.perp_dist);
+	game->ray.draw_start = -game->ray.wall_height / 2 + HEIGHT / 2;
+	if (game->ray.draw_start < 0)
+		game->ray.draw_start = 0;
+	game->ray.draw_end = game->ray.wall_height / 2 + HEIGHT / 2;
+	if (game->ray.draw_end >= HEIGHT)
+		game->ray.draw_end = HEIGHT - 1;
 }

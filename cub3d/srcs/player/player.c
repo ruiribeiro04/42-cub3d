@@ -19,14 +19,23 @@
 
 static void	ft_player_rotate_player(t_player *player)
 {
+	float	rot;
+	float	old_dir_x;
+	float	old_plane_x;
+
+	rot = 0.0f;
 	if (player->left_rotate)
-		player->angle -= ROTATE_SPEED;
+		rot = -ROTATE_SPEED;
 	if (player->right_rotate)
-		player->angle += ROTATE_SPEED;
-	if (player->angle > TWO_PI)
-		player->angle = 0;
-	else if (player->angle < 0)
-		player->angle = TWO_PI;
+		rot = ROTATE_SPEED;
+	if (rot == 0.0f)
+		return ;
+	old_dir_x = player->dir_x;
+	player->dir_x = player->dir_x * cos(rot) - player->dir_y * sin(rot);
+	player->dir_y = old_dir_x * sin(rot) + player->dir_y * cos(rot);
+	old_plane_x = player->plane_x;
+	player->plane_x = player->plane_x * cos(rot) - player->plane_y * sin(rot);
+	player->plane_y = old_plane_x * sin(rot) + player->plane_y * cos(rot);
 }
 
 static int	ft_player_check_collision(t_game *game, float x, float y)
@@ -42,8 +51,8 @@ static int	ft_player_check_collision(t_game *game, float x, float y)
 		j = -1;
 		while (j <= 1)
 		{
-			map_x = (int)((x + i * COLLISION_MARGIN) / BLOCK);
-			map_y = (int)((y + j * COLLISION_MARGIN) / BLOCK);
+			map_x = (int)(x + i * COLLISION_MARGIN);
+			map_y = (int)(y + j * COLLISION_MARGIN);
 			if (map_x < 0 || map_x >= game->map_width)
 				return (1);
 			if (map_y < 0 || map_y >= game->map_height)
@@ -57,15 +66,15 @@ static int	ft_player_check_collision(t_game *game, float x, float y)
 	return (0);
 }
 
-static void	ft_player_move_forward_back(t_game *game, float cos_a, float sin_a)
+static void	ft_player_move_forward_back(t_game *game)
 {
 	float	new_x;
 	float	new_y;
 
 	if (game->player.key_up)
 	{
-		new_x = game->player.x + cos_a * MOVE_SPEED;
-		new_y = game->player.y + sin_a * MOVE_SPEED;
+		new_x = game->player.x + game->player.dir_x * MOVE_SPEED;
+		new_y = game->player.y + game->player.dir_y * MOVE_SPEED;
 		if (!ft_player_check_collision(game, new_x, game->player.y))
 			game->player.x = new_x;
 		if (!ft_player_check_collision(game, game->player.x, new_y))
@@ -73,8 +82,8 @@ static void	ft_player_move_forward_back(t_game *game, float cos_a, float sin_a)
 	}
 	if (game->player.key_down)
 	{
-		new_x = game->player.x - cos_a * MOVE_SPEED;
-		new_y = game->player.y - sin_a * MOVE_SPEED;
+		new_x = game->player.x - game->player.dir_x * MOVE_SPEED;
+		new_y = game->player.y - game->player.dir_y * MOVE_SPEED;
 		if (!ft_player_check_collision(game, new_x, game->player.y))
 			game->player.x = new_x;
 		if (!ft_player_check_collision(game, game->player.x, new_y))
@@ -82,15 +91,15 @@ static void	ft_player_move_forward_back(t_game *game, float cos_a, float sin_a)
 	}
 }
 
-static void	ft_player_move_strafe(t_game *game, float cos_a, float sin_a)
+static void	ft_player_move_strafe(t_game *game)
 {
 	float	new_x;
 	float	new_y;
 
 	if (game->player.key_left)
 	{
-		new_x = game->player.x + sin_a * MOVE_SPEED;
-		new_y = game->player.y - cos_a * MOVE_SPEED;
+		new_x = game->player.x - game->player.plane_x * MOVE_SPEED;
+		new_y = game->player.y - game->player.plane_y * MOVE_SPEED;
 		if (!ft_player_check_collision(game, new_x, game->player.y))
 			game->player.x = new_x;
 		if (!ft_player_check_collision(game, game->player.x, new_y))
@@ -98,8 +107,8 @@ static void	ft_player_move_strafe(t_game *game, float cos_a, float sin_a)
 	}
 	if (game->player.key_right)
 	{
-		new_x = game->player.x - sin_a * MOVE_SPEED;
-		new_y = game->player.y + cos_a * MOVE_SPEED;
+		new_x = game->player.x + game->player.plane_x * MOVE_SPEED;
+		new_y = game->player.y + game->player.plane_y * MOVE_SPEED;
 		if (!ft_player_check_collision(game, new_x, game->player.y))
 			game->player.x = new_x;
 		if (!ft_player_check_collision(game, game->player.x, new_y))
@@ -112,12 +121,7 @@ static void	ft_player_move_strafe(t_game *game, float cos_a, float sin_a)
  */
 void	ft_player_move(t_game *game)
 {
-	float	cos_a;
-	float	sin_a;
-
 	ft_player_rotate_player(&game->player);
-	cos_a = cos(game->player.angle);
-	sin_a = sin(game->player.angle);
-	ft_player_move_forward_back(game, cos_a, sin_a);
-	ft_player_move_strafe(game, cos_a, sin_a);
+	ft_player_move_forward_back(game);
+	ft_player_move_strafe(game);
 }

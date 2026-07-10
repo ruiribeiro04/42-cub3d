@@ -41,8 +41,8 @@ static int	count_sprites(t_game *game)
 
 static void	store_sprite_pos(t_game *game, int index, int x, int y)
 {
-	game->sprites[index].x = (x + 0.5) * BLOCK;
-	game->sprites[index].y = (y + 0.5) * BLOCK;
+	game->sprites[index].x = x + 0.5f;
+	game->sprites[index].y = y + 0.5f;
 	game->sprites[index].frames = NULL;
 	game->sprites[index].frame_count = 0;
 	game->sprites[index].current_frame = 0;

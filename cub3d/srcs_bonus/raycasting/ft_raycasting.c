@@ -30,19 +30,20 @@ static int	ft_raycasting_validate_player(t_game *game)
 {
 	if (game->player.x < 0 || game->player.y < 0)
 		return (1);
-	if (game->player.x >= game->map_width * BLOCK)
+	if (game->player.x >= (float)game->map_width)
 		return (1);
-	if (game->player.y >= game->map_height * BLOCK)
+	if (game->player.y >= (float)game->map_height)
 		return (1);
 	return (0);
 }
 
-static void	ft_raycasting_cast_ray(t_game *game, float angle, int col)
+static void	ft_raycasting_cast_ray(t_game *game, float ray_dir_x,
+			float ray_dir_y, int col)
 {
-	ft_raycasting_init_ray(game, angle);
+	ft_raycasting_init_ray(game, ray_dir_x, ray_dir_y);
 	ft_raycasting_calc_step(game);
 	ft_raycasting_perform_dda(game);
-	ft_raycasting_calc_wall_height(game, angle);
+	ft_raycasting_calc_wall_height(game);
 	ft_raycasting_draw_column(game, col);
 }
 
@@ -52,19 +53,19 @@ static void	ft_raycasting_cast_ray(t_game *game, float angle, int col)
 int	ft_raycasting(t_game *game)
 {
 	int		col;
-	float	angle;
-	float	angle_step;
-	float	start_angle;
+	float	camera_x;
+	float	ray_dir_x;
+	float	ray_dir_y;
 
 	if (ft_raycasting_validate_map(game) || ft_raycasting_validate_player(game))
 		return (1);
-	angle_step = FOV / WIDTH;
-	start_angle = game->player.angle - (FOV / 2);
 	col = 0;
 	while (col < WIDTH)
 	{
-		angle = start_angle + (col * angle_step);
-		ft_raycasting_cast_ray(game, angle, col);
+		camera_x = 2.0f * col / (float)WIDTH - 1.0f;
+		ray_dir_x = game->player.dir_x + game->player.plane_x * camera_x;
+		ray_dir_y = game->player.dir_y + game->player.plane_y * camera_x;
+		ft_raycasting_cast_ray(game, ray_dir_x, ray_dir_y, col);
 		game->z_buffer[col] = game->ray.perp_dist;
 		col++;
 	}

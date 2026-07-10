@@ -29,15 +29,12 @@ static void	ft_raycasting_calc_delta(t_game *game)
 		game->ray.delta_y = fabs(1.0 / game->ray.dir_y);
 }
 
-/**
- * @ingroup raycasting
- */
-void	ft_raycasting_init_ray(t_game *game, float angle)
+void	ft_raycasting_init_ray(t_game *game, float ray_dir_x, float ray_dir_y)
 {
-	game->ray.dir_x = cos(angle);
-	game->ray.dir_y = sin(angle);
-	game->ray.map_x = (int)(game->player.x / BLOCK);
-	game->ray.map_y = (int)(game->player.y / BLOCK);
+	game->ray.dir_x = ray_dir_x;
+	game->ray.dir_y = ray_dir_y;
+	game->ray.map_x = (int)game->player.x;
+	game->ray.map_y = (int)game->player.y;
 	game->ray.side = 0;
 	ft_raycasting_calc_delta(game);
 }
@@ -46,7 +43,7 @@ static void	ft_raycasting_calc_step_x(t_game *game)
 {
 	float	player_cell_x;
 
-	player_cell_x = game->player.x / BLOCK;
+	player_cell_x = game->player.x;
 	if (game->ray.dir_x < 0)
 	{
 		game->ray.step_x = -1;
@@ -65,7 +62,7 @@ static void	ft_raycasting_calc_step_y(t_game *game)
 {
 	float	player_cell_y;
 
-	player_cell_y = game->player.y / BLOCK;
+	player_cell_y = game->player.y;
 	if (game->ray.dir_y < 0)
 	{
 		game->ray.step_y = -1;
