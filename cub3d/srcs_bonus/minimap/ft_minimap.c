@@ -17,12 +17,6 @@
 
 #include "cub3d.h"
 
-static void	ft_draw_player_marker(t_game *game, t_point *draw_pos)
-{
-	draw_pos->x = MAP_OFFSET_X + ((int)(game->player.x / BLOCK) * MAP_TILE);
-	draw_pos->y = MAP_OFFSET_Y + ((int)(game->player.y / BLOCK) * MAP_TILE);
-	ft_draw_rect(game, *draw_pos, MAP_TILE, MAP_COLOR_PLAYER);
-}
 
 /**
  * @ingroup graphics
