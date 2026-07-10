@@ -20,7 +20,7 @@ LIBFT_DIR     = $(LIBS_DIR)/libft
 DOXYGEN_DIR   = ../doxygen
 
 # Compiling Flags
-CFLAGS        = -Wall -Wextra -Werror -Wno-incompatible-pointer-types -I$(INC_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR)
+CFLAGS        = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR) -I$(LIBFT_DIR)
 # MLX Linking
 LDFLAGS       = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -L$(LIBFT_DIR) -lft
 # Debug Flags
