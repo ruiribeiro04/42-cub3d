@@ -43,6 +43,8 @@ static void	ft_raycasting_draw_wall(t_game *game, int col)
 {
 	t_texture	*tex;
 	int			y;
+	float		step;
+	float		tex_pos;
 	int			tex_y;
 	int			color;
 
@@ -53,14 +55,21 @@ static void	ft_raycasting_draw_wall(t_game *game, int col)
 	ft_raycasting_calc_tex_x(game, tex);
 	if (game->ray.tex_x < 0)
 		return ;
+	step = (float)tex->height / game->ray.wall_height;
+	tex_pos = (game->ray.draw_start - HEIGHT / 2
+			+ game->ray.wall_height / 2) * step;
 	y = game->ray.draw_start;
-	if (y < 0)
-		y = 0;
-	while (y < game->ray.draw_end && y < HEIGHT)
+	while (y < game->ray.draw_end)
 	{
-		tex_y = ((y - game->ray.draw_start) * tex->height)
-			/ game->ray.wall_height;
+		tex_y = (int)tex_pos;
+		if (tex_y >= tex->height)
+			tex_y = tex->height - 1;
+		if (tex_y < 0)
+			tex_y = 0;
+		tex_pos += step;
 		color = ft_get_texture_pixel(tex, game->ray.tex_x, tex_y);
+		if (game->ray.side == 1)
+			color = (color >> 1) & 0x7F7F7F;
 		if ((color & 0x00FFFFFF) != 0)
 			ft_put_pixel_to_img(game, col, y, color);
 		y++;

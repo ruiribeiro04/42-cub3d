@@ -34,8 +34,8 @@ int	ft_player_check_collisions(t_game *game, float x, float y)
 		j = -1;
 		while (j <= 1)
 		{
-			map_x = (int)((x + i * COLLISION_MARGIN) / BLOCK);
-			map_y = (int)((y + j * COLLISION_MARGIN) / BLOCK);
+			map_x = (int)(x + i * COLLISION_MARGIN);
+			map_y = (int)(y + j * COLLISION_MARGIN);
 			if (ft_is_blocked_tile(game, map_x, map_y))
 				return (1);
 			j++;

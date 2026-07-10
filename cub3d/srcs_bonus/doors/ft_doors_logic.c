@@ -5,10 +5,8 @@ static t_door	*ft_get_target_door(t_game *game, float dir_x, float dir_y)
 	int	map_x;
 	int	map_y;
 
-	map_x = (int)((game->player.x + dir_x * BLOCK * DOOR_INTERACT_DIST)
-			/ BLOCK);
-	map_y = (int)((game->player.y + dir_y * BLOCK * DOOR_INTERACT_DIST)
-			/ BLOCK);
+	map_x = (int)(game->player.x + dir_x * DOOR_INTERACT_DIST);
+	map_y = (int)(game->player.y + dir_y * DOOR_INTERACT_DIST);
 	if (map_y < 0 || map_y >= game->map_height || map_x < 0
 		|| map_x >= game->map_width)
 		return (NULL);
@@ -23,8 +21,8 @@ static int	ft_is_facing_door(t_game *game, t_door *door, float dir_x,
 	float	dist;
 	float	dot;
 
-	dx = (door->x * BLOCK + BLOCK / 2) - game->player.x;
-	dy = (door->y * BLOCK + BLOCK / 2) - game->player.y;
+	dx = (door->x + 0.5f) - game->player.x;
+	dy = (door->y + 0.5f) - game->player.y;
 	dist = sqrt(dx * dx + dy * dy);
 	if (dist == 0)
 		return (0);
@@ -42,8 +40,8 @@ void	ft_handle_door_interaction(t_game *game)
 
 	if (!game->door_map)
 		return ;
-	dir_x = cos(game->player.angle);
-	dir_y = sin(game->player.angle);
+	dir_x = game->player.dir_x;
+	dir_y = game->player.dir_y;
 	door = ft_get_target_door(game, dir_x, dir_y);
 	if (door && ft_is_facing_door(game, door, dir_x, dir_y))
 	{
@@ -75,8 +73,8 @@ void	ft_update_doors(t_game *game, double delta_time)
 	int	p_x;
 	int	p_y;
 
-	p_x = (int)(game->player.x / BLOCK);
-	p_y = (int)(game->player.y / BLOCK);
+	p_x = (int)game->player.x;
+	p_y = (int)game->player.y;
 	i = 0;
 	while (i < game->door_count)
 	{

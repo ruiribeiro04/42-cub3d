@@ -3,11 +3,14 @@
 
 typedef struct s_spr_draw
 {
-	int	start_y;
-	int	end_y;
-	int	start_x;
-	int	end_x;
-	int	height;
+	int		start_y;
+	int		end_y;
+	int		start_x;
+	int		end_x;
+	int		height;
+	int		raw_start_x;
+	int		raw_start_y;
+	float	transform_y;
 }		t_spr_draw;
 
 void	ft_draw_sprites(t_game *game);
