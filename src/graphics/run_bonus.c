@@ -18,6 +18,8 @@ int	game_run(t_game *game)
 	mlx_hook(game->win, 3, 1L << 1, hook_key_release, game);
 	mlx_hook(game->win, 17, 0, hook_exit, game);
 	mlx_hook(game->win, 6, 1L << 6, hook_mouse_move, game);
+	mlx_hook(game->win, 9, 1L << 21, hook_focus_in, game);
+	mlx_hook(game->win, 10, 1L << 21, hook_focus_out, game);
 	mlx_mouse_move(game->mlx, game->win,
 		WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	mlx_loop_hook(game->mlx, hook_loop, game);

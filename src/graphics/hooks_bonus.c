@@ -37,6 +37,20 @@ int	hook_key_press(int keycode, t_game *game)
 	return (0);
 }
 
+int	hook_focus_in(t_game *game)
+{
+	game->focused = 1;
+	mlx_mouse_move(game->mlx, game->win,
+		WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	return (0);
+}
+
+int	hook_focus_out(t_game *game)
+{
+	game->focused = 0;
+	return (0);
+}
+
 int	hook_loop(t_game *game)
 {
 	player_update(game);

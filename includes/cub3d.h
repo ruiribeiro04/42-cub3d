@@ -137,6 +137,8 @@ typedef struct s_game
 	int				sprite_frame;
 	int				sprite_anim_counter;
 	int				has_sprites;
+	int				warp_skip;
+	int				focused;
 	double			*z_buffer;
 }			t_game;
 

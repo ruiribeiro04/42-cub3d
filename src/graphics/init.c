@@ -75,6 +75,8 @@ int	game_init(t_game *game, t_config *config)
 	game->z_buffer = (double *)malloc(sizeof(double) * WIN_WIDTH);
 	if (!game->z_buffer)
 		return (cub_error_int("Failed to alloc z_buffer"));
+	game->warp_skip = 0;
+	game->focused = 1;
 	if (load_all_textures(game, config) < 0)
 		return (cub_error_int("Failed to load textures"));
 	if (init_optional_textures(game, config) < 0)

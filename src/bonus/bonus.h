@@ -21,5 +21,7 @@
 void	minimap_draw(t_game *game);
 void	door_try_front(t_game *game);
 int		hook_mouse_move(int x, int y, t_game *game);
+int		hook_focus_in(t_game *game);
+int		hook_focus_out(t_game *game);
 
 #endif
