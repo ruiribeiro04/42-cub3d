@@ -9,8 +9,8 @@
 /*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "bonus.h"
 #include "../graphics/graphics.h"
+#include "bonus.h"
 
 static int	in_bounds(t_map *map, int mx, int my)
 {
@@ -39,21 +39,54 @@ int	door_toggle(t_game *game, int mx, int my)
 	return (1);
 }
 
+static int	player_too_close(t_player *p, int mx, int my)
+{
+	double	dx;
+	double	dy;
+
+	dx = p->x - ((double)mx + 0.5);
+	dy = p->y - ((double)my + 0.5);
+	return (dx * dx + dy * dy < 1.0);
+}
+
+/* Toggles a door, but refuses to CLOSE it if the player is too close. */
+static int	door_toggle_safe(t_game *game, int mx, int my)
+{
+	t_map		*map;
+	char		cell;
+	t_player	*p;
+
+	map = &game->config->map;
+	if (!in_bounds(map, mx, my))
+		return (0);
+	cell = map->grid[my][mx];
+	p = &game->config->player;
+	if (cell == 'O' && player_too_close(p, mx, my))
+		return (0);
+	return (door_toggle(game, mx, my));
+}
+
 void	door_try_front(t_game *game)
 {
 	t_player	*p;
 	int			px;
 	int			py;
+	int			dx;
+	int			dy;
 
 	p = &game->config->player;
 	px = (int)p->x;
 	py = (int)p->y;
-	if (door_toggle(game, px + 1, py))
-		return ;
-	if (door_toggle(game, px - 1, py))
-		return ;
-	if (door_toggle(game, px, py + 1))
-		return ;
-	if (door_toggle(game, px, py - 1))
-		return ;
+	dy = -2;
+	while (dy <= 2)
+	{
+		dx = -2;
+		while (dx <= 2)
+		{
+			if (door_toggle_safe(game, px + dx, py + dy))
+				return ;
+			dx++;
+		}
+		dy++;
+	}
 }
