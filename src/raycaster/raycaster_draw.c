@@ -10,7 +10,7 @@
 /*									      */
 /* ************************************************************************** */
 #include "raycaster.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 #include <math.h>
 
 static void	compute_height(t_ray *r)

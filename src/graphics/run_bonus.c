@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
-#include "../bonus/bonus.h"
+#include "bonus.h"
 
 int	game_run(t_game *game)
 {

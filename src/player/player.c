@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "player.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 #include <math.h>
 
 static void	set_vertical(t_player *p, int is_north)

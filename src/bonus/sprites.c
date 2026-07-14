@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "sprites.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 #include <math.h>
 #include <stdlib.h>
 

@@ -10,8 +10,8 @@
 /*									      */
 /* ************************************************************************** */
 #include "bonus.h"
-#include "../graphics/graphics.h"
-#include "../player/player.h"
+#include "graphics.h"
+#include "player.h"
 #include <math.h>
 
 int	hook_mouse_move(int x, int y, t_game *game)

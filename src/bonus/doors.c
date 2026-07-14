@@ -9,7 +9,7 @@
 /*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../graphics/graphics.h"
+#include "graphics.h"
 #include "bonus.h"
 
 static int	in_bounds(t_map *map, int mx, int my)

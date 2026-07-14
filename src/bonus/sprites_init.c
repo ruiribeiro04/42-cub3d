@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "sprites.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 #include <stdlib.h>
 
 static void	copy_positions(t_game *game, t_config *cfg)

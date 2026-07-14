@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "player.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 #include <math.h>
 
 void	player_update(t_game *game)

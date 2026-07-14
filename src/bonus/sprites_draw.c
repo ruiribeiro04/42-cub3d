@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "sprites.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 
 static int	compute_tex_x(t_sprite_draw *d, int stripe)
 {

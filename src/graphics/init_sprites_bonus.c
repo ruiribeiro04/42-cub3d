@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
-#include "../bonus/sprites.h"
+#include "sprites.h"
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>

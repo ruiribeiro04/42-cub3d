@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "raycaster.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 #include <math.h>
 
 static void	ray_init(t_ray *r, t_player *p, int x)

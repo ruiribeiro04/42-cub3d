@@ -14,13 +14,13 @@
 
 NAME            := cub3D
 
-LIBFT_DIR       := libft
+LIBFT_DIR       := libs/libft
 LIBFT           := $(LIBFT_DIR)/libft.a
 
-FTPRINTF_DIR    := ft_printf
+FTPRINTF_DIR    := libs/ft_printf
 FTPRINTF        := $(FTPRINTF_DIR)/libftprintf.a
 
-MLX_DIR         := minilibx-linux
+MLX_DIR         := libs/minilibx-linux
 MLX_LIB         := $(MLX_DIR)/libmlx_Linux.a
 
 INCS_DIR        := includes
@@ -29,9 +29,7 @@ INCS_DIR        := includes
 
 CC              := cc
 CFLAGS          := -Wall -Wextra -Werror
-IFLAGS          := -I$(INCS_DIR) -Isrc/parser -Isrc/graphics \
-                   -Isrc/raycaster -Isrc/player -Isrc/bonus \
-                   -I$(LIBFT_DIR) -I$(FTPRINTF_DIR) -I$(MLX_DIR)
+IFLAGS          := -I$(INCS_DIR) -I$(LIBFT_DIR) -I$(FTPRINTF_DIR) -I$(MLX_DIR)
 
 PARSER_LDFLAGS  := -L$(LIBFT_DIR) -lft \
                    -L$(FTPRINTF_DIR) -lftprintf
@@ -58,8 +56,8 @@ ALL_SRCS        := src/parser/parser.c \
                    src/error/error.c \
                    src/utils/free_utils.c \
                    src/utils/shared_helpers.c \
-                   get_next_line/get_next_line.c \
-                   get_next_line/get_next_line_utils.c \
+                   libs/get_next_line/get_next_line.c \
+                   libs/get_next_line/get_next_line_utils.c \
                    src/graphics/init.c \
                    src/graphics/cleanup.c \
                    src/graphics/textures.c \
@@ -154,8 +152,8 @@ TEST_OBJS       := src/parser/parser.o src/parser/parser_io.o \
                    src/parser/parser_sprite.o src/parser/parser_sprite_collect.o \
                    src/parser/parser_doors.o src/error/error.o \
                    src/utils/free_utils.o \
-                   get_next_line/get_next_line.o \
-                   get_next_line/get_next_line_utils.o
+                   libs/get_next_line/get_next_line.o \
+                   libs/get_next_line/get_next_line_utils.o
 
 test_parser:    tests/test_parser.c $(TEST_OBJS)
 	@echo "\033[1;34mBuilding test_parser...\033[0m"

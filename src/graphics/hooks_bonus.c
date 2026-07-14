@@ -10,8 +10,8 @@
 /*									      */
 /* ************************************************************************** */
 #include "graphics.h"
-#include "../bonus/bonus.h"
-#include "../bonus/sprites.h"
+#include "bonus.h"
+#include "sprites.h"
 
 int	hook_key_press(int keycode, t_game *game)
 {

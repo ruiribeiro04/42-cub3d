@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "bonus.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 
 static void	draw_tile(t_game *g, int mx, int my, int color)
 {

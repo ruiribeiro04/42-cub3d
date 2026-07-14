@@ -9,7 +9,7 @@
 /*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../graphics/graphics.h"
+#include "graphics.h"
 #include "player.h"
 
 static int	is_wall(t_map *map, double x, double y)

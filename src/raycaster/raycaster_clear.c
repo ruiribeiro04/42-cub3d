@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "raycaster.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 
 void	raycaster_clear(t_game *game)
 {

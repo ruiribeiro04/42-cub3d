@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "sprites.h"
-#include "../graphics/graphics.h"
+#include "graphics.h"
 
 static void	compute_distances(t_game *game)
 {
