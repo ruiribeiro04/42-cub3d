@@ -49,7 +49,6 @@ typedef struct s_player
 	double	x;
 	double	y;
 	char	direction;
-	double	angle;
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;
@@ -154,5 +153,8 @@ int				cub_error_int(const char *msg);
 int				game_init(t_game *game, t_config *config);
 void			game_cleanup(t_game *game);
 int				game_run(t_game *game);
+
+int				path_readable(const char *path);
+int				map_in_bounds(const t_map *map, int x, int y);
 
 #endif

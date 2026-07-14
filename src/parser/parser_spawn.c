@@ -16,18 +16,6 @@ static int	is_spawn_char(char c)
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-static void	set_player_angle(t_player *p)
-{
-	if (p->direction == 'E')
-		p->angle = 0.0;
-	else if (p->direction == 'S')
-		p->angle = PI / 2.0;
-	else if (p->direction == 'W')
-		p->angle = PI;
-	else if (p->direction == 'N')
-		p->angle = 3.0 * PI / 2.0;
-}
-
 static int	check_spawn_cell(t_config *cfg, int x, int y,
 								int *count)
 {
@@ -64,7 +52,6 @@ int	find_spawn(t_config *cfg)
 	}
 	if (count == 0)
 		return (cub_error_int("No player spawn found"));
-	set_player_angle(&cfg->player);
 	cfg->has_player = 1;
 	convert_sprites_to_floor(cfg);
 	return (0);

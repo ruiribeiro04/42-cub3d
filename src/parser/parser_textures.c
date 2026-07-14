@@ -35,21 +35,36 @@ static char	*extract_token(const char **p)
 	return (token);
 }
 
-static int	verify_path_readable(const char *path)
+char	*extract_path(const char *line)
 {
-	int	fd;
+	const char	*p;
+	char		*path;
+	size_t		len;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (-1);
-	close(fd);
-	return (0);
+	p = line + 2;
+	skip_spaces(&p);
+	if (*p == '\0')
+	{
+		cub_error("Missing texture path");
+		return (NULL);
+	}
+	len = ft_strlen(p);
+	while (len > 0 && (p[len - 1] == ' ' || p[len - 1] == '\t'))
+		len--;
+	path = (char *)malloc(len + 1);
+	if (!path)
+	{
+		cub_error("Memory allocation failed");
+		return (NULL);
+	}
+	ft_strlcpy(path, p, len + 1);
+	return (path);
 }
 
 static int	set_texture_field(const char *line, t_config *cfg,
-								char *path)
+							char *path)
 {
-	if (verify_path_readable(path) < 0)
+	if (!path_readable(path))
 	{
 		cub_error("Texture file cannot be opened");
 		free(path);

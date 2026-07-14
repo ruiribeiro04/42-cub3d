@@ -20,11 +20,11 @@ static void	ray_init(t_ray *r, t_player *p, int x)
 	r->dir_y = p->dir_y + p->plane_y * r->camera_x;
 	r->map_x = (int)p->x;
 	r->map_y = (int)p->y;
-	if (r->dir_x == 0)
+	if (fabs(r->dir_x) < 1e-9)
 		r->delta_dist_x = 1e30;
 	else
 		r->delta_dist_x = fabs(1.0 / r->dir_x);
-	if (r->dir_y == 0)
+	if (fabs(r->dir_y) < 1e-9)
 		r->delta_dist_y = 1e30;
 	else
 		r->delta_dist_y = fabs(1.0 / r->dir_y);
@@ -70,17 +70,17 @@ static int	dda_advance(t_ray *r, t_map *map)
 		r->map_y += r->step_y;
 		r->side = 1;
 	}
-	if (r->map_y < 0 || r->map_y >= map->height)
-		return (1);
-	if (r->map_x < 0 || r->map_x >= map->width)
-		return (1);
-	cell = map->grid[r->map_y][r->map_x];
-	if (cell == '1' || cell == 'D')
+	if (r->map_y < 0 || r->map_y >= map->height
+		|| r->map_x < 0 || r->map_x >= map->width)
 	{
-		r->hit_cell = cell;
+		r->hit_cell = '1';
 		return (1);
 	}
-	return (0);
+	cell = map->grid[r->map_y][r->map_x];
+	if (cell != '1' && cell != 'D')
+		return (0);
+	r->hit_cell = cell;
+	return (1);
 }
 
 static void	ray_dda(t_ray *r, t_map *map)

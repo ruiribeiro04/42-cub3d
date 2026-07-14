@@ -47,6 +47,10 @@ static void	compute_texture(t_ray *r, t_player *p)
 	if ((r->side == 0 && r->dir_x > 0)
 		|| (r->side == 1 && r->dir_y < 0))
 		r->tex_x = TEX_SIZE - r->tex_x - 1;
+	if (r->tex_x < 0)
+		r->tex_x = 0;
+	if (r->tex_x >= TEX_SIZE)
+		r->tex_x = TEX_SIZE - 1;
 }
 
 static t_texture	*select_texture(t_game *game, t_ray *r)

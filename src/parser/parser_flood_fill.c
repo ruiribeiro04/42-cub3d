@@ -18,15 +18,13 @@ static int	explore(t_flood_ctx *ctx, int x, int y)
 	int	idx;
 	int	cell;
 
-	if (x < 0 || x >= ctx->cfg->map.width)
-		return (-1);
-	if (y < 0 || y >= ctx->cfg->map.height)
+	if (!map_in_bounds(&ctx->cfg->map, x, y))
 		return (-1);
 	idx = y * ctx->cfg->map.width + x;
 	if (ctx->visited[idx])
 		return (0);
 	cell = ctx->cfg->map.grid[y][x];
-	if (cell == '1')
+	if (cell == '1' || cell == 'D')
 		return (0);
 	if (cell == ' ')
 		return (-1);

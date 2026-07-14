@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "player.h"
 #include "../graphics/graphics.h"
+#include <math.h>
 
 static void	set_vertical(t_player *p, int is_north)
 {
@@ -50,4 +51,17 @@ void	player_init_direction(t_player *p)
 		set_horizontal(p, 1);
 	else if (p->direction == 'W')
 		set_horizontal(p, 0);
+}
+
+void	player_rotate(t_player *p, double rot)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = p->dir_x;
+	p->dir_x = p->dir_x * cos(rot) - p->dir_y * sin(rot);
+	p->dir_y = old_dir_x * sin(rot) + p->dir_y * cos(rot);
+	old_plane_x = p->plane_x;
+	p->plane_x = p->plane_x * cos(rot) - p->plane_y * sin(rot);
+	p->plane_y = old_plane_x * sin(rot) + p->plane_y * cos(rot);
 }

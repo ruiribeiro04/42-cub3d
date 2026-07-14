@@ -1,89 +1,25 @@
 /* ************************************************************************** */
-/*									      */
-/*							  :::	   ::::::::   */
-/*   init_sprites.c					:+:	 :+:	:+:   */
-/*						      +:+ +:+	      +:+     */
-/*   By: ruiferna <ruiferna@student.42porto.com>    +#+	 +:+	   +#+	      */
-/*						  +#+#+#+#+#+	+#+	      */
-/*   Created: 2025/07/10 19:00:00 by ruiferna	       #+#    #+#	      */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna	      ###   ########.fr	      */
-/*									      */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_sprites.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
+/*   Updated: 2025/07/14 16:00:00 by ruiferna         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
-#include "../bonus/sprites.h"
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <libft.h>
 
-/* Builds path: base + "01.xpm" etc. */
-static void	build_path(char *dst, size_t size,
-					const char *base, int num)
-{
-	char	num_str[3];
-
-	ft_strlcpy(dst, base, size);
-	if (num < 10)
-	{
-		num_str[0] = '0';
-		num_str[1] = '0' + num;
-	}
-	else
-	{
-		num_str[0] = '0' + (num / 10);
-		num_str[1] = '0' + (num % 10);
-	}
-	num_str[2] = '\0';
-	ft_strlcat(dst, num_str, size);
-	ft_strlcat(dst, ".xpm", size);
-}
-
-/* Checks if a file exists and is readable. */
-static int	file_exists(const char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	close(fd);
-	return (1);
-}
-
-/* Loads all sprite frames (sprite01.xpm, sprite02.xpm...). */
-static int	load_sprite_frames(t_game *game, t_config *cfg)
-{
-	char	path[256];
-	int		i;
-
-	game->sprite_frames = (t_texture *)malloc(
-			sizeof(t_texture) * MAX_SPRITE_FRAMES);
-	if (!game->sprite_frames)
-		return (cub_error_int("Failed to alloc sprite frames"));
-	i = 0;
-	while (i < MAX_SPRITE_FRAMES)
-	{
-		build_path(path, sizeof(path), cfg->sprite_texture, i + 1);
-		if (!file_exists(path))
-			break ;
-		if (load_texture(game, &game->sprite_frames[i], path) < 0)
-			return (-1);
-		i++;
-	}
-	game->num_sprite_frames = i;
-	if (i == 0)
-		return (cub_error_int("No sprite frames found"));
-	return (0);
-}
-
+/*
+ * Mandatory stub: sprite initialization is a bonus-only feature.
+ * The bonus build swaps this file for init_sprites_bonus.c which loads
+ * sprite frames and calls sprites_init().
+ */
 int	init_sprites_if_present(t_game *game, t_config *cfg)
 {
-	if (!cfg->has_sprite)
-		return (0);
-	if (load_sprite_frames(game, cfg) < 0)
-		return (-1);
-	if (sprites_init(game) < 0)
-		return (-1);
+	(void)game;
+	(void)cfg;
 	return (0);
 }
 

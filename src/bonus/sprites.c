@@ -25,7 +25,7 @@ static void	compute_transform(t_player *p, t_sprite *s,
 	sx = s->x - p->x;
 	sy = s->y - p->y;
 	det = p->plane_x * p->dir_y - p->dir_x * p->plane_y;
-	if (det == 0)
+	if (fabs(det) < 1e-9)
 		inv_det = 1e30;
 	else
 		inv_det = 1.0 / det;
@@ -36,7 +36,9 @@ static void	compute_transform(t_player *p, t_sprite *s,
 static void	compute_draw(t_sprite_draw *d, int screen_x, double ty)
 {
 	d->screen_x = screen_x;
-	d->sprite_height = abs((int)(WIN_HEIGHT / ty));
+	d->sprite_height = (int)(WIN_HEIGHT / ty);
+	if (d->sprite_height < 0)
+		d->sprite_height = -d->sprite_height;
 	d->sprite_width = d->sprite_height;
 	d->draw_start_y = -d->sprite_height / 2 + WIN_HEIGHT / 2;
 	if (d->draw_start_y < 0)
@@ -52,7 +54,7 @@ static void	compute_draw(t_sprite_draw *d, int screen_x, double ty)
 		d->draw_end_x = WIN_WIDTH - 1;
 }
 
-void	render_one_sprite(t_game *g, t_sprite *s)
+static void	render_one_sprite(t_game *g, t_sprite *s)
 {
 	t_sprite_draw	d;
 	double			tx;
@@ -60,7 +62,7 @@ void	render_one_sprite(t_game *g, t_sprite *s)
 	int				screen_x;
 
 	compute_transform(&g->config->player, s, &tx, &ty);
-	if (ty <= 0)
+	if (ty < 1e-6 || fabs(tx) >= ty)
 		return ;
 	screen_x = (int)((WIN_WIDTH / 2) * (1.0 + tx / ty));
 	compute_draw(&d, screen_x, ty);

@@ -24,10 +24,10 @@ typedef struct s_rect
 
 void	frame_put_pixel(t_game *game, int x, int y, int color);
 void	frame_fill_rect(t_game *game, t_rect rect, int color);
-void	frame_clear(t_game *game);
 int		load_texture(t_game *game, t_texture *tex, char *path);
 void	destroy_texture(t_game *game, t_texture *tex);
-int		color_to_int(t_color c);
+int		free_sprite_frames(t_game *game, int count);
+int		color_to_int(t_color c, int endian);
 int		hook_key_press(int keycode, t_game *game);
 int		hook_key_release(int keycode, t_game *game);
 int		hook_exit(t_game *game);

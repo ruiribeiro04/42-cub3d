@@ -12,9 +12,11 @@
 #include "graphics.h"
 #include <stdlib.h>
 
-int	color_to_int(t_color c)
+int	color_to_int(t_color c, int endian)
 {
-	return ((c.r << 16) | (c.g << 8) | c.b);
+	if (endian == 0)
+		return ((c.r << 16) | (c.g << 8) | c.b);
+	return ((c.b << 16) | (c.g << 8) | c.r);
 }
 
 static void	init_keys(t_keys *keys)
@@ -67,8 +69,8 @@ int	game_init(t_game *game, t_config *config)
 	if (init_frame(game) < 0)
 		return (cub_error_int("Failed to create frame image"));
 	game->config = config;
-	game->floor_color = color_to_int(config->floor);
-	game->ceiling_color = color_to_int(config->ceiling);
+	game->floor_color = color_to_int(config->floor, game->frame.endian);
+	game->ceiling_color = color_to_int(config->ceiling, game->frame.endian);
 	init_keys(&game->keys);
 	game->z_buffer = (double *)malloc(sizeof(double) * WIN_WIDTH);
 	if (!game->z_buffer)

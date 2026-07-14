@@ -17,13 +17,27 @@ static int	is_wall(t_map *map, double x, double y)
 	int	mx;
 	int	my;
 
-	if (x < 0 || y < 0)
-		return (1);
 	mx = (int)x;
 	my = (int)y;
-	if (my < 0 || my >= map->height || mx < 0 || mx >= map->width)
+	if (!map_in_bounds(map, mx, my))
 		return (1);
 	return (map->grid[my][mx] == '1' || map->grid[my][mx] == 'D');
+}
+
+static int	check_corners(t_map *map, double x, double y)
+{
+	double	m;
+
+	m = COLLISION_MARGIN;
+	if (is_wall(map, x + m, y + m))
+		return (1);
+	if (is_wall(map, x - m, y + m))
+		return (1);
+	if (is_wall(map, x + m, y - m))
+		return (1);
+	if (is_wall(map, x - m, y - m))
+		return (1);
+	return (0);
 }
 
 static void	try_move_x(t_player *p, t_map *map, double dx)
@@ -33,7 +47,8 @@ static void	try_move_x(t_player *p, t_map *map, double dx)
 	margin = COLLISION_MARGIN;
 	if (dx < 0)
 		margin = -margin;
-	if (!is_wall(map, p->x + dx + margin, p->y))
+	if (!is_wall(map, p->x + dx + margin, p->y)
+		&& !check_corners(map, p->x + dx, p->y))
 		p->x += dx;
 }
 
@@ -44,7 +59,8 @@ static void	try_move_y(t_player *p, t_map *map, double dy)
 	margin = COLLISION_MARGIN;
 	if (dy < 0)
 		margin = -margin;
-	if (!is_wall(map, p->x, p->y + dy + margin))
+	if (!is_wall(map, p->x, p->y + dy + margin)
+		&& !check_corners(map, p->x, p->y + dy))
 		p->y += dy;
 }
 

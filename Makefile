@@ -57,6 +57,7 @@ ALL_SRCS        := src/parser/parser.c \
                    src/parser/parser_validate.c \
                    src/error/error.c \
                    src/utils/free_utils.c \
+                   src/utils/shared_helpers.c \
                    get_next_line/get_next_line.c \
                    get_next_line/get_next_line_utils.c \
                    src/graphics/init.c \
@@ -73,29 +74,34 @@ ALL_SRCS        := src/parser/parser.c \
                    src/player/player.c \
                    src/player/player_move.c \
                    src/player/player_apply.c \
-                   src/bonus/minimap.c \
+                   src/main.c
+
+# Bonus-only sources (not compiled into the mandatory binary)
+BONUS_ONLY_SRCS := src/bonus/minimap.c \
                    src/bonus/doors.c \
                    src/bonus/mouse.c \
                    src/bonus/sprites.c \
                    src/bonus/sprites_draw.c \
                    src/bonus/sprite_anim.c \
-                   src/bonus/sprites_init.c \
-                   src/main.c
+                   src/bonus/sprites_init.c
 
 # Files replaced by _bonus counterparts in bonus build
 BONUS_EXCLUDE   := src/graphics/hooks.c src/graphics/run.c \
+                   src/graphics/init_sprites.c \
                    src/parser/parser_utils.c
 
 # Bonus replacement files
 BONUS_REPLACE   := src/graphics/hooks_bonus.c \
                    src/graphics/run_bonus.c \
+                   src/graphics/init_sprites_bonus.c \
                    src/parser/parser_utils_bonus.c
 
 # Mandatory objects
 MANDATORY_OBJS  := $(ALL_SRCS:.c=.o)
 
-# Bonus objects: all minus excluded plus replacements
+# Bonus objects: all minus excluded plus replacements plus bonus-only
 BONUS_SRCS      := $(filter-out $(BONUS_EXCLUDE),$(ALL_SRCS)) \
+                   $(BONUS_ONLY_SRCS) \
                    $(BONUS_REPLACE)
 BONUS_OBJS      := $(BONUS_SRCS:.c=.o)
 

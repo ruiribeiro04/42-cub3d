@@ -14,7 +14,8 @@
 
 static int	cache_pixels(t_texture *tex)
 {
-	int		i;
+	int		x;
+	int		y;
 	int		num_pixels;
 	char	*src;
 
@@ -23,11 +24,17 @@ static int	cache_pixels(t_texture *tex)
 	if (!tex->pixels)
 		return (-1);
 	src = tex->img.data;
-	i = 0;
-	while (i < num_pixels)
+	y = 0;
+	while (y < tex->img.height)
 	{
-		tex->pixels[i] = *(int *)(src + i * (tex->img.bpp / 8));
-		i++;
+		x = 0;
+		while (x < tex->img.width)
+		{
+			tex->pixels[y * tex->img.width + x] = *(int *)(src
+					+ y * tex->img.line_len + x * (tex->img.bpp / 8));
+			x++;
+		}
+		y++;
 	}
 	return (0);
 }
@@ -44,6 +51,11 @@ int	load_texture(t_game *game, t_texture *tex, char *path)
 	{
 		mlx_destroy_image(game->mlx, tex->img.ptr);
 		return (cub_error_int("Failed to get texture data"));
+	}
+	if (tex->img.width != TEX_SIZE || tex->img.height != TEX_SIZE)
+	{
+		mlx_destroy_image(game->mlx, tex->img.ptr);
+		return (cub_error_int("Texture must be 64x64"));
 	}
 	if (cache_pixels(tex) < 0)
 	{

@@ -28,10 +28,14 @@ static int	has_cub_extension(const char *path)
 
 static int	parse_element_line(const char *line, t_config *cfg)
 {
-	if (ft_strncmp(line, "NO", 2) == 0
-		|| ft_strncmp(line, "SO", 2) == 0
-		|| ft_strncmp(line, "WE", 2) == 0
-		|| ft_strncmp(line, "EA", 2) == 0)
+	if ((ft_strncmp(line, "NO ", 3) == 0
+			|| ft_strncmp(line, "NO\t", 3) == 0)
+		|| (ft_strncmp(line, "SO ", 3) == 0
+			|| ft_strncmp(line, "SO\t", 3) == 0)
+		|| (ft_strncmp(line, "WE ", 3) == 0
+			|| ft_strncmp(line, "WE\t", 3) == 0)
+		|| (ft_strncmp(line, "EA ", 3) == 0
+			|| ft_strncmp(line, "EA\t", 3) == 0))
 		return (parse_texture_line(line, cfg));
 	if (ft_strncmp(line, "F ", 2) == 0
 		|| ft_strncmp(line, "F\t", 2) == 0)
@@ -39,9 +43,11 @@ static int	parse_element_line(const char *line, t_config *cfg)
 	if (ft_strncmp(line, "C ", 2) == 0
 		|| ft_strncmp(line, "C\t", 2) == 0)
 		return (parse_color_line(line, cfg));
-	if (ft_strncmp(line, "SP", 2) == 0)
+	if ((ft_strncmp(line, "SP ", 3) == 0
+			|| ft_strncmp(line, "SP\t", 3) == 0))
 		return (parse_sprite_line(line, cfg));
-	if (ft_strncmp(line, "DO", 2) == 0)
+	if ((ft_strncmp(line, "DO ", 3) == 0
+			|| ft_strncmp(line, "DO\t", 3) == 0))
 		return (parse_door_line(line, cfg));
 	cub_error("Unknown element identifier");
 	return (-1);

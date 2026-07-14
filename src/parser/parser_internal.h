@@ -45,6 +45,8 @@ int			parse_sprite_line(const char *line, t_config *cfg);
 int			parse_door_line(const char *line, t_config *cfg);
 int			parse_map_block(int fd, char *first_line, t_config *cfg);
 
+char		*extract_path(const char *line);
+
 int			validate_config(t_config *cfg);
 int			find_spawn(t_config *cfg);
 int			flood_fill_check(t_config *cfg);

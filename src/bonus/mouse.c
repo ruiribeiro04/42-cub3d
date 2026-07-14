@@ -11,20 +11,8 @@
 /* ************************************************************************** */
 #include "bonus.h"
 #include "../graphics/graphics.h"
+#include "../player/player.h"
 #include <math.h>
-
-static void	rotate_player(t_player *p, double rot)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-
-	old_dir_x = p->dir_x;
-	p->dir_x = p->dir_x * cos(rot) - p->dir_y * sin(rot);
-	p->dir_y = old_dir_x * sin(rot) + p->dir_y * cos(rot);
-	old_plane_x = p->plane_x;
-	p->plane_x = p->plane_x * cos(rot) - p->plane_y * sin(rot);
-	p->plane_y = old_plane_x * sin(rot) + p->plane_y * cos(rot);
-}
 
 int	hook_mouse_move(int x, int y, t_game *game)
 {
@@ -34,7 +22,7 @@ int	hook_mouse_move(int x, int y, t_game *game)
 	delta = x - WIN_WIDTH / 2;
 	if (delta != 0)
 	{
-		rotate_player(&game->config->player,
+		player_rotate(&game->config->player,
 			(double)delta * MOUSE_SENS);
 		mlx_mouse_move(game->mlx, game->win,
 			WIN_WIDTH / 2, WIN_HEIGHT / 2);

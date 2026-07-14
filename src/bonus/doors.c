@@ -12,22 +12,13 @@
 #include "bonus.h"
 #include "../graphics/graphics.h"
 
-static int	in_bounds(t_map *map, int mx, int my)
-{
-	if (my < 0 || my >= map->height)
-		return (0);
-	if (mx < 0 || mx >= map->width)
-		return (0);
-	return (1);
-}
-
-int	door_toggle(t_game *game, int mx, int my)
+static int	door_toggle(t_game *game, int mx, int my)
 {
 	t_map	*map;
 	char	cell;
 
 	map = &game->config->map;
-	if (!in_bounds(map, mx, my))
+	if (!map_in_bounds(map, mx, my))
 		return (0);
 	cell = map->grid[my][mx];
 	if (cell == 'D')
@@ -42,18 +33,11 @@ int	door_toggle(t_game *game, int mx, int my)
 void	door_try_front(t_game *game)
 {
 	t_player	*p;
-	int			px;
-	int			py;
+	int			fx;
+	int			fy;
 
 	p = &game->config->player;
-	px = (int)p->x;
-	py = (int)p->y;
-	if (door_toggle(game, px + 1, py))
-		return ;
-	if (door_toggle(game, px - 1, py))
-		return ;
-	if (door_toggle(game, px, py + 1))
-		return ;
-	if (door_toggle(game, px, py - 1))
-		return ;
+	fx = (int)(p->x + p->dir_x);
+	fy = (int)(p->y + p->dir_y);
+	door_toggle(game, fx, fy);
 }

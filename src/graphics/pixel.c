@@ -39,14 +39,3 @@ void	frame_fill_rect(t_game *game, t_rect rect, int color)
 		y++;
 	}
 }
-
-void	frame_clear(t_game *game)
-{
-	t_rect	r;
-
-	r.x0 = 0;
-	r.y0 = 0;
-	r.x1 = WIN_WIDTH - 1;
-	r.y1 = WIN_HEIGHT - 1;
-	frame_fill_rect(game, r, 0);
-}
