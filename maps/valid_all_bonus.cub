@@ -1,0 +1,16 @@
+NO ./assets/north.xpm
+SO ./assets/south.xpm
+WE ./assets/west.xpm
+EA ./assets/east.xpm
+SP ./assets/sprite
+DO ./assets/door.xpm
+F 220,100,0
+C 225,30,0
+111111111111
+100020000D01
+100000000001
+100000200001
+100000000001
+100000000001
+1000N0000001
+111111111111
