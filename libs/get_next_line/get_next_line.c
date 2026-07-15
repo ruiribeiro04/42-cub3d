@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 09:43:43 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/05/01 16:19:46 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static char	*ft_read_buffer(int fd, char *stash)
 	if (!buff)
 		return (NULL);
 	bytes_read = 1;
-	while (bytes_read > 0 && !ft_strchr(stash, '\n'))
+	while (bytes_read > 0 && !gnl_strchr(stash, '\n'))
 	{
 		bytes_read = read(fd, buff, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (free(stash), free(buff), NULL);
 		buff[bytes_read] = '\0';
 		temp = stash;
-		stash = ft_strjoin(temp, buff);
+		stash = gnl_strjoin(temp, buff);
 		if (temp)
 			free(temp);
 	}
@@ -49,7 +49,7 @@ static char	*ft_extract_line(char *stash)
 		i++;
 	if (stash[i] == '\n')
 		i++;
-	line = ft_substr(stash, 0, i);
+	line = gnl_substr(stash, 0, i);
 	return (line);
 }
 
@@ -70,7 +70,7 @@ static char	*ft_save_rest(char *stash)
 		free(stash);
 		return (NULL);
 	}
-	rest = ft_strdup(stash + i);
+	rest = gnl_strdup(stash + i);
 	if (!rest)
 		return (free(stash), NULL);
 	free(stash);
@@ -91,41 +91,3 @@ char	*get_next_line(int fd)
 	stash = ft_save_rest(stash);
 	return (line);
 }
-/*
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-int	main(int argc, char **argv)
-{
-	int		fd;
-	char	*line;
-	int		line_num;
-
-	if (argc != 2)
-	{
-		printf("Usage: %s <filename>\n", argv[0]);
-		return (1);
-	}
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Error opening file");
-		return (1);
-	}
-	line_num = 1;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("Line %d: %s", line_num++, line);
-		free(line);
-		line = NULL;
-	}
-	if (close(fd) == -1)
-	{
-		perror("Error closing file");
-		return (1);
-	}
-	return (0);
-}
-*/

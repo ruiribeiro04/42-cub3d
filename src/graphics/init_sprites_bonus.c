@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/14 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
@@ -16,47 +16,63 @@
 #include <unistd.h>
 #include <libft.h>
 
-/* Builds path: base + "01.xpm" etc. */
-static void	build_path(char *dst, size_t size,
-					const char *base, int num)
+/*
+ * Builds path "<base>NN.xpm" and tries to load it as frame idx.
+ * Returns 1 if loaded, 0 if file missing (end of sequence), -1 on error.
+ */
+static int	load_one_frame(t_game *game, t_config *cfg, int idx)
 {
+	char	path[SPRITE_PATH_MAX];
 	char	num_str[3];
 
-	ft_strlcpy(dst, base, size);
-	if (num < 10)
+	ft_strlcpy(path, cfg->sprite_texture, sizeof(path));
+	if (idx + 1 < 10)
 	{
 		num_str[0] = '0';
-		num_str[1] = '0' + num;
+		num_str[1] = '0' + (idx + 1);
 	}
 	else
 	{
-		num_str[0] = '0' + (num / 10);
-		num_str[1] = '0' + (num % 10);
+		num_str[0] = '0' + ((idx + 1) / 10);
+		num_str[1] = '0' + ((idx + 1) % 10);
 	}
 	num_str[2] = '\0';
-	ft_strlcat(dst, num_str, size);
-	ft_strlcat(dst, ".xpm", size);
+	ft_strlcat(path, num_str, sizeof(path));
+	ft_strlcat(path, ".xpm", sizeof(path));
+	if (!path_readable(path))
+		return (0);
+	if (load_texture(game, &game->sprite_frames[idx], path) < 0)
+		return (-1);
+	return (1);
 }
 
-/* Loads all sprite frames (sprite01.xpm, sprite02.xpm...). */
-static int	load_sprite_frames(t_game *game, t_config *cfg)
+static int	alloc_sprite_frames(t_game *game, t_config *cfg)
 {
-	char	path[256];
-	int		i;
-
+	if (ft_strlen(cfg->sprite_texture) > SPRITE_PATH_MAX - 16)
+		return (cub_error_int("Sprite texture path too long"));
 	game->sprite_frames = (t_texture *)malloc(
 			sizeof(t_texture) * MAX_SPRITE_FRAMES);
 	if (!game->sprite_frames)
 		return (cub_error_int("Failed to alloc sprite frames"));
 	ft_bzero(game->sprite_frames, sizeof(t_texture) * MAX_SPRITE_FRAMES);
+	return (0);
+}
+
+static int	load_sprite_frames(t_game *game, t_config *cfg)
+{
+	int	i;
+	int	ret;
+
+	if (alloc_sprite_frames(game, cfg) < 0)
+		return (-1);
 	i = 0;
 	while (i < MAX_SPRITE_FRAMES)
 	{
-		build_path(path, sizeof(path), cfg->sprite_texture, i + 1);
-		if (!path_readable(path))
-			break ;
-		if (load_texture(game, &game->sprite_frames[i], path) < 0)
+		ret = load_one_frame(game, cfg, i);
+		if (ret < 0)
 			return (free_sprite_frames(game, i));
+		if (ret == 0)
+			break ;
 		i++;
 	}
 	game->num_sprite_frames = i;
@@ -75,7 +91,10 @@ int	init_sprites_if_present(t_game *game, t_config *cfg)
 	if (load_sprite_frames(game, cfg) < 0)
 		return (-1);
 	if (sprites_init(game) < 0)
+	{
+		free_sprite_frames(game, game->num_sprite_frames);
 		return (-1);
+	}
 	return (0);
 }
 

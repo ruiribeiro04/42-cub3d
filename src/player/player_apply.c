@@ -6,12 +6,17 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
 #include "player.h"
 
+/*
+ * Returns 1 if the cell at world position (x, y) is solid — a wall ('1')
+ * or a closed door ('D'). Out-of-bounds counts as wall so the player can
+ * never leave the map area.
+ */
 static int	is_wall(t_map *map, double x, double y)
 {
 	int	mx;
@@ -23,9 +28,17 @@ static int	is_wall(t_map *map, double x, double y)
 	my = (int)y;
 	if (my < 0 || my >= map->height || mx < 0 || mx >= map->width)
 		return (1);
-	return (map->grid[my][mx] == '1' || map->grid[my][mx] == 'D');
+	return (map->grid[my][mx] == '1' || map->grid[my][mx] == 'D' ||
+		map->grid[my][mx] == ' ');
 }
 
+/*
+ * Attempts to move the player along the X axis by dx. A small collision
+ * margin (signed to match movement direction) is added so the player
+ * stops short of the wall rather than touching it. If the player is
+ * already inside a wall (e.g. spawned wrong, or a door closed on them),
+ * the margin is dropped so they can still escape.
+ */
 static void	try_move_x(t_player *p, t_map *map, double dx)
 {
 	double	margin;

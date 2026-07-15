@@ -77,7 +77,7 @@ static int	dda_advance(t_ray *r, t_map *map)
 		return (1);
 	}
 	cell = map->grid[r->map_y][r->map_x];
-	if (cell != '1' && cell != 'D')
+	if (!is_barrier(cell))
 		return (0);
 	r->hit_cell = cell;
 	return (1);

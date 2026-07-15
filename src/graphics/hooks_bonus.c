@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*									      */
-/*							  :::	   ::::::::   */
-/*   hooks_bonus.c					:+:	 :+:	:+:   */
-/*						      +:+ +:+	      +:+     */
-/*   By: ruiferna <ruiferna@student.42porto.com>    +#+	 +:+	   +#+	      */
-/*						  +#+#+#+#+#+	+#+	      */
-/*   Created: 2025/07/10 19:00:00 by ruiferna	       #+#    #+#	      */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna	      ###   ########.fr	      */
-/*									      */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
 #include "bonus.h"
@@ -20,19 +20,19 @@ int	hook_key_press(int keycode, t_game *game)
 		mlx_loop_end(game->mlx);
 		return (0);
 	}
-	if (keycode == KEY_W)
+	else if (keycode == KEY_W)
 		game->keys.w = 1;
-	if (keycode == KEY_A)
+	else if (keycode == KEY_A)
 		game->keys.a = 1;
-	if (keycode == KEY_S)
+	else if (keycode == KEY_S)
 		game->keys.s = 1;
-	if (keycode == KEY_D)
+	else if (keycode == KEY_D)
 		game->keys.d = 1;
-	if (keycode == KEY_LEFT)
+	else if (keycode == KEY_LEFT)
 		game->keys.left = 1;
-	if (keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 		game->keys.right = 1;
-	if (keycode == KEY_E)
+	else if (keycode == KEY_E)
 		door_try_front(game);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -28,6 +28,7 @@
 # define MAX_SPRITE_FRAMES 10
 # define SPRITE_ANIM_DELAY 15
 # define MOUSE_SENS 0.002
+# define SPRITE_PATH_MAX 240
 
 typedef struct s_color
 {
@@ -147,6 +148,7 @@ typedef struct s_game
 # define TEX_WEST  2
 # define TEX_EAST  3
 
+t_config		*alloc_config(void);
 t_config		*parse_cub_file(const char *path);
 void			free_config(t_config *config);
 void			cub_error(const char *msg);
@@ -158,5 +160,6 @@ int				game_run(t_game *game);
 
 int				path_readable(const char *path);
 int				map_in_bounds(const t_map *map, int x, int y);
+int				is_barrier(char c);
 
 #endif

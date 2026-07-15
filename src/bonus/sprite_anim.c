@@ -67,7 +67,7 @@ void	sprites_sort(t_game *game)
 
 void	sprites_update(t_game *game)
 {
-	if (!game->has_sprites)
+	if (!game->has_sprites || game->num_sprite_frames <= 0)
 		return ;
 	game->sprite_anim_counter++;
 	if (game->sprite_anim_counter >= SPRITE_ANIM_DELAY)

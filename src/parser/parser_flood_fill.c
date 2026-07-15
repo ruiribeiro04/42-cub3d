@@ -6,13 +6,18 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:00:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parser_internal.h"
 #include <stdlib.h>
 #include <libft.h>
 
+/*
+ * BFS explorer. Only walls ('1') are barriers — doors ('D') are passable
+ * so the player can reach open edges through them. Out-of-bounds means
+ * the walkable region leaks outside the grid (map not closed).
+ */
 static int	explore(t_flood_ctx *ctx, int x, int y)
 {
 	int	idx;
@@ -24,17 +29,15 @@ static int	explore(t_flood_ctx *ctx, int x, int y)
 	if (ctx->visited[idx])
 		return (0);
 	cell = ctx->cfg->map.grid[y][x];
-	if (cell == '1' || cell == 'D')
+	if (cell == '1')
 		return (0);
-	if (cell == ' ')
-		return (-1);
 	ctx->visited[idx] = 1;
 	ctx->queue[ctx->q_tail++] = idx;
 	return (0);
 }
 
 static int	process_queue(t_flood_ctx *ctx, int q_head,
-						t_config *cfg)
+								t_config *cfg)
 {
 	int	idx;
 	int	x;
@@ -60,12 +63,13 @@ static int	flood_fill_iter(t_config *cfg, char *visited,
 	t_flood_ctx	ctx;
 	int			q_head;
 	int			idx;
+	int			map_size;
 
+	map_size = cfg->map.height * cfg->map.width;
 	ctx.cfg = cfg;
 	ctx.visited = visited;
 	ctx.q_tail = 0;
-	ctx.queue = (int *)malloc(sizeof(int)
-			* (cfg->map.height * cfg->map.width));
+	ctx.queue = (int *)malloc(sizeof(int) * (size_t)map_size);
 	if (!ctx.queue)
 		return (-1);
 	q_head = 0;
@@ -85,9 +89,11 @@ int	flood_fill_check(t_config *cfg)
 {
 	char	*visited;
 	int		result;
-	int		map_size;
+	long	map_size;
 
-	map_size = cfg->map.height * cfg->map.width;
+	map_size = (long)cfg->map.height * (long)cfg->map.width;
+	if (map_size <= 0 || map_size > MAP_MAX_CELLS)
+		return (cub_error_int("Map dimensions out of range"));
 	visited = (char *)malloc((size_t)map_size);
 	if (!visited)
 		return (cub_error_int("Memory allocation failed"));
@@ -96,6 +102,6 @@ int	flood_fill_check(t_config *cfg)
 			(int)cfg->player.x, (int)cfg->player.y);
 	free(visited);
 	if (result < 0)
-		return (cub_error_int("Map is not closed"));
+		return (cub_error_int("Map is not closed (player can escape)"));
 	return (0);
 }

@@ -6,28 +6,24 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
 #include "bonus.h"
 
-static int	in_bounds(t_map *map, int mx, int my)
-{
-	if (my < 0 || my >= map->height)
-		return (0);
-	if (mx < 0 || mx >= map->width)
-		return (0);
-	return (1);
-}
-
-int	door_toggle(t_game *game, int mx, int my)
+/*
+ * Toggles a door cell between 'D' (closed) and 'O' (open).
+ * Returns 1 if a door was toggled, 0 otherwise (cell not a door / OOB).
+ * `static` because only door_toggle_safe in this file calls it.
+ */
+static int	door_toggle(t_game *game, int mx, int my)
 {
 	t_map	*map;
 	char	cell;
 
 	map = &game->config->map;
-	if (!in_bounds(map, mx, my))
+	if (!map_in_bounds(map, mx, my))
 		return (0);
 	cell = map->grid[my][mx];
 	if (cell == 'D')
@@ -49,7 +45,10 @@ static int	player_too_close(t_player *p, int mx, int my)
 	return (dx * dx + dy * dy < 1.0);
 }
 
-/* Toggles a door, but refuses to CLOSE it if the player is too close. */
+/*
+ * Toggles a door, but refuses to CLOSE it if the player is too close
+ * (prevents the player from being trapped inside a closing door).
+ */
 static int	door_toggle_safe(t_game *game, int mx, int my)
 {
 	t_map		*map;
@@ -57,7 +56,7 @@ static int	door_toggle_safe(t_game *game, int mx, int my)
 	t_player	*p;
 
 	map = &game->config->map;
-	if (!in_bounds(map, mx, my))
+	if (!map_in_bounds(map, mx, my))
 		return (0);
 	cell = map->grid[my][mx];
 	p = &game->config->player;

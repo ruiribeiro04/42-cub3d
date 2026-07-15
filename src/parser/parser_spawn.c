@@ -24,8 +24,8 @@ static int	check_spawn_cell(t_config *cfg, int x, int y,
 	(*count)++;
 	if (*count > 1)
 		return (cub_error_int("Multiple player spawns"));
-	cfg->player.x = (double)x;
-	cfg->player.y = (double)y;
+	cfg->player.x = (double)x + 0.5;
+	cfg->player.y = (double)y + 0.5;
 	cfg->player.direction = cfg->map.grid[y][x];
 	cfg->map.grid[y][x] = '0';
 	return (0);

@@ -6,7 +6,7 @@
 #    By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#              #
-#    Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr        #
+#    Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,80 +32,83 @@ CFLAGS          := -Wall -Wextra -Werror
 IFLAGS          := -I$(INCS_DIR) -I$(LIBFT_DIR) -I$(FTPRINTF_DIR) -I$(MLX_DIR)
 
 PARSER_LDFLAGS  := -L$(LIBFT_DIR) -lft \
-                   -L$(FTPRINTF_DIR) -lftprintf
+		   -L$(FTPRINTF_DIR) -lftprintf
 
 LDFLAGS         := $(PARSER_LDFLAGS) -L$(MLX_DIR) -lmlx \
-                   -lm -lXext -lX11
+		   -lm -lXext -lX11
 
 # ============================ SOURCES ======================================= #
 
 # All project sources (compiled in both mandatory and bonus)
 ALL_SRCS        := src/parser/parser.c \
-                   src/parser/parser_utils.c \
-                   src/parser/parser_io.c \
-                   src/parser/parser_textures.c \
-                   src/parser/parser_colors.c \
-                   src/parser/parser_map.c \
-                   src/parser/parser_map_helpers.c \
-                   src/parser/parser_spawn.c \
-                   src/parser/parser_sprite.c \
-                   src/parser/parser_sprite_collect.c \
-                   src/parser/parser_doors.c \
-                   src/parser/parser_flood_fill.c \
-                   src/parser/parser_validate.c \
-                   src/error/error.c \
-                   src/utils/free_utils.c \
-                   src/utils/shared_helpers.c \
-                   libs/get_next_line/get_next_line.c \
-                   libs/get_next_line/get_next_line_utils.c \
-                   src/graphics/init.c \
-                   src/graphics/cleanup.c \
-                   src/graphics/textures.c \
-                   src/graphics/pixel.c \
-                   src/graphics/hooks_common.c \
-                   src/graphics/hooks.c \
-                   src/graphics/run.c \
-                   src/graphics/init_sprites.c \
-                   src/raycaster/raycaster.c \
-                   src/raycaster/raycaster_clear.c \
-                   src/raycaster/raycaster_draw.c \
-                   src/player/player.c \
-                   src/player/player_move.c \
-                   src/player/player_apply.c \
-                   src/main.c
+		   src/parser/parser_utils.c \
+		   src/parser/parser_utils_common.c \
+		   src/parser/parser_io.c \
+		   src/parser/parser_tabs.c \
+		   src/parser/parser_lines.c \
+		   src/parser/parser_textures.c \
+		   src/parser/parser_colors.c \
+		   src/parser/parser_map.c \
+		   src/parser/parser_map_helpers.c \
+		   src/parser/parser_spawn.c \
+		   src/parser/parser_sprite.c \
+		   src/parser/parser_sprite_collect.c \
+		   src/parser/parser_doors.c \
+		   src/parser/parser_flood_fill.c \
+		   src/parser/parser_validate.c \
+		   src/error/error.c \
+		   src/utils/free_utils.c \
+		   src/utils/shared_helpers.c \
+		   libs/get_next_line/get_next_line.c \
+		   libs/get_next_line/get_next_line_utils.c \
+		   src/graphics/init.c \
+		   src/graphics/cleanup.c \
+		   src/graphics/textures.c \
+		   src/graphics/pixel.c \
+		   src/graphics/hooks_common.c \
+		   src/graphics/hooks.c \
+		   src/graphics/run.c \
+		   src/graphics/init_sprites.c \
+		   src/raycaster/raycaster.c \
+		   src/raycaster/raycaster_clear.c \
+		   src/raycaster/raycaster_draw.c \
+		   src/player/player.c \
+		   src/player/player_move.c \
+		   src/player/player_apply.c \
+		   src/main.c
 
 # Bonus-only sources (not compiled into the mandatory binary)
 BONUS_ONLY_SRCS := src/bonus/minimap.c \
-                   src/bonus/doors.c \
-                   src/bonus/mouse.c \
-                   src/bonus/sprites.c \
-                   src/bonus/sprites_draw.c \
-                   src/bonus/sprite_anim.c \
-                   src/bonus/sprites_init.c
+		   src/bonus/doors.c \
+		   src/bonus/mouse.c \
+		   src/bonus/sprites.c \
+		   src/bonus/sprites_draw.c \
+		   src/bonus/sprite_anim.c \
+		   src/bonus/sprites_init.c
 
 # Files replaced by _bonus counterparts in bonus build
 BONUS_EXCLUDE   := src/graphics/hooks.c src/graphics/run.c \
-                   src/graphics/init_sprites.c \
-                   src/parser/parser_utils.c
+		   src/graphics/init_sprites.c \
+		   src/parser/parser_utils.c
 
 # Bonus replacement files
 BONUS_REPLACE   := src/graphics/hooks_bonus.c \
-                   src/graphics/run_bonus.c \
-                   src/graphics/init_sprites_bonus.c \
-                   src/parser/parser_utils_bonus.c
+		   src/graphics/run_bonus.c \
+		   src/graphics/init_sprites_bonus.c \
+		   src/parser/parser_utils_bonus.c
 
 # Mandatory objects
 MANDATORY_OBJS  := $(ALL_SRCS:.c=.o)
 
 # Bonus objects: all minus excluded plus replacements plus bonus-only
 BONUS_SRCS      := $(filter-out $(BONUS_EXCLUDE),$(ALL_SRCS)) \
-                   $(BONUS_ONLY_SRCS) \
-                   $(BONUS_REPLACE)
+		   $(BONUS_ONLY_SRCS) \
+		   $(BONUS_REPLACE)
 BONUS_OBJS      := $(BONUS_SRCS:.c=.o)
 
 # ============================ TARGETS ======================================= #
 
-.PHONY:         all clean fclean re bonus test test_run norm
+.PHONY:         all clean fclean re bonus norm
 
 all:            $(LIBFT) $(FTPRINTF) $(MLX_LIB) $(NAME)
 
@@ -141,38 +144,12 @@ $(MLX_LIB):
 	@test -f $(MLX_LIB) && echo "minilibx OK" || \
 	    (echo "minilibx build failed"; exit 1)
 
-# ----- tests ---------------------------------------------------------------- #
-test:           $(LIBFT) $(FTPRINTF) test_parser
-
-TEST_OBJS       := src/parser/parser.o src/parser/parser_io.o \
-                   src/parser/parser_textures.o src/parser/parser_colors.o \
-                   src/parser/parser_map.o src/parser/parser_map_helpers.o \
-                   src/parser/parser_spawn.o src/parser/parser_flood_fill.o \
-                   src/parser/parser_validate.o src/parser/parser_utils.o \
-                   src/parser/parser_sprite.o src/parser/parser_sprite_collect.o \
-                   src/parser/parser_doors.o src/error/error.o \
-                   src/utils/free_utils.o \
-                   libs/get_next_line/get_next_line.o \
-                   libs/get_next_line/get_next_line_utils.o
-
-test_parser:    tests/test_parser.c $(TEST_OBJS)
-	@echo "\033[1;34mBuilding test_parser...\033[0m"
-	$(CC) $(CFLAGS) $(IFLAGS) tests/test_parser.c \
-	    $(TEST_OBJS) $(PARSER_LDFLAGS) -lm -o tests/test_parser
-
-test_run:       test
-	@echo "\033[1;35mRunning parser tests...\033[0m"
-	./tests/test_parser
-	@echo "\033[1;35mRunning shell-based map tests...\033[0m"
-	./tests/run_parser_tests.sh
-
 norm:
-	norminette $(INCS_DIR) src
+	norminette $(INCS_DIR) src libs/get_next_line
 
 clean:
 	@echo "\033[1;31mCleaning project objects...\033[0m"
 	rm -f $(MANDATORY_OBJS) $(BONUS_OBJS)
-	rm -f tests/test_parser
 	$(MAKE) -C $(LIBFT_DIR) clean 2>/dev/null || true
 	$(MAKE) -C $(FTPRINTF_DIR) clean 2>/dev/null || true
 

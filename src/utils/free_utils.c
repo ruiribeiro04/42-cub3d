@@ -6,14 +6,18 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 #include <stdlib.h>
 #include <libft.h>
 
-void	free_str_array(char **arr)
+/*
+ * Frees a NULL-terminated array of strings, then the array itself.
+ * NULL-safe. File-local: only used by free_config().
+ */
+static void	free_str_array(char **arr)
 {
 	int	i;
 

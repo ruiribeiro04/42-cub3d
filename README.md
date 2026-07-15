@@ -38,7 +38,6 @@ sudo apt-get install libxext-dev libx11-dev
 | `clean`  | Removes object files.                                  |
 | `fclean` | Removes object files and the `cub3D` binary.           |
 | `re`     | Runs `fclean` then `all`.                              |
-| `test`   | Compiles the parser unit tests.                        |
 | `norm`   | Runs `norminette` on all project source files.         |
 
 ```bash
@@ -86,12 +85,16 @@ C 225,30,0
 
 ## Bonus Features
 
-1. **Wall collisions** — collision margin prevents walking through walls.
-2. **Minimap** — a 2D top-down minimap in the top-left corner showing
+1. **Minimap** — a 2D top-down minimap in the top-left corner showing
    walls (white), floor (gray), doors (green), and the player (red dot).
-3. **Doors** — place `D` in the map to create a door. Press `E` near a
+2. **Doors** — place `D` in the map to create a door. Press `E` near a
    door to toggle it open/closed. Open doors show as `O` in the map.
-4. **Mouse rotation** — move the mouse left/right to rotate the view.
+3. **Mouse rotation** — move the mouse left/right to rotate the view.
+4. **Animated sprites** — place `2` in the map and declare a sprite
+   texture with `SP <base>`; the engine loads `<base>01.xpm..10.xpm`
+   and cycles through them.
+
+> Wall collisions are part of the mandatory build (always on).
 
 ## Resources
 
@@ -127,7 +130,6 @@ cub3D/
 │   └── bonus/          (3 files — minimap, doors, mouse)
 ├── maps/               (test .cub files)
 ├── assets/             (4 wall textures .xpm)
-├── tests/              (unit tests + shell script)
 ├── libft/              (personal C library)
 ├── ft_printf/          (personal printf)
 ├── get_next_line/      (personal GNL)

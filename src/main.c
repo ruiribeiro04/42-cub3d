@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -15,11 +15,22 @@
 #include <stdlib.h>
 #include <libft.h>
 
+/*
+ * Validates argv: exactly one argument, ending with ".cub". The deeper
+ * structural validation (textures, colors, map closed, etc.) is done by
+ * parse_cub_file().
+ */
 static int	validate_args(int argc, char **argv)
 {
-	(void)argv;
+	size_t	len;
+
 	if (argc != 2)
 		return (cub_error_int("Usage: ./cub3D <map.cub>"));
+	if (!argv[1])
+		return (cub_error_int("Missing map argument"));
+	len = ft_strlen(argv[1]);
+	if (len < 5 || ft_strncmp(argv[1] + len - 4, ".cub", 4) != 0)
+		return (cub_error_int("File must end with .cub"));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:00:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parser_internal.h"
@@ -94,15 +94,16 @@ int	parse_map_block(int fd, char *first_line, t_config *cfg)
 	t_map_collector	c;
 	char			*line;
 
+	if (process_map_line(&first_line) < 0)
+		return (-1);
 	if (collector_init(&c, first_line) < 0)
 		return (-1);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		strip_newline(line);
-		if (validate_map_line(line) < 0)
+		if (process_map_line(&line) < 0)
 		{
-			free(line);
 			collector_free(&c);
 			return (-1);
 		}

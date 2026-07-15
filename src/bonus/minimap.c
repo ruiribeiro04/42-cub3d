@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:00:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "bonus.h"
@@ -27,69 +27,92 @@ static void	draw_tile(t_game *g, int mx, int my, int color)
 	frame_fill_rect(g, r, color);
 }
 
-static void	draw_player_dir_line(t_game *g, t_player *p,
-									int cx, int cy)
+/*
+ * Draws a dark background rectangle with a bright white border behind
+ * the minimap, so tiles don't blend into the 3D scene.
+ */
+static void	draw_background(t_game *g, int tiles_x, int tiles_y)
 {
-	int	i;
-	int	px;
-	int	py;
+	t_rect	outer;
+	t_rect	inner;
+	int		bw;
 
-	i = 0;
-	while (i < 6)
-	{
-		px = cx + (int)(p->dir_x * i);
-		py = cy + (int)(p->dir_y * i);
-		frame_put_pixel(g, px, py, 0x00FFFF00);
-		frame_put_pixel(g, px + 1, py, 0x00FFFF00);
-		frame_put_pixel(g, px, py + 1, 0x00FFFF00);
-		i++;
-	}
-}
-
-static void	draw_player_marker(t_game *g)
-{
-	t_player	*p;
-	int			cx;
-	int			cy;
-
-	p = &g->config->player;
-	cx = MINIMAP_X + (int)(p->x * MINIMAP_TILE) + MINIMAP_TILE / 2;
-	cy = MINIMAP_Y + (int)(p->y * MINIMAP_TILE) + MINIMAP_TILE / 2;
-	frame_put_pixel(g, cx, cy, 0x00FF0000);
-	frame_put_pixel(g, cx + 1, cy, 0x00FF0000);
-	frame_put_pixel(g, cx - 1, cy, 0x00FF0000);
-	frame_put_pixel(g, cx, cy + 1, 0x00FF0000);
-	frame_put_pixel(g, cx, cy - 1, 0x00FF0000);
-	draw_player_dir_line(g, p, cx, cy);
+	bw = MINIMAP_BORDER_THICKNESS;
+	outer.x0 = MINIMAP_X - bw;
+	outer.y0 = MINIMAP_Y - bw;
+	outer.x1 = MINIMAP_X + tiles_x * MINIMAP_TILE + bw - 1;
+	outer.y1 = MINIMAP_Y + tiles_y * MINIMAP_TILE + bw - 1;
+	frame_fill_rect(g, outer, MINIMAP_BORDER_COLOR);
+	inner.x0 = MINIMAP_X;
+	inner.y0 = MINIMAP_Y;
+	inner.x1 = MINIMAP_X + tiles_x * MINIMAP_TILE - 1;
+	inner.y1 = MINIMAP_Y + tiles_y * MINIMAP_TILE - 1;
+	frame_fill_rect(g, inner, MINIMAP_BG_COLOR);
 }
 
 static int	cell_color(char cell)
 {
 	if (cell == '1')
-		return (0x00FFFFFF);
+		return (MINIMAP_WALL_COLOR);
 	if (cell == 'D')
-		return (0x00AA6600);
+		return (MINIMAP_DOOR_COLOR);
 	if (cell == 'O')
-		return (0x0000AA00);
-	return (0x00444444);
+		return (MINIMAP_OPEN_COLOR);
+	if (cell == ' ')
+		return (MINIMAP_VOID_COLOR);
+	return (MINIMAP_FLOOR_COLOR);
+}
+
+/*
+ * Player = 5x5 red square + yellow direction arrow (8 pixels long).
+ */
+static void	draw_player_marker(t_game *g, t_player *p)
+{
+	t_rect	sq;
+	int		cx;
+	int		cy;
+	int		i;
+
+	cx = MINIMAP_X + (int)(p->x * MINIMAP_TILE) + MINIMAP_TILE / 2;
+	cy = MINIMAP_Y + (int)(p->y * MINIMAP_TILE) + MINIMAP_TILE / 2;
+	sq.x0 = cx - 2;
+	sq.y0 = cy - 2;
+	sq.x1 = cx + 2;
+	sq.y1 = cy + 2;
+	frame_fill_rect(g, sq, MINIMAP_PLAYER_COLOR);
+	i = 1;
+	while (i < 9)
+	{
+		frame_put_pixel(g, cx + (int)(p->dir_x * i),
+			cy + (int)(p->dir_y * i), MINIMAP_DIR_COLOR);
+		i++;
+	}
 }
 
 void	minimap_draw(t_game *game)
 {
 	int	x;
 	int	y;
+	int	max_x;
+	int	max_y;
 
+	max_y = game->config->map.height;
+	if (max_y > MINIMAP_MAX_TILES_Y)
+		max_y = MINIMAP_MAX_TILES_Y;
+	max_x = game->config->map.width;
+	if (max_x > MINIMAP_MAX_TILES_X)
+		max_x = MINIMAP_MAX_TILES_X;
+	draw_background(game, max_x, max_y);
 	y = 0;
-	while (y < game->config->map.height)
+	while (y < max_y)
 	{
 		x = 0;
-		while (x < game->config->map.width)
+		while (x < max_x)
 		{
-			draw_tile(game, x, y,
-				cell_color(game->config->map.grid[y][x]));
+			draw_tile(game, x, y, cell_color(game->config->map.grid[y][x]));
 			x++;
 		}
 		y++;
 	}
-	draw_player_marker(game);
+	draw_player_marker(game, &game->config->player);
 }

@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define PARSER_INTERNAL_H
 
 # include "cub3d.h"
+
+# define MAP_MAX_CELLS		10000000
+# define SPRITE_PATH_MAX	240
+# define TAB_WIDTH			4
 
 char		*get_next_line(int fd);
 
@@ -23,6 +27,7 @@ void		skip_spaces(const char **p);
 int			is_map_char(char c);
 void		strip_newline(char *line);
 void		drain_fd(int fd);
+char		*expand_tabs(const char *line);
 
 typedef struct s_map_collector
 {
@@ -36,6 +41,7 @@ int			collector_init(t_map_collector *c, char *first_line);
 int			collector_add(t_map_collector *c, char *line);
 void		collector_free(t_map_collector *c);
 int			validate_map_line(const char *line);
+int			process_map_line(char **line);
 char		*pad_line(const char *src, int width);
 int			finalize_map(t_config *cfg, t_map_collector *c);
 
@@ -43,7 +49,9 @@ int			parse_texture_line(const char *line, t_config *cfg);
 int			parse_color_line(const char *line, t_config *cfg);
 int			parse_sprite_line(const char *line, t_config *cfg);
 int			parse_door_line(const char *line, t_config *cfg);
+int			parse_element_line(const char *line, t_config *cfg);
 int			parse_map_block(int fd, char *first_line, t_config *cfg);
+int			parse_lines(int fd, t_config *cfg);
 
 char		*extract_path(const char *line);
 
@@ -51,10 +59,6 @@ int			validate_config(t_config *cfg);
 int			find_spawn(t_config *cfg);
 int			flood_fill_check(t_config *cfg);
 void		convert_sprites_to_floor(t_config *cfg);
-
-void		free_str_array(char **arr);
-
-t_config	*alloc_config(void);
 
 typedef struct s_flood_ctx
 {

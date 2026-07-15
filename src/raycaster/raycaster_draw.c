@@ -15,6 +15,8 @@
 
 static void	compute_height(t_ray *r)
 {
+	if (r->perp_wall_dist < 1e-6)
+		r->perp_wall_dist = 1e-6;
 	r->line_height = (int)(WIN_HEIGHT / r->perp_wall_dist);
 	r->draw_start = -r->line_height / 2 + WIN_HEIGHT / 2;
 	if (r->draw_start < 0)

@@ -6,13 +6,20 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 09:43:43 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/05/01 15:09:59 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
+/*
+ * File-local helpers: prefixed `gnl_` so they do not collide with the
+ * public ft_strlen/ft_strchr/ft_strdup/ft_strjoin/ft_substr provided by
+ * libft (which use `const char *` parameters). Both signatures must accept
+ * NULL gracefully because GNL manipulates a `static char *stash` that
+ * starts life as NULL.
+ */
+size_t	gnl_strlen(char *s)
 {
 	size_t	i;
 
@@ -22,7 +29,7 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*gnl_strchr(char *s, int c)
 {
 	size_t	i;
 
@@ -40,13 +47,13 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(char *s1)
+char	*gnl_strdup(char *s1)
 {
 	char	*dup;
 	size_t	len;
 	size_t	i;
 
-	len = ft_strlen(s1);
+	len = gnl_strlen(s1);
 	dup = malloc((len + 1) * sizeof(char));
 	if (!dup)
 		return (NULL);
@@ -60,13 +67,13 @@ char	*ft_strdup(char *s1)
 	return (dup);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*gnl_strjoin(char *s1, char *s2)
 {
 	char	*joined;
 	size_t	i;
 	size_t	j;
 
-	joined = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	joined = malloc((gnl_strlen(s1) + gnl_strlen(s2) + 1) * sizeof(char));
 	if (!joined)
 		return (NULL);
 	i = 0;
@@ -85,7 +92,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (joined);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*gnl_substr(char *s, unsigned int start, size_t len)
 {
 	char	*sub;
 	size_t	s_len;
@@ -93,9 +100,9 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	s_len = ft_strlen(s);
+	s_len = gnl_strlen(s);
 	if (start >= s_len)
-		return (ft_strdup(""));
+		return (gnl_strdup(""));
 	if (len > s_len - start)
 		len = s_len - start;
 	sub = malloc((len + 1) * sizeof(char));

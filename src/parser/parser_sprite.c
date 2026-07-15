@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parser_internal.h"
@@ -15,6 +15,11 @@
 #include <stdlib.h>
 #include <libft.h>
 
+/*
+ * Validates the sprite base path. The runtime will append "01.xpm".."10.xpm"
+ * (up to 6 chars + extension) so we cap the base at SPRITE_PATH_MAX to leave
+ * room in the fixed-size path buffer used by init_sprites_bonus.c.
+ */
 int	parse_sprite_line(const char *line, t_config *cfg)
 {
 	char	*path;
@@ -26,6 +31,12 @@ int	parse_sprite_line(const char *line, t_config *cfg)
 	path = extract_path(line);
 	if (!path)
 		return (-1);
+	if (ft_strlen(path) > SPRITE_PATH_MAX)
+	{
+		cub_error("Sprite texture path too long");
+		free(path);
+		return (-1);
+	}
 	cfg->sprite_texture = path;
 	cfg->has_sprite = 1;
 	return (0);

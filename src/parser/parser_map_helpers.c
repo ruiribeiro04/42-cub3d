@@ -40,12 +40,15 @@ char	*pad_line(const char *src, int width)
 	i = 0;
 	while (i < src_len && i < width)
 	{
-		dst[i] = src[i];
+		if (src[i] == ' ')
+			dst[i] = '1';
+		else
+			dst[i] = src[i];
 		i++;
 	}
 	while (i < width)
 	{
-		dst[i] = ' ';
+		dst[i] = '1';
 		i++;
 	}
 	dst[width] = '\0';
