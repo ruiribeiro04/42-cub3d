@@ -14,7 +14,7 @@
 #include "player.h"
 #include <math.h>
 
-int	hook_mouse_move(int x, int y, t_game *game)
+int	ft_hook_mouse_move(int x, int y, t_game *game)
 {
 	int	delta;
 
@@ -29,7 +29,7 @@ int	hook_mouse_move(int x, int y, t_game *game)
 	delta = x - WIN_WIDTH / 2;
 	if (delta != 0)
 	{
-		player_rotate(&game->config->player,
+		ft_player_rotate(&game->config->player,
 			(double)delta * MOUSE_SENS);
 		mlx_mouse_move(game->mlx, game->win,
 			WIN_WIDTH / 2, WIN_HEIGHT / 2);

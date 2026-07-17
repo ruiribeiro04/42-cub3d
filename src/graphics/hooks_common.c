@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "graphics.h"
 
-int	hook_key_release(int keycode, t_game *game)
+int	ft_hook_key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
 		game->keys.w = 0;
@@ -28,7 +28,7 @@ int	hook_key_release(int keycode, t_game *game)
 	return (0);
 }
 
-int	hook_exit(t_game *game)
+int	ft_hook_exit(t_game *game)
 {
 	mlx_loop_end(game->mlx);
 	return (0);

@@ -15,15 +15,15 @@
 /*
  * Common helper functions shared between the mandatory and bonus parser
  * builds. The only function that differs between the two builds is
- * is_map_char() — see parser_utils.c and parser_utils_bonus.c.
+ * ft_is_map_char() — see parser_utils.c and parser_utils_bonus.c.
  */
 
-static int	is_space_char(char c)
+static int	ft_is_space_char(char c)
 {
 	return (c == ' ' || c == '\t');
 }
 
-int	is_blank_line(const char *line)
+int	ft_is_blank_line(const char *line)
 {
 	int	i;
 
@@ -32,22 +32,22 @@ int	is_blank_line(const char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (!is_space_char(line[i]))
+		if (!ft_is_space_char(line[i]))
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-void	skip_spaces(const char **p)
+void	ft_skip_spaces(const char **p)
 {
 	if (!p || !*p)
 		return ;
-	while (is_space_char(**p))
+	while (ft_is_space_char(**p))
 		(*p)++;
 }
 
-int	looks_like_map(const char *line)
+int	ft_looks_like_map(const char *line)
 {
 	int	i;
 	int	has_one;
@@ -58,7 +58,7 @@ int	looks_like_map(const char *line)
 	has_one = 0;
 	while (line[i] != '\0')
 	{
-		if (!is_map_char(line[i]))
+		if (!ft_is_map_char(line[i]))
 			return (0);
 		if (line[i] == '1')
 			has_one = 1;

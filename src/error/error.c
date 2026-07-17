@@ -24,21 +24,21 @@ static void	putstr_endl(const char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-void	cub_error(const char *msg)
+void	ft_cub_error(const char *msg)
 {
 	putstr_endl("Error", STDERR_FILENO);
 	if (msg)
 		putstr_endl(msg, STDERR_FILENO);
 }
 
-void	*cub_error_ret(const char *msg, void *ret)
+void	*ft_cub_error_ret(const char *msg, void *ret)
 {
-	cub_error(msg);
+	ft_cub_error(msg);
 	return (ret);
 }
 
-int	cub_error_int(const char *msg)
+int	ft_cub_error_int(const char *msg)
 {
-	cub_error(msg);
+	ft_cub_error(msg);
 	return (-1);
 }

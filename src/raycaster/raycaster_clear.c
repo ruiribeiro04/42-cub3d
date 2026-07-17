@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycaster_clear.c                                  :+:      :+:    :+:   */
+/*   ft_raycaster_clear.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "raycaster.h"
 #include "graphics.h"
 
-void	raycaster_clear(t_game *game)
+void	ft_raycaster_clear(t_game *game)
 {
 	t_rect	top;
 	t_rect	bottom;
@@ -26,19 +26,19 @@ void	raycaster_clear(t_game *game)
 	bottom.y0 = WIN_HEIGHT / 2;
 	bottom.x1 = WIN_WIDTH - 1;
 	bottom.y1 = WIN_HEIGHT - 1;
-	frame_fill_rect(game, top, game->ceiling_color);
-	frame_fill_rect(game, bottom, game->floor_color);
+	ft_frame_fill_rect(game, top, game->ceiling_color);
+	ft_frame_fill_rect(game, bottom, game->floor_color);
 }
 
 /* Draws a solid color column (for doors without texture). */
-void	draw_solid(t_game *game, t_ray *r, int x, int color)
+void	ft_draw_solid(t_game *game, t_ray *r, int x, int color)
 {
 	int	y;
 
 	y = r->draw_start;
 	while (y < r->draw_end)
 	{
-		frame_put_pixel(game, x, y, color);
+		ft_frame_put_pixel(game, x, y, color);
 		y++;
 	}
 }

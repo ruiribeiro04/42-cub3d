@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
+#include "raycaster.h"
+#include "player.h"
 #include "bonus.h"
 #include "sprites.h"
 
-int	hook_key_press(int keycode, t_game *game)
+int	ft_hook_key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 	{
@@ -33,11 +35,11 @@ int	hook_key_press(int keycode, t_game *game)
 	else if (keycode == KEY_RIGHT)
 		game->keys.right = 1;
 	else if (keycode == KEY_E)
-		door_try_front(game);
+		ft_door_try_front(game);
 	return (0);
 }
 
-int	hook_focus_in(t_game *game)
+int	ft_hook_focus_in(t_game *game)
 {
 	game->focused = 1;
 	mlx_mouse_move(game->mlx, game->win,
@@ -45,19 +47,19 @@ int	hook_focus_in(t_game *game)
 	return (0);
 }
 
-int	hook_focus_out(t_game *game)
+int	ft_hook_focus_out(t_game *game)
 {
 	game->focused = 0;
 	return (0);
 }
 
-int	hook_loop(t_game *game)
+int	ft_hook_loop(t_game *game)
 {
-	player_update(game);
-	raycaster_render(game);
+	ft_player_update(game);
+	ft_raycaster_render(game);
 	sprites_update(game);
 	sprites_render(game);
-	minimap_draw(game);
+	ft_minimap_draw(game);
 	mlx_put_image_to_window(game->mlx, game->win,
 		game->frame.ptr, 0, 0);
 	return (0);

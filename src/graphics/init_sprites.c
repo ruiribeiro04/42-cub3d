@@ -16,22 +16,22 @@
  * The bonus build swaps this file for init_sprites_bonus.c which loads
  * sprite frames and calls sprites_init().
  */
-int	init_sprites_if_present(t_game *game, t_config *cfg)
+int	ft_init_sprites_if_present(t_game *game, t_config *cfg)
 {
 	(void)game;
 	(void)cfg;
 	return (0);
 }
 
-int	init_optional_textures(t_game *game, t_config *cfg)
+int	ft_init_optional_textures(t_game *game, t_config *cfg)
 {
 	game->has_door_tex = 0;
 	if (cfg->has_door_texture)
 	{
-		if (load_texture(game, &game->door_tex,
+		if (ft_load_texture(game, &game->door_tex,
 				cfg->door_texture) < 0)
-			return (cub_error_int("Failed to load door tex"));
+			return (ft_cub_error_int("Failed to load door tex"));
 		game->has_door_tex = 1;
 	}
-	return (init_sprites_if_present(game, cfg));
+	return (ft_init_sprites_if_present(game, cfg));
 }

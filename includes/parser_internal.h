@@ -21,13 +21,13 @@
 
 char		*get_next_line(int fd);
 
-int			is_blank_line(const char *line);
-int			looks_like_map(const char *line);
-void		skip_spaces(const char **p);
-int			is_map_char(char c);
-void		strip_newline(char *line);
-void		drain_fd(int fd);
-char		*expand_tabs(const char *line);
+int			ft_is_blank_line(const char *line);
+int			ft_looks_like_map(const char *line);
+void		ft_skip_spaces(const char **p);
+int			ft_is_map_char(char c);
+void		ft_strip_newline(char *line);
+void		ft_drain_fd(int fd);
+char		*ft_expand_tabs(const char *line);
 
 typedef struct s_map_collector
 {
@@ -37,28 +37,28 @@ typedef struct s_map_collector
 	int		max_width;
 }			t_map_collector;
 
-int			collector_init(t_map_collector *c, char *first_line);
-int			collector_add(t_map_collector *c, char *line);
-void		collector_free(t_map_collector *c);
-int			validate_map_line(const char *line);
-int			process_map_line(char **line);
-char		*pad_line(const char *src, int width);
-int			finalize_map(t_config *cfg, t_map_collector *c);
+int			ft_collector_init(t_map_collector *c, char *first_line);
+int			ft_collector_add(t_map_collector *c, char *line);
+void		ft_collector_free(t_map_collector *c);
+int			ft_validate_map_line(const char *line);
+int			ft_process_map_line(char **line);
+char		*ft_pad_line(const char *src, int width);
+int			ft_finalize_map(t_config *cfg, t_map_collector *c);
 
-int			parse_texture_line(const char *line, t_config *cfg);
-int			parse_color_line(const char *line, t_config *cfg);
-int			parse_sprite_line(const char *line, t_config *cfg);
-int			parse_door_line(const char *line, t_config *cfg);
-int			parse_element_line(const char *line, t_config *cfg);
-int			parse_map_block(int fd, char *first_line, t_config *cfg);
-int			parse_lines(int fd, t_config *cfg);
+int			ft_parse_texture_line(const char *line, t_config *cfg);
+int			ft_parse_color_line(const char *line, t_config *cfg);
+int			ft_parse_sprite_line(const char *line, t_config *cfg);
+int			ft_parse_door_line(const char *line, t_config *cfg);
+int			ft_parse_element_line(const char *line, t_config *cfg);
+int			ft_parse_map_block(int fd, char *first_line, t_config *cfg);
+int			ft_parse_lines(int fd, t_config *cfg);
 
-char		*extract_path(const char *line);
+char		*ft_extract_path(const char *line);
 
-int			validate_config(t_config *cfg);
-int			find_spawn(t_config *cfg);
-int			flood_fill_check(t_config *cfg);
-void		convert_sprites_to_floor(t_config *cfg);
+int			ft_validate_config(t_config *cfg);
+int			ft_find_spawn(t_config *cfg);
+int			ft_flood_fill_check(t_config *cfg);
+void		ft_convert_sprites_to_floor(t_config *cfg);
 
 typedef struct s_flood_ctx
 {

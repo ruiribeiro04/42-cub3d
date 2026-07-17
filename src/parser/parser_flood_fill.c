@@ -23,7 +23,7 @@ static int	explore(t_flood_ctx *ctx, int x, int y)
 	int	idx;
 	int	cell;
 
-	if (!map_in_bounds(&ctx->cfg->map, x, y))
+	if (!ft_map_in_bounds(&ctx->cfg->map, x, y))
 		return (-1);
 	idx = y * ctx->cfg->map.width + x;
 	if (ctx->visited[idx])
@@ -85,7 +85,7 @@ static int	flood_fill_iter(t_config *cfg, char *visited,
 	return (0);
 }
 
-int	flood_fill_check(t_config *cfg)
+int	ft_flood_fill_check(t_config *cfg)
 {
 	char	*visited;
 	int		result;
@@ -93,15 +93,15 @@ int	flood_fill_check(t_config *cfg)
 
 	map_size = (long)cfg->map.height * (long)cfg->map.width;
 	if (map_size <= 0 || map_size > MAP_MAX_CELLS)
-		return (cub_error_int("Map dimensions out of range"));
+		return (ft_cub_error_int("Map dimensions out of range"));
 	visited = (char *)malloc((size_t)map_size);
 	if (!visited)
-		return (cub_error_int("Memory allocation failed"));
+		return (ft_cub_error_int("Memory allocation failed"));
 	ft_bzero(visited, (size_t)map_size);
 	result = flood_fill_iter(cfg, visited,
 			(int)cfg->player.x, (int)cfg->player.y);
 	free(visited);
 	if (result < 0)
-		return (cub_error_int("Map is not closed (player can escape)"));
+		return (ft_cub_error_int("Map is not closed (player can escape)"));
 	return (0);
 }

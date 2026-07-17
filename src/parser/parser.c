@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <libft.h>
 
-static int	has_cub_extension(const char *path)
+static int	ft_has_cub_extension(const char *path)
 {
 	size_t	len;
 
@@ -26,36 +26,36 @@ static int	has_cub_extension(const char *path)
 	return (ft_strncmp(path + len - 4, ".cub", 4) == 0);
 }
 
-static int	parse_and_validate(int fd, t_config *cfg)
+static int	ft_parse_and_validate(int fd, t_config *cfg)
 {
-	if (parse_lines(fd, cfg) < 0)
+	if (ft_parse_lines(fd, cfg) < 0)
 	{
-		drain_fd(fd);
+		ft_drain_fd(fd);
 		return (-1);
 	}
-	return (validate_config(cfg));
+	return (ft_validate_config(cfg));
 }
 
-t_config	*parse_cub_file(const char *path)
+t_config	*ft_parse_cub_file(const char *path)
 {
 	int			fd;
 	t_config	*cfg;
 
-	if (!has_cub_extension(path))
-		return (cub_error_ret("File must end with .cub", NULL));
+	if (!ft_has_cub_extension(path))
+		return (ft_cub_error_ret("File must end with .cub", NULL));
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (cub_error_ret("Cannot open scene file", NULL));
-	cfg = alloc_config();
+		return (ft_cub_error_ret("Cannot open scene file", NULL));
+	cfg = ft_alloc_config();
 	if (!cfg)
 	{
 		close(fd);
-		return (cub_error_ret("Memory allocation failed", NULL));
+		return (ft_cub_error_ret("Memory allocation failed", NULL));
 	}
-	if (parse_and_validate(fd, cfg) < 0)
+	if (ft_parse_and_validate(fd, cfg) < 0)
 	{
 		close(fd);
-		free_config(cfg);
+		ft_free_config(cfg);
 		return (NULL);
 	}
 	close(fd);

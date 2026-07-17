@@ -24,7 +24,7 @@ static void	draw_tile(t_game *g, int mx, int my, int color)
 	r.y0 = sy;
 	r.x1 = sx + MINIMAP_TILE - 1;
 	r.y1 = sy + MINIMAP_TILE - 1;
-	frame_fill_rect(g, r, color);
+	ft_frame_fill_rect(g, r, color);
 }
 
 /*
@@ -42,12 +42,12 @@ static void	draw_background(t_game *g, int tiles_x, int tiles_y)
 	outer.y0 = MINIMAP_Y - bw;
 	outer.x1 = MINIMAP_X + tiles_x * MINIMAP_TILE + bw - 1;
 	outer.y1 = MINIMAP_Y + tiles_y * MINIMAP_TILE + bw - 1;
-	frame_fill_rect(g, outer, MINIMAP_BORDER_COLOR);
+	ft_frame_fill_rect(g, outer, MINIMAP_BORDER_COLOR);
 	inner.x0 = MINIMAP_X;
 	inner.y0 = MINIMAP_Y;
 	inner.x1 = MINIMAP_X + tiles_x * MINIMAP_TILE - 1;
 	inner.y1 = MINIMAP_Y + tiles_y * MINIMAP_TILE - 1;
-	frame_fill_rect(g, inner, MINIMAP_BG_COLOR);
+	ft_frame_fill_rect(g, inner, MINIMAP_BG_COLOR);
 }
 
 static int	cell_color(char cell)
@@ -79,17 +79,17 @@ static void	draw_player_marker(t_game *g, t_player *p)
 	sq.y0 = cy - 2;
 	sq.x1 = cx + 2;
 	sq.y1 = cy + 2;
-	frame_fill_rect(g, sq, MINIMAP_PLAYER_COLOR);
+	ft_frame_fill_rect(g, sq, MINIMAP_PLAYER_COLOR);
 	i = 1;
 	while (i < 9)
 	{
-		frame_put_pixel(g, cx + (int)(p->dir_x * i),
+		ft_frame_put_pixel(g, cx + (int)(p->dir_x * i),
 			cy + (int)(p->dir_y * i), MINIMAP_DIR_COLOR);
 		i++;
 	}
 }
 
-void	minimap_draw(t_game *game)
+void	ft_minimap_draw(t_game *game)
 {
 	int	x;
 	int	y;

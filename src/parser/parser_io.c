@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <libft.h>
 
-void	strip_newline(char *line)
+void	ft_strip_newline(char *line)
 {
 	size_t	len;
 
@@ -26,7 +26,7 @@ void	strip_newline(char *line)
 		line[--len] = '\0';
 }
 
-void	drain_fd(int fd)
+void	ft_drain_fd(int fd)
 {
 	char	*line;
 

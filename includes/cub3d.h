@@ -148,18 +148,18 @@ typedef struct s_game
 # define TEX_WEST  2
 # define TEX_EAST  3
 
-t_config		*alloc_config(void);
-t_config		*parse_cub_file(const char *path);
-void			free_config(t_config *config);
-void			cub_error(const char *msg);
-void			*cub_error_ret(const char *msg, void *ret);
-int				cub_error_int(const char *msg);
-int				game_init(t_game *game, t_config *config);
-void			game_cleanup(t_game *game);
-int				game_run(t_game *game);
+t_config		*ft_alloc_config(void);
+t_config		*ft_parse_cub_file(const char *path);
+void			ft_free_config(t_config *config);
+void			ft_cub_error(const char *msg);
+void			*ft_cub_error_ret(const char *msg, void *ret);
+int				ft_cub_error_int(const char *msg);
+int				ft_game_init(t_game *game, t_config *config);
+void			ft_game_cleanup(t_game *game);
+int				ft_game_run(t_game *game);
 
-int				path_readable(const char *path);
-int				map_in_bounds(const t_map *map, int x, int y);
+int				ft_path_readable(const char *path);
+int				ft_map_in_bounds(const t_map *map, int x, int y);
 int				is_barrier(char c);
 
 #endif

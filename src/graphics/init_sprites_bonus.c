@@ -39,9 +39,9 @@ static int	load_one_frame(t_game *game, t_config *cfg, int idx)
 	num_str[2] = '\0';
 	ft_strlcat(path, num_str, sizeof(path));
 	ft_strlcat(path, ".xpm", sizeof(path));
-	if (!path_readable(path))
+	if (!ft_path_readable(path))
 		return (0);
-	if (load_texture(game, &game->sprite_frames[idx], path) < 0)
+	if (ft_load_texture(game, &game->sprite_frames[idx], path) < 0)
 		return (-1);
 	return (1);
 }
@@ -49,11 +49,11 @@ static int	load_one_frame(t_game *game, t_config *cfg, int idx)
 static int	alloc_sprite_frames(t_game *game, t_config *cfg)
 {
 	if (ft_strlen(cfg->sprite_texture) > SPRITE_PATH_MAX - 16)
-		return (cub_error_int("Sprite texture path too long"));
+		return (ft_cub_error_int("Sprite texture path too long"));
 	game->sprite_frames = (t_texture *)malloc(
 			sizeof(t_texture) * MAX_SPRITE_FRAMES);
 	if (!game->sprite_frames)
-		return (cub_error_int("Failed to alloc sprite frames"));
+		return (ft_cub_error_int("Failed to alloc sprite frames"));
 	ft_bzero(game->sprite_frames, sizeof(t_texture) * MAX_SPRITE_FRAMES);
 	return (0);
 }
@@ -70,7 +70,7 @@ static int	load_sprite_frames(t_game *game, t_config *cfg)
 	{
 		ret = load_one_frame(game, cfg, i);
 		if (ret < 0)
-			return (free_sprite_frames(game, i));
+			return (ft_free_sprite_frames(game, i));
 		if (ret == 0)
 			break ;
 		i++;
@@ -78,13 +78,13 @@ static int	load_sprite_frames(t_game *game, t_config *cfg)
 	game->num_sprite_frames = i;
 	if (i == 0)
 	{
-		free_sprite_frames(game, 0);
-		return (cub_error_int("No sprite frames found"));
+		ft_free_sprite_frames(game, 0);
+		return (ft_cub_error_int("No sprite frames found"));
 	}
 	return (0);
 }
 
-int	init_sprites_if_present(t_game *game, t_config *cfg)
+int	ft_init_sprites_if_present(t_game *game, t_config *cfg)
 {
 	if (!cfg->has_sprite)
 		return (0);
@@ -92,21 +92,21 @@ int	init_sprites_if_present(t_game *game, t_config *cfg)
 		return (-1);
 	if (sprites_init(game) < 0)
 	{
-		free_sprite_frames(game, game->num_sprite_frames);
+		ft_free_sprite_frames(game, game->num_sprite_frames);
 		return (-1);
 	}
 	return (0);
 }
 
-int	init_optional_textures(t_game *game, t_config *cfg)
+int	ft_init_optional_textures(t_game *game, t_config *cfg)
 {
 	game->has_door_tex = 0;
 	if (cfg->has_door_texture)
 	{
-		if (load_texture(game, &game->door_tex,
+		if (ft_load_texture(game, &game->door_tex,
 				cfg->door_texture) < 0)
-			return (cub_error_int("Failed to load door tex"));
+			return (ft_cub_error_int("Failed to load door tex"));
 		game->has_door_tex = 1;
 	}
-	return (init_sprites_if_present(game, cfg));
+	return (ft_init_sprites_if_present(game, cfg));
 }

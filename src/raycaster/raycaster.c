@@ -96,19 +96,19 @@ static void	ray_dda(t_ray *r, t_map *map)
 		r->perp_wall_dist = r->side_dist_y - r->delta_dist_y;
 }
 
-void	raycaster_render(t_game *game)
+void	ft_raycaster_render(t_game *game)
 {
 	t_ray	ray;
 	int		x;
 
-	raycaster_clear(game);
+	ft_raycaster_clear(game);
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
 		ray_init(&ray, &game->config->player, x);
 		ray_step(&ray, &game->config->player);
 		ray_dda(&ray, &game->config->map);
-		raycaster_draw_column(game, &ray, x);
+		ft_raycaster_draw_column(game, &ray, x);
 		if (game->z_buffer)
 			game->z_buffer[x] = ray.perp_wall_dist;
 		x++;

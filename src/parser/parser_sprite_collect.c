@@ -41,7 +41,7 @@ static int	alloc_sprite_positions(t_config *cfg)
 			sizeof(t_sprite) * cfg->num_sprites);
 	if (!cfg->sprite_positions)
 	{
-		cub_error("Failed to alloc sprite positions");
+		ft_cub_error("Failed to alloc sprite positions");
 		cfg->num_sprites = 0;
 		return (-1);
 	}
@@ -67,7 +67,7 @@ static void	collect_row(t_config *cfg, int y, int *idx)
 	}
 }
 
-void	convert_sprites_to_floor(t_config *cfg)
+void	ft_convert_sprites_to_floor(t_config *cfg)
 {
 	int	y;
 	int	idx;

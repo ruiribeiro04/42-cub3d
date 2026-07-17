@@ -20,20 +20,20 @@
  * (up to 6 chars + extension) so we cap the base at SPRITE_PATH_MAX to leave
  * room in the fixed-size path buffer used by init_sprites_bonus.c.
  */
-int	parse_sprite_line(const char *line, t_config *cfg)
+int	ft_parse_sprite_line(const char *line, t_config *cfg)
 {
 	char	*path;
 
 	if (cfg->has_sprite)
-		return (cub_error_int("Duplicate SP identifier"));
+		return (ft_cub_error_int("Duplicate SP identifier"));
 	if (line[2] != ' ' && line[2] != '\t')
-		return (cub_error_int("SP id must be followed by ws"));
-	path = extract_path(line);
+		return (ft_cub_error_int("SP id must be followed by ws"));
+	path = ft_extract_path(line);
 	if (!path)
 		return (-1);
 	if (ft_strlen(path) > SPRITE_PATH_MAX)
 	{
-		cub_error("Sprite texture path too long");
+		ft_cub_error("Sprite texture path too long");
 		free(path);
 		return (-1);
 	}

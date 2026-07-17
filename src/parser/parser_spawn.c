@@ -23,7 +23,7 @@ static int	check_spawn_cell(t_config *cfg, int x, int y,
 		return (0);
 	(*count)++;
 	if (*count > 1)
-		return (cub_error_int("Multiple player spawns"));
+		return (ft_cub_error_int("Multiple player spawns"));
 	cfg->player.x = (double)x + 0.5;
 	cfg->player.y = (double)y + 0.5;
 	cfg->player.direction = cfg->map.grid[y][x];
@@ -31,7 +31,7 @@ static int	check_spawn_cell(t_config *cfg, int x, int y,
 	return (0);
 }
 
-int	find_spawn(t_config *cfg)
+int	ft_find_spawn(t_config *cfg)
 {
 	int	x;
 	int	y;
@@ -51,8 +51,8 @@ int	find_spawn(t_config *cfg)
 		y++;
 	}
 	if (count == 0)
-		return (cub_error_int("No player spawn found"));
+		return (ft_cub_error_int("No player spawn found"));
 	cfg->has_player = 1;
-	convert_sprites_to_floor(cfg);
+	ft_convert_sprites_to_floor(cfg);
 	return (0);
 }

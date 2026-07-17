@@ -38,9 +38,9 @@ typedef struct s_ray
 	char	hit_cell;
 }			t_ray;
 
-void	raycaster_render(t_game *game);
-void	raycaster_clear(t_game *game);
-void	raycaster_draw_column(t_game *game, t_ray *r, int x);
-void	draw_solid(t_game *game, t_ray *r, int x, int color);
+void	ft_raycaster_render(t_game *game);
+void	ft_raycaster_clear(t_game *game);
+void	ft_raycaster_draw_column(t_game *game, t_ray *r, int x);
+void	ft_draw_solid(t_game *game, t_ray *r, int x, int color);
 
 #endif

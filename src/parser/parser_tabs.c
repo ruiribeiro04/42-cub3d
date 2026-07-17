@@ -64,7 +64,7 @@ static void	copy_expanded(char *out, const char *line)
  * to TAB_WIDTH spaces (Python-like behaviour). Caller owns the result.
  * Returns NULL on allocation failure.
  */
-char	*expand_tabs(const char *line)
+char	*ft_expand_tabs(const char *line)
 {
 	size_t	tabs;
 	size_t	new_len;
@@ -87,21 +87,21 @@ char	*expand_tabs(const char *line)
  * line replaces the original in `*line` (the original is freed).
  * Returns 0 on success, -1 on error (line is freed on error).
  */
-int	process_map_line(char **line)
+int	ft_process_map_line(char **line)
 {
 	char	*expanded;
 
-	expanded = expand_tabs(*line);
+	expanded = ft_expand_tabs(*line);
 	if (!expanded)
 	{
-		cub_error("Memory allocation failed");
+		ft_cub_error("Memory allocation failed");
 		free(*line);
 		*line = NULL;
 		return (-1);
 	}
 	free(*line);
 	*line = expanded;
-	if (validate_map_line(expanded) < 0)
+	if (ft_validate_map_line(expanded) < 0)
 	{
 		free(expanded);
 		*line = NULL;

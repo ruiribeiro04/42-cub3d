@@ -44,7 +44,7 @@ static void	draw_one_pixel(t_stripe_ctx *c, int y)
 		.pixels[tex_y * TEX_SIZE + c->tex_x];
 	if ((color & 0x00FFFFFF) != 0 && c->ty > 0
 		&& c->ty < c->g->z_buffer[c->stripe])
-		frame_put_pixel(c->g, c->stripe, y, color);
+		ft_frame_put_pixel(c->g, c->stripe, y, color);
 }
 
 void	draw_sprite_stripes(t_game *g, t_sprite_draw *d, double ty)

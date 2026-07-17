@@ -40,7 +40,7 @@ int	sprites_init(t_game *game)
 	game->sprites = (t_sprite *)malloc(
 			sizeof(t_sprite) * cfg->num_sprites);
 	if (!game->sprites)
-		return (cub_error_int("Failed to alloc sprites"));
+		return (ft_cub_error_int("Failed to alloc sprites"));
 	copy_positions(game, cfg);
 	game->num_sprites = cfg->num_sprites;
 	game->has_sprites = 1;

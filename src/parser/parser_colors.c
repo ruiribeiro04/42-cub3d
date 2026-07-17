@@ -16,15 +16,15 @@ static int	parse_color_component(const char **p, int *out)
 {
 	int	value;
 
-	skip_spaces(p);
+	ft_skip_spaces(p);
 	if (!ft_isdigit(**p))
-		return (cub_error_int("Color component must be a number"));
+		return (ft_cub_error_int("Color component must be a number"));
 	value = 0;
 	while (ft_isdigit(**p))
 	{
 		value = value * 10 + (**p - '0');
 		if (value > 255)
-			return (cub_error_int("Color out of range [0,255]"));
+			return (ft_cub_error_int("Color out of range [0,255]"));
 		(*p)++;
 	}
 	*out = value;
@@ -33,9 +33,9 @@ static int	parse_color_component(const char **p, int *out)
 
 static int	expect_comma(const char **p)
 {
-	skip_spaces(p);
+	ft_skip_spaces(p);
 	if (**p != ',')
-		return (cub_error_int("Expected ',' between components"));
+		return (ft_cub_error_int("Expected ',' between components"));
 	(*p)++;
 	return (0);
 }
@@ -54,16 +54,16 @@ static int	store_color(char target, t_config *cfg, t_color *color)
 		cfg->has_ceiling = 1;
 		return (0);
 	}
-	return (cub_error_int("Duplicate color identifier"));
+	return (ft_cub_error_int("Duplicate color identifier"));
 }
 
-int	parse_color_line(const char *line, t_config *cfg)
+int	ft_parse_color_line(const char *line, t_config *cfg)
 {
 	const char	*p;
 	t_color		color;
 
 	if (line[1] != ' ' && line[1] != '\t')
-		return (cub_error_int("Color id must be followed by ws"));
+		return (ft_cub_error_int("Color id must be followed by ws"));
 	p = line + 1;
 	if (parse_color_component(&p, &color.r) < 0)
 		return (-1);
@@ -73,8 +73,8 @@ int	parse_color_line(const char *line, t_config *cfg)
 	if (expect_comma(&p) < 0
 		|| parse_color_component(&p, &color.b) < 0)
 		return (-1);
-	skip_spaces(&p);
+	ft_skip_spaces(&p);
 	if (*p != '\0')
-		return (cub_error_int("Unexpected text after color"));
+		return (ft_cub_error_int("Unexpected text after color"));
 	return (store_color(line[0], cfg, &color));
 }

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "graphics.h"
 
-void	frame_put_pixel(t_game *game, int x, int y, int color)
+void	ft_frame_put_pixel(t_game *game, int x, int y, int color)
 {
 	char	*dst;
 
@@ -22,7 +22,7 @@ void	frame_put_pixel(t_game *game, int x, int y, int color)
 	*(int *)dst = color;
 }
 
-void	frame_fill_rect(t_game *game, t_rect rect, int color)
+void	ft_frame_fill_rect(t_game *game, t_rect rect, int color)
 {
 	int	x;
 	int	y;
@@ -33,7 +33,7 @@ void	frame_fill_rect(t_game *game, t_rect rect, int color)
 		x = rect.x0;
 		while (x <= rect.x1)
 		{
-			frame_put_pixel(game, x, y, color);
+			ft_frame_put_pixel(game, x, y, color);
 			x++;
 		}
 		y++;

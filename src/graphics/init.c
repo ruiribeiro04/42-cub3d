@@ -12,14 +12,14 @@
 #include "graphics.h"
 #include <stdlib.h>
 
-int	color_to_int(t_color c, int endian)
+int	ft_color_to_int(t_color c, int endian)
 {
 	if (endian == 0)
 		return ((c.r << 16) | (c.g << 8) | c.b);
 	return ((c.b << 16) | (c.g << 8) | c.r);
 }
 
-static void	init_keys(t_keys *keys)
+static void	ft_init_keys(t_keys *keys)
 {
 	keys->w = 0;
 	keys->a = 0;
@@ -29,20 +29,20 @@ static void	init_keys(t_keys *keys)
 	keys->right = 0;
 }
 
-static int	load_all_textures(t_game *game, t_config *cfg)
+static int	ft_load_all_textures(t_game *game, t_config *cfg)
 {
-	if (load_texture(game, &game->tex[TEX_NORTH], cfg->textures.north) < 0)
+	if (ft_load_texture(game, &game->tex[TEX_NORTH], cfg->textures.north) < 0)
 		return (-1);
-	if (load_texture(game, &game->tex[TEX_SOUTH], cfg->textures.south) < 0)
+	if (ft_load_texture(game, &game->tex[TEX_SOUTH], cfg->textures.south) < 0)
 		return (-1);
-	if (load_texture(game, &game->tex[TEX_WEST], cfg->textures.west) < 0)
+	if (ft_load_texture(game, &game->tex[TEX_WEST], cfg->textures.west) < 0)
 		return (-1);
-	if (load_texture(game, &game->tex[TEX_EAST], cfg->textures.east) < 0)
+	if (ft_load_texture(game, &game->tex[TEX_EAST], cfg->textures.east) < 0)
 		return (-1);
 	return (0);
 }
 
-static int	init_frame(t_game *game)
+static int	ft_init_frame(t_game *game)
 {
 	game->frame.ptr = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!game->frame.ptr)
@@ -57,29 +57,29 @@ static int	init_frame(t_game *game)
 	return (0);
 }
 
-int	game_init(t_game *game, t_config *config)
+int	ft_game_init(t_game *game, t_config *config)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		return (cub_error_int("mlx_init failed"));
+		return (ft_cub_error_int("mlx_init failed"));
 	game->win = mlx_new_window(game->mlx, WIN_WIDTH,
 			WIN_HEIGHT, "cub3D");
 	if (!game->win)
-		return (cub_error_int("mlx_new_window failed"));
-	if (init_frame(game) < 0)
-		return (cub_error_int("Failed to create frame image"));
+		return (ft_cub_error_int("mlx_new_window failed"));
+	if (ft_init_frame(game) < 0)
+		return (ft_cub_error_int("Failed to create frame image"));
 	game->config = config;
-	game->floor_color = color_to_int(config->floor, game->frame.endian);
-	game->ceiling_color = color_to_int(config->ceiling, game->frame.endian);
-	init_keys(&game->keys);
+	game->floor_color = ft_color_to_int(config->floor, game->frame.endian);
+	game->ceiling_color = ft_color_to_int(config->ceiling, game->frame.endian);
+	ft_init_keys(&game->keys);
 	game->z_buffer = (double *)malloc(sizeof(double) * WIN_WIDTH);
 	if (!game->z_buffer)
-		return (cub_error_int("Failed to alloc z_buffer"));
+		return (ft_cub_error_int("Failed to alloc z_buffer"));
 	game->warp_skip = 0;
 	game->focused = 1;
-	if (load_all_textures(game, config) < 0)
-		return (cub_error_int("Failed to load textures"));
-	if (init_optional_textures(game, config) < 0)
+	if (ft_load_all_textures(game, config) < 0)
+		return (ft_cub_error_int("Failed to load textures"));
+	if (ft_init_optional_textures(game, config) < 0)
 		return (-1);
 	return (0);
 }

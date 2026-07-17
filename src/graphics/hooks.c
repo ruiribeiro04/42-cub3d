@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "graphics.h"
+#include "player.h"
+#include "raycaster.h"
 
-int	hook_key_press(int keycode, t_game *game)
+int	ft_hook_key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 	{
@@ -33,10 +35,10 @@ int	hook_key_press(int keycode, t_game *game)
 	return (0);
 }
 
-int	hook_loop(t_game *game)
+int	ft_hook_loop(t_game *game)
 {
-	player_update(game);
-	raycaster_render(game);
+	ft_player_update(game);
+	ft_raycaster_render(game);
 	mlx_put_image_to_window(game->mlx, game->win,
 		game->frame.ptr, 0, 0);
 	return (0);

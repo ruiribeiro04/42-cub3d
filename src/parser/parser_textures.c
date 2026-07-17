@@ -28,24 +28,24 @@ static char	*extract_token(const char **p)
 	token = (char *)malloc(len + 1);
 	if (!token)
 	{
-		cub_error("Memory allocation failed");
+		ft_cub_error("Memory allocation failed");
 		return (NULL);
 	}
 	ft_strlcpy(token, start, len + 1);
 	return (token);
 }
 
-char	*extract_path(const char *line)
+char	*ft_extract_path(const char *line)
 {
 	const char	*p;
 	char		*path;
 	size_t		len;
 
 	p = line + 2;
-	skip_spaces(&p);
+	ft_skip_spaces(&p);
 	if (*p == '\0')
 	{
-		cub_error("Missing texture path");
+		ft_cub_error("Missing texture path");
 		return (NULL);
 	}
 	len = ft_strlen(p);
@@ -54,7 +54,7 @@ char	*extract_path(const char *line)
 	path = (char *)malloc(len + 1);
 	if (!path)
 	{
-		cub_error("Memory allocation failed");
+		ft_cub_error("Memory allocation failed");
 		return (NULL);
 	}
 	ft_strlcpy(path, p, len + 1);
@@ -64,9 +64,9 @@ char	*extract_path(const char *line)
 static int	set_texture_field(const char *line, t_config *cfg,
 							char *path)
 {
-	if (!path_readable(path))
+	if (!ft_path_readable(path))
 	{
-		cub_error("Texture file cannot be opened");
+		ft_cub_error("Texture file cannot be opened");
 		free(path);
 		return (-1);
 	}
@@ -78,29 +78,29 @@ static int	set_texture_field(const char *line, t_config *cfg,
 		return (cfg->textures.west = path, cfg->has_west = 1, 0);
 	if (ft_strncmp(line, "EA", 2) == 0 && !cfg->has_east)
 		return (cfg->textures.east = path, cfg->has_east = 1, 0);
-	cub_error("Duplicate texture identifier");
+	ft_cub_error("Duplicate texture identifier");
 	free(path);
 	return (-1);
 }
 
-int	parse_texture_line(const char *line, t_config *cfg)
+int	ft_parse_texture_line(const char *line, t_config *cfg)
 {
 	const char	*p;
 	char		*path;
 
 	if (line[2] != ' ' && line[2] != '\t')
-		return (cub_error_int("Texture id must be followed by ws"));
+		return (ft_cub_error_int("Texture id must be followed by ws"));
 	p = line + 2;
-	skip_spaces(&p);
+	ft_skip_spaces(&p);
 	if (*p == '\0')
-		return (cub_error_int("Missing texture path"));
+		return (ft_cub_error_int("Missing texture path"));
 	path = extract_token(&p);
 	if (!path)
 		return (-1);
-	skip_spaces(&p);
+	ft_skip_spaces(&p);
 	if (*p != '\0')
 	{
-		cub_error("Unexpected text after texture path");
+		ft_cub_error("Unexpected text after texture path");
 		free(path);
 		return (-1);
 	}

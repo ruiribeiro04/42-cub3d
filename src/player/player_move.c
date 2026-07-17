@@ -13,16 +13,16 @@
 #include "graphics.h"
 #include <math.h>
 
-void	player_update(t_game *game)
+void	ft_player_update(t_game *game)
 {
 	t_player	*p;
 	t_keys		*k;
 
 	p = &game->config->player;
 	k = &game->keys;
-	apply_movement(game, p, k);
+	ft_apply_movement(game, p, k);
 	if (k->left)
-		player_rotate(p, -ROT_SPEED);
+		ft_player_rotate(p, -ROT_SPEED);
 	if (k->right)
-		player_rotate(p, ROT_SPEED);
+		ft_player_rotate(p, ROT_SPEED);
 }

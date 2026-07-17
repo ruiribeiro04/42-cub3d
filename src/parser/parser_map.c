@@ -22,7 +22,7 @@ static int	collector_grow(t_map_collector *c)
 	new_cap = c->capacity * 2;
 	new_lines = (char **)malloc(sizeof(char *) * new_cap);
 	if (!new_lines)
-		return (cub_error_int("Memory allocation failed"));
+		return (ft_cub_error_int("Memory allocation failed"));
 	i = 0;
 	while (i < c->count)
 	{
@@ -35,13 +35,13 @@ static int	collector_grow(t_map_collector *c)
 	return (0);
 }
 
-int	collector_init(t_map_collector *c, char *first_line)
+int	ft_collector_init(t_map_collector *c, char *first_line)
 {
 	c->capacity = 16;
 	c->lines = (char **)malloc(sizeof(char *) * c->capacity);
 	if (!c->lines)
 	{
-		cub_error("Memory allocation failed");
+		ft_cub_error("Memory allocation failed");
 		free(first_line);
 		return (-1);
 	}
@@ -53,7 +53,7 @@ int	collector_init(t_map_collector *c, char *first_line)
 	return (0);
 }
 
-int	collector_add(t_map_collector *c, char *line)
+int	ft_collector_add(t_map_collector *c, char *line)
 {
 	int	line_len;
 
@@ -73,7 +73,7 @@ int	collector_add(t_map_collector *c, char *line)
 	return (0);
 }
 
-void	collector_free(t_map_collector *c)
+void	ft_collector_free(t_map_collector *c)
 {
 	int	i;
 
@@ -89,30 +89,30 @@ void	collector_free(t_map_collector *c)
 	c->lines = NULL;
 }
 
-int	parse_map_block(int fd, char *first_line, t_config *cfg)
+int	ft_parse_map_block(int fd, char *first_line, t_config *cfg)
 {
 	t_map_collector	c;
 	char			*line;
 
-	if (process_map_line(&first_line) < 0)
+	if (ft_process_map_line(&first_line) < 0)
 		return (-1);
-	if (collector_init(&c, first_line) < 0)
+	if (ft_collector_init(&c, first_line) < 0)
 		return (-1);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		strip_newline(line);
-		if (process_map_line(&line) < 0)
+		ft_strip_newline(line);
+		if (ft_process_map_line(&line) < 0)
 		{
-			collector_free(&c);
+			ft_collector_free(&c);
 			return (-1);
 		}
-		if (collector_add(&c, line) < 0)
+		if (ft_collector_add(&c, line) < 0)
 		{
-			collector_free(&c);
+			ft_collector_free(&c);
 			return (-1);
 		}
 		line = get_next_line(fd);
 	}
-	return (finalize_map(cfg, &c));
+	return (ft_finalize_map(cfg, &c));
 }

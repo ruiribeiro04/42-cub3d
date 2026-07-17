@@ -22,21 +22,18 @@ typedef struct s_rect
 	int		y1;
 }			t_rect;
 
-void	frame_put_pixel(t_game *game, int x, int y, int color);
-void	frame_fill_rect(t_game *game, t_rect rect, int color);
-int		load_texture(t_game *game, t_texture *tex, char *path);
-void	destroy_texture(t_game *game, t_texture *tex);
-int		free_sprite_frames(t_game *game, int count);
-int		color_to_int(t_color c, int endian);
-int		hook_key_press(int keycode, t_game *game);
-int		hook_key_release(int keycode, t_game *game);
-int		hook_exit(t_game *game);
-int		hook_loop(t_game *game);
-void	player_update(t_game *game);
-void	raycaster_render(t_game *game);
-void	player_init_direction(t_player *p);
-int		init_sprites_if_present(t_game *game, t_config *cfg);
-int		init_optional_textures(t_game *game, t_config *cfg);
+void	ft_frame_put_pixel(t_game *game, int x, int y, int color);
+void	ft_frame_fill_rect(t_game *game, t_rect rect, int color);
+int		ft_load_texture(t_game *game, t_texture *tex, char *path);
+void	ft_destroy_texture(t_game *game, t_texture *tex);
+int		ft_free_sprite_frames(t_game *game, int count);
+int		ft_color_to_int(t_color c, int endian);
+int		ft_hook_key_press(int keycode, t_game *game);
+int		ft_hook_key_release(int keycode, t_game *game);
+int		ft_hook_exit(t_game *game);
+int		ft_hook_loop(t_game *game);
+int		ft_init_sprites_if_present(t_game *game, t_config *cfg);
+int		ft_init_optional_textures(t_game *game, t_config *cfg);
 
 # define KEY_ESC   65307
 # define KEY_W     119

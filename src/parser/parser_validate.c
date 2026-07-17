@@ -14,11 +14,11 @@
 static int	check_missing(int present, const char *name)
 {
 	if (!present)
-		return (cub_error_int(name));
+		return (ft_cub_error_int(name));
 	return (0);
 }
 
-int	validate_config(t_config *cfg)
+int	ft_validate_config(t_config *cfg)
 {
 	if (check_missing(cfg->has_north, "Missing NO texture") < 0
 		|| check_missing(cfg->has_south, "Missing SO texture") < 0

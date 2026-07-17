@@ -30,10 +30,10 @@
 # define MINIMAP_PLAYER_COLOR  0x00FF2222
 # define MINIMAP_DIR_COLOR     0x00FFFF00
 
-void	minimap_draw(t_game *game);
-void	door_try_front(t_game *game);
-int		hook_mouse_move(int x, int y, t_game *game);
-int		hook_focus_in(t_game *game);
-int		hook_focus_out(t_game *game);
+void	ft_minimap_draw(t_game *game);
+void	ft_door_try_front(t_game *game);
+int		ft_hook_mouse_move(int x, int y, t_game *game);
+int		ft_hook_focus_in(t_game *game);
+int		ft_hook_focus_out(t_game *game);
 
 #endif

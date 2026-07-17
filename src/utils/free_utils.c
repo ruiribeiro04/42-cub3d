@@ -15,7 +15,7 @@
 
 /*
  * Frees a NULL-terminated array of strings, then the array itself.
- * NULL-safe. File-local: only used by free_config().
+ * NULL-safe. File-local: only used by ft_free_config().
  */
 static void	free_str_array(char **arr)
 {
@@ -32,7 +32,7 @@ static void	free_str_array(char **arr)
 	free(arr);
 }
 
-t_config	*alloc_config(void)
+t_config	*ft_alloc_config(void)
 {
 	t_config	*cfg;
 
@@ -51,7 +51,7 @@ static void	free_texture_paths(t_texture_paths *t)
 	free(t->east);
 }
 
-void	free_config(t_config *config)
+void	ft_free_config(t_config *config)
 {
 	if (!config)
 		return ;

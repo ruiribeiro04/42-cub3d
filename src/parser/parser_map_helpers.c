@@ -13,21 +13,21 @@
 #include <stdlib.h>
 #include <libft.h>
 
-int	validate_map_line(const char *line)
+int	ft_validate_map_line(const char *line)
 {
 	int	i;
 
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (!is_map_char(line[i]))
-			return (cub_error_int("Invalid character in map"));
+		if (!ft_is_map_char(line[i]))
+			return (ft_cub_error_int("Invalid character in map"));
 		i++;
 	}
 	return (0);
 }
 
-char	*pad_line(const char *src, int width)
+char	*ft_pad_line(const char *src, int width)
 {
 	char	*dst;
 	int		src_len;
@@ -67,7 +67,7 @@ static void	free_grid_partial(char **grid, int count,
 		i++;
 	}
 	free(grid);
-	collector_free(c);
+	ft_collector_free(c);
 }
 
 static int	build_grid(t_config *cfg, t_map_collector *c)
@@ -77,14 +77,14 @@ static int	build_grid(t_config *cfg, t_map_collector *c)
 
 	grid = (char **)malloc(sizeof(char *) * (c->count + 1));
 	if (!grid)
-		return (cub_error_int("Memory allocation failed"));
+		return (ft_cub_error_int("Memory allocation failed"));
 	i = 0;
 	while (i < c->count)
 	{
-		grid[i] = pad_line(c->lines[i], c->max_width);
+		grid[i] = ft_pad_line(c->lines[i], c->max_width);
 		if (!grid[i])
 		{
-			cub_error("Memory allocation failed");
+			ft_cub_error("Memory allocation failed");
 			free_grid_partial(grid, i, c);
 			return (-1);
 		}
@@ -97,18 +97,18 @@ static int	build_grid(t_config *cfg, t_map_collector *c)
 	return (0);
 }
 
-int	finalize_map(t_config *cfg, t_map_collector *c)
+int	ft_finalize_map(t_config *cfg, t_map_collector *c)
 {
 	if (c->count == 0)
 	{
-		cub_error("No map found");
-		collector_free(c);
+		ft_cub_error("No map found");
+		ft_collector_free(c);
 		return (-1);
 	}
 	if (build_grid(cfg, c) < 0)
 		return (-1);
-	collector_free(c);
-	if (find_spawn(cfg) < 0)
+	ft_collector_free(c);
+	if (ft_find_spawn(cfg) < 0)
 		return (-1);
-	return (flood_fill_check(cfg));
+	return (ft_flood_fill_check(cfg));
 }

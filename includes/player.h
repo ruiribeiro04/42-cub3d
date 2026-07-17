@@ -14,9 +14,9 @@
 
 # include "cub3d.h"
 
-void	player_init_direction(t_player *p);
-void	player_update(t_game *game);
-void	apply_movement(t_game *game, t_player *p, t_keys *k);
-void	player_rotate(t_player *p, double rot);
+void	ft_player_init_direction(t_player *p);
+void	ft_player_update(t_game *game);
+void	ft_apply_movement(t_game *game, t_player *p, t_keys *k);
+void	ft_player_rotate(t_player *p, double rot);
 
 #endif

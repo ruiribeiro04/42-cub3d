@@ -15,20 +15,20 @@
 #include <stdlib.h>
 #include <libft.h>
 
-int	parse_door_line(const char *line, t_config *cfg)
+int	ft_parse_door_line(const char *line, t_config *cfg)
 {
 	char	*path;
 
 	if (cfg->has_door_texture)
-		return (cub_error_int("Duplicate DO identifier"));
+		return (ft_cub_error_int("Duplicate DO identifier"));
 	if (line[2] != ' ' && line[2] != '\t')
-		return (cub_error_int("DO id must be followed by ws"));
-	path = extract_path(line);
+		return (ft_cub_error_int("DO id must be followed by ws"));
+	path = ft_extract_path(line);
 	if (!path)
 		return (-1);
-	if (!path_readable(path))
+	if (!ft_path_readable(path))
 	{
-		cub_error("Door texture file cannot be opened");
+		ft_cub_error("Door texture file cannot be opened");
 		free(path);
 		return (-1);
 	}

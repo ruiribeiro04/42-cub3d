@@ -65,7 +65,7 @@ static void	try_move_y(t_player *p, t_map *map, double dy)
 		p->y += dy;
 }
 
-void	apply_movement(t_game *game, t_player *p, t_keys *k)
+void	ft_apply_movement(t_game *game, t_player *p, t_keys *k)
 {
 	if (k->w)
 	{

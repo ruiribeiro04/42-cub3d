@@ -15,7 +15,7 @@
  * Bonus map alphabet: mandatory set + 'D' (closed door), 'O' (open door)
  * and '2' (sprite marker, replaced with floor after collection).
  */
-int	is_map_char(char c)
+int	ft_is_map_char(char c)
 {
 	return (c == '0' || c == '1' || c == 'N' || c == 'S'
 		|| c == 'E' || c == 'W' || c == ' '

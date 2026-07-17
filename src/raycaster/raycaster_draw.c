@@ -72,7 +72,7 @@ static void	draw_textured(t_game *game, t_ray *r, int x)
 
 	if (r->hit_cell == 'D' && !game->has_door_tex)
 	{
-		draw_solid(game, r, x, 0x008B4513);
+		ft_draw_solid(game, r, x, 0x008B4513);
 		return ;
 	}
 	step = (double)TEX_SIZE / (double)r->line_height;
@@ -84,13 +84,13 @@ static void	draw_textured(t_game *game, t_ray *r, int x)
 	{
 		tex_y = (int)tex_pos & (TEX_SIZE - 1);
 		tex_pos += step;
-		frame_put_pixel(game, x, y,
+		ft_frame_put_pixel(game, x, y,
 			tex->pixels[tex_y * TEX_SIZE + r->tex_x]);
 		y++;
 	}
 }
 
-void	raycaster_draw_column(t_game *game, t_ray *r, int x)
+void	ft_raycaster_draw_column(t_game *game, t_ray *r, int x)
 {
 	compute_height(r);
 	compute_texture(r, &game->config->player);

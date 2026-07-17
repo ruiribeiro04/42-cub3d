@@ -13,7 +13,7 @@
 #include "graphics.h"
 #include <math.h>
 
-static void	set_vertical(t_player *p, int is_north)
+static void	ft_set_vertical(t_player *p, int is_north)
 {
 	p->dir_x = 0;
 	p->plane_y = 0;
@@ -27,7 +27,7 @@ static void	set_vertical(t_player *p, int is_north)
 	}
 }
 
-static void	set_horizontal(t_player *p, int is_east)
+static void	ft_set_horizontal(t_player *p, int is_east)
 {
 	p->dir_y = 0;
 	p->plane_x = 0;
@@ -41,19 +41,19 @@ static void	set_horizontal(t_player *p, int is_east)
 	}
 }
 
-void	player_init_direction(t_player *p)
+void	ft_player_init_direction(t_player *p)
 {
 	if (p->direction == 'N')
-		set_vertical(p, 1);
+		ft_set_vertical(p, 1);
 	else if (p->direction == 'S')
-		set_vertical(p, 0);
+		ft_set_vertical(p, 0);
 	else if (p->direction == 'E')
-		set_horizontal(p, 1);
+		ft_set_horizontal(p, 1);
 	else if (p->direction == 'W')
-		set_horizontal(p, 0);
+		ft_set_horizontal(p, 0);
 }
 
-void	player_rotate(t_player *p, double rot)
+void	ft_player_rotate(t_player *p, double rot)
 {
 	double	old_dir_x;
 	double	old_plane_x;
