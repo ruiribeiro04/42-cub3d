@@ -73,8 +73,8 @@ static void	draw_player_marker(t_game *g, t_player *p)
 	int		cy;
 	int		i;
 
-	cx = MINIMAP_X + (int)(p->x * MINIMAP_TILE) + MINIMAP_TILE / 2;
-	cy = MINIMAP_Y + (int)(p->y * MINIMAP_TILE) + MINIMAP_TILE / 2;
+	cx = MINIMAP_X + (int)p->x * MINIMAP_TILE + MINIMAP_TILE / 2;
+	cy = MINIMAP_Y + (int)p->y * MINIMAP_TILE + MINIMAP_TILE / 2;
 	sq.x0 = cx - 2;
 	sq.y0 = cy - 2;
 	sq.x1 = cx + 2;
