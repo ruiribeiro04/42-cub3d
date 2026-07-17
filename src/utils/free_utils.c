@@ -13,10 +13,6 @@
 #include <stdlib.h>
 #include <libft.h>
 
-/*
- * Frees a NULL-terminated array of strings, then the array itself.
- * NULL-safe. File-local: only used by ft_free_config().
- */
 static void	free_str_array(char **arr)
 {
 	int	i;

@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 17:00:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/10 19:40:20 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:07:34 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef BONUS_H
 # define BONUS_H
 

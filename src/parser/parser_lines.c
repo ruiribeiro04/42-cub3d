@@ -13,10 +13,7 @@
 #include <stdlib.h>
 #include <libft.h>
 
-/*
- * Dispatches an element line (NO/SO/WE/EA/F/C/SP/DO) to the appropriate
- * parser. Returns 0 on success, -1 on error.
- */
+
 int	ft_parse_element_line(const char *line, t_config *cfg)
 {
 	if ((ft_strncmp(line, "NO ", 3) == 0
@@ -44,15 +41,7 @@ int	ft_parse_element_line(const char *line, t_config *cfg)
 	return (-1);
 }
 
-/*
- * Processes a raw line: strips newline, expands tabs to spaces, then
- * classifies it. Returns:
- *   1 = blank line (skip)
- *   2 = looks like a map line (start of map block)
- *   0 = element line (already parsed)
- *  -1 = error (line freed)
- * On success, *line is replaced with the tab-expanded version.
- */
+
 static int	ft_handle_line(char **line, t_config *cfg)
 {
 	char	*expanded;

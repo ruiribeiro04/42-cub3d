@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/10 15:44:20 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:19:27 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "graphics.h"
 #include "sprites.h"
 #include <stdlib.h>
@@ -16,10 +17,6 @@
 #include <unistd.h>
 #include <libft.h>
 
-/*
- * Builds path "<base>NN.xpm" and tries to load it as frame idx.
- * Returns 1 if loaded, 0 if file missing (end of sequence), -1 on error.
- */
 static int	load_one_frame(t_game *game, t_config *cfg, int idx)
 {
 	char	path[SPRITE_PATH_MAX];

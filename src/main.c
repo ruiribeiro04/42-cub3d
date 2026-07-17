@@ -15,11 +15,6 @@
 #include <stdlib.h>
 #include <libft.h>
 
-/*
- * Validates argv: exactly one argument, ending with ".cub". The deeper
- * structural validation (textures, colors, map closed, etc.) is done by
- * parse_cub_file().
- */
 static int	ft_validate_args(int argc, char **argv)
 {
 	size_t	len;

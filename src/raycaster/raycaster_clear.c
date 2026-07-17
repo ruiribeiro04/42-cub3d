@@ -30,7 +30,6 @@ void	ft_raycaster_clear(t_game *game)
 	ft_frame_fill_rect(game, bottom, game->floor_color);
 }
 
-/* Draws a solid color column (for doors without texture). */
 void	ft_draw_solid(t_game *game, t_ray *r, int x, int color)
 {
 	int	y;

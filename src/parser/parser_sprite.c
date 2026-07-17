@@ -15,11 +15,6 @@
 #include <stdlib.h>
 #include <libft.h>
 
-/*
- * Validates the sprite base path. The runtime will append "01.xpm".."10.xpm"
- * (up to 6 chars + extension) so we cap the base at SPRITE_PATH_MAX to leave
- * room in the fixed-size path buffer used by init_sprites_bonus.c.
- */
 int	ft_parse_sprite_line(const char *line, t_config *cfg)
 {
 	char	*path;

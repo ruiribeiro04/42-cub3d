@@ -11,11 +11,7 @@
 /* ************************************************************************** */
 #include "parser_internal.h"
 
-/*
- * Mandatory map alphabet: empty, wall, the four spawn directions, and
- * space (void). The bonus build swaps this file for parser_utils_bonus.c
- * which additionally allows 'D' (door), 'O' (open door) and '2' (sprite).
- */
+
 int	ft_is_map_char(char c)
 {
 	return (c == '0' || c == '1' || c == 'N' || c == 'S'

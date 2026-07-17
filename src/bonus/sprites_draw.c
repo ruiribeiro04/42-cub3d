@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_draw.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: vde-maga <vde-maga@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 17:00:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/17 17:15:17 by vde-maga          #+#    #+#             */
+/*   Updated: 2026/07/17 17:15:19 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int	compute_tex_x(t_sprite_draw *d, int stripe)
 	return ((int)(256 * base * TEX_SIZE / d->sprite_width / 256));
 }
 
-/* Computes tex_y from screen y using Lode's formula. */
 static int	compute_tex_y(t_sprite_draw *d, int y)
 {
 	int	raw;

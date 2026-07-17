@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/10 19:03:03 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:07:52 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 

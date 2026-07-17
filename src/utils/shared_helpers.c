@@ -33,13 +33,6 @@ int	ft_map_in_bounds(const t_map *map, int x, int y)
 	return (1);
 }
 
-/*
- * Single source of truth for "does this cell block movement / rays / the
- * flood fill". Walls ('1') and closed doors ('D') are barriers; everything
- * else ('0', 'O', ...) is walkable.  The grid never contains ' ' — ft_pad_line
- * converts every void cell to '1' so the whole map is a solid block of
- * walls with walkable cells carved out, exactly like the reference parser.
- */
 int	is_barrier(char c)
 {
 	return (c == '1' || c == 'D');

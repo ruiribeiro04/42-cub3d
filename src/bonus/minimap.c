@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 17:00:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/10 13:25:25 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:14:01 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "bonus.h"
 #include "graphics.h"
 
@@ -27,10 +28,6 @@ static void	draw_tile(t_game *g, int mx, int my, int color)
 	ft_frame_fill_rect(g, r, color);
 }
 
-/*
- * Draws a dark background rectangle with a bright white border behind
- * the minimap, so tiles don't blend into the 3D scene.
- */
 static void	draw_background(t_game *g, int tiles_x, int tiles_y)
 {
 	t_rect	outer;
@@ -63,9 +60,6 @@ static int	cell_color(char cell)
 	return (MINIMAP_FLOOR_COLOR);
 }
 
-/*
- * Player = 5x5 red square + yellow direction arrow (8 pixels long).
- */
 static void	draw_player_marker(t_game *g, t_player *p)
 {
 	t_rect	sq;

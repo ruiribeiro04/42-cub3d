@@ -5,18 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/10 15:36:10 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:21:00 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "graphics.h"
 #include <stdlib.h>
 
-/*
- * Reads the mlx image pixel buffer into a flat int[] cache for fast access
- * during raycasting. Requires 32 bits per pixel (the only bpp the rest of
- * the engine assumes when indexing pixels as int).
- */
+
 static int	cache_pixels(t_texture *tex)
 {
 	int		x;
@@ -46,11 +43,7 @@ static int	cache_pixels(t_texture *tex)
 	return (0);
 }
 
-/*
- * Loads an XPM file into a t_texture. On any failure the texture is left
- * fully zeroed (ptr == NULL, pixels == NULL) so destroy_texture() can be
- * called again safely without triggering a double-free.
- */
+
 int	ft_load_texture(t_game *game, t_texture *tex, char *path)
 {
 	tex->pixels = NULL;

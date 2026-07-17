@@ -13,11 +13,7 @@
 #include <stdlib.h>
 #include <libft.h>
 
-/*
- * BFS explorer. Only walls ('1') are barriers — doors ('D') are passable
- * so the player can reach open edges through them. Out-of-bounds means
- * the walkable region leaks outside the grid (map not closed).
- */
+
 static int	explore(t_flood_ctx *ctx, int x, int y)
 {
 	int	idx;

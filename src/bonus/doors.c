@@ -5,18 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/10 15:30:36 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:16:56 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "graphics.h"
 #include "bonus.h"
 
-/*
- * Toggles a door cell between 'D' (closed) and 'O' (open).
- * Returns 1 if a door was toggled, 0 otherwise (cell not a door / OOB).
- * `static` because only ft_door_toggle_safe in this file calls it.
- */
 static int	ft_door_toggle(t_game *game, int mx, int my)
 {
 	t_map	*map;
@@ -45,10 +41,6 @@ static int	ft_player_too_close(t_player *p, int mx, int my)
 	return (dx * dx + dy * dy < 1.0);
 }
 
-/*
- * Toggles a door, but refuses to CLOSE it if the player is too close
- * (prevents the player from being trapped inside a closing door).
- */
 static int	ft_door_toggle_safe(t_game *game, int mx, int my)
 {
 	t_map		*map;

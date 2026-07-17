@@ -5,17 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/10 19:31:40 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:17:43 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "graphics.h"
 #include <stdlib.h>
 
-/*
- * Idempotent: safe to call on a zeroed t_texture or to call twice.
- * Frees the pixel cache, destroys the mlx image, and zeroes both.
- */
+
 void	ft_destroy_texture(t_game *game, t_texture *tex)
 {
 	if (tex->pixels)
@@ -26,10 +24,7 @@ void	ft_destroy_texture(t_game *game, t_texture *tex)
 	tex->img.ptr = NULL;
 }
 
-/*
- * Frees the sprite frame array, destroying up to `count` textures.
- * Returns -1 so callers in error paths can `return (free_sprite_frames(...))`.
- */
+
 int	ft_free_sprite_frames(t_game *game, int count)
 {
 	int	i;

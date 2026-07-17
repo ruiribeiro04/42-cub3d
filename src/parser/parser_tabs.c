@@ -13,9 +13,6 @@
 #include <stdlib.h>
 #include <libft.h>
 
-/*
- * Counts the number of tab characters in `line`.
- */
 static size_t	count_tabs(const char *line)
 {
 	size_t	i;
@@ -32,10 +29,7 @@ static size_t	count_tabs(const char *line)
 	return (count);
 }
 
-/*
- * Copies `line` to `out`, expanding each tab to TAB_WIDTH spaces.
- * `out` must have room for ft_strlen(line) + tabs * (TAB_WIDTH - 1) + 1.
- */
+
 static void	copy_expanded(char *out, const char *line)
 {
 	size_t	i;
@@ -59,11 +53,7 @@ static void	copy_expanded(char *out, const char *line)
 	out[j] = '\0';
 }
 
-/*
- * Returns a newly allocated copy of `line` where every tab is expanded
- * to TAB_WIDTH spaces (Python-like behaviour). Caller owns the result.
- * Returns NULL on allocation failure.
- */
+
 char	*ft_expand_tabs(const char *line)
 {
 	size_t	tabs;
@@ -81,12 +71,7 @@ char	*ft_expand_tabs(const char *line)
 	return (out);
 }
 
-/*
- * Validates a raw map line by expanding tabs to TAB_WIDTH spaces first,
- * then checking every char is a valid map char. On success the expanded
- * line replaces the original in `*line` (the original is freed).
- * Returns 0 on success, -1 on error (line is freed on error).
- */
+
 int	ft_process_map_line(char **line)
 {
 	char	*expanded;

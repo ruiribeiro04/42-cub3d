@@ -12,11 +12,6 @@
 #include "parser_internal.h"
 #include <libft.h>
 
-/*
- * Common helper functions shared between the mandatory and bonus parser
- * builds. The only function that differs between the two builds is
- * ft_is_map_char() — see parser_utils.c and parser_utils_bonus.c.
- */
 
 static int	ft_is_space_char(char c)
 {

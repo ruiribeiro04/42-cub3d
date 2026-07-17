@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/10 16:43:20 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:16:35 by vde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "sprites.h"
 #include "graphics.h"
 
