@@ -1,8 +1,9 @@
-NO assets/north.xpm
-SO assets/south.xpm
-WE assets/west.xpm
-EA assets/east.xpm
-
+NO ./assets/north.xpm
+SO ./assets/south.xpm
+WE ./assets/west.xpm
+EA ./assets/east.xpm
+SP ./assets/sprite
+DO ./assets/door.xpm
 
 F 191, 119, 47
 C 127, 91, 111
