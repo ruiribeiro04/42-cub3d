@@ -1,4 +1,4 @@
-_This project has been created as part of the 42 curriculum by ruiferna._
+_This project has been created as part of the 42 curriculum by ruiferna, vde-maga._
 
 # cub3D
 
@@ -118,20 +118,72 @@ implementation. All code was reviewed, tested, and understood by the student.
 cub3D/
 ├── Makefile
 ├── README.md
-├── includes/cub3d.h
+├── includes/
+│   ├── cub3d.h
+│   ├── graphics.h
+│   ├── player.h
+│   ├── parser_internal.h
+│   ├── raycaster.h
+│   ├── sprites.h
+│   └── bonus.h
 ├── src/
 │   ├── main.c
-│   ├── error/error.c
-│   ├── parser/         (10 files — .cub parsing)
-│   ├── utils/free_utils.c
-│   ├── graphics/       (6 files — mlx, hooks, textures, pixel)
-│   ├── raycaster/      (2 files — DDA raycasting)
-│   ├── player/         (3 files — movement, rotation, collisions)
-│   └── bonus/          (3 files — minimap, doors, mouse)
+│   ├── error/
+│   │   └── error.c
+│   ├── parser/
+│   │   ├── parser.c
+│   │   ├── parser_utils.c
+│   │   ├── parser_utils_common.c
+│   │   ├── parser_io.c
+│   │   ├── parser_tabs.c
+│   │   ├── parser_lines.c
+│   │   ├── parser_textures.c
+│   │   ├── parser_colors.c
+│   │   ├── parser_map.c
+│   │   ├── parser_map_helpers.c
+│   │   ├── parser_spawn.c
+│   │   ├── parser_sprite.c
+│   │   ├── parser_sprite_collect.c
+│   │   ├── parser_doors.c
+│   │   ├── parser_flood_fill.c
+│   │   ├── parser_validate.c
+│   │   └── parser_utils_bonus.c
+│   ├── utils/
+│   │   ├── free_utils.c
+│   │   └── shared_helpers.c
+│   ├── graphics/
+│   │   ├── init.c
+│   │   ├── cleanup.c
+│   │   ├── textures.c
+│   │   ├── pixel.c
+│   │   ├── hooks_common.c
+│   │   ├── hooks.c
+│   │   ├── hooks_bonus.c
+│   │   ├── run.c
+│   │   ├── run_bonus.c
+│   │   ├── init_sprites.c
+│   │   └── init_sprites_bonus.c
+│   ├── raycaster/
+│   │   ├── raycaster.c
+│   │   ├── raycaster_clear.c
+│   │   └── raycaster_draw.c
+│   ├── player/
+│   │   ├── player.c
+│   │   ├── player_move.c
+│   │   └── player_apply.c
+│   └── bonus/
+│       ├── minimap.c
+│       ├── doors.c
+│       ├── mouse.c
+│       ├── sprites.c
+│       ├── sprites_draw.c
+│       ├── sprite_anim.c
+│       ├── sprites_init.c
 ├── maps/               (test .cub files)
-├── assets/             (4 wall textures .xpm)
-├── libft/              (personal C library)
-├── ft_printf/          (personal printf)
-├── get_next_line/      (personal GNL)
-└── minilibx-linux/     (42 graphics library)
+├── assets/             (wall/door/sprite textures .xpm)
+├── libs/
+│   ├── libft/          (personal C library)
+│   ├── ft_printf/      (personal printf)
+│   ├── get_next_line/  (personal GNL)
+│   └── minilibx-linux/ (42 graphics library)
 ```
