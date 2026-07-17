@@ -6,13 +6,12 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/10 15:36:10 by ruiferna          #+#    #+#             */
-/*   Updated: 2026/07/17 17:21:00 by vde-maga         ###   ########.fr       */
+/*   Updated: 2026/07/17 17:33:12 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphics.h"
 #include <stdlib.h>
-
 
 static int	cache_pixels(t_texture *tex)
 {
@@ -42,7 +41,6 @@ static int	cache_pixels(t_texture *tex)
 	}
 	return (0);
 }
-
 
 int	ft_load_texture(t_game *game, t_texture *tex, char *path)
 {

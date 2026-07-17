@@ -6,13 +6,12 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/10 19:31:40 by ruiferna          #+#    #+#             */
-/*   Updated: 2026/07/17 17:17:43 by vde-maga         ###   ########.fr       */
+/*   Updated: 2026/07/17 17:32:32 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphics.h"
 #include <stdlib.h>
-
 
 void	ft_destroy_texture(t_game *game, t_texture *tex)
 {
@@ -23,7 +22,6 @@ void	ft_destroy_texture(t_game *game, t_texture *tex)
 		mlx_destroy_image(game->mlx, tex->img.ptr);
 	tex->img.ptr = NULL;
 }
-
 
 int	ft_free_sprite_frames(t_game *game, int count)
 {

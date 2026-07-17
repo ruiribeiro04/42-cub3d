@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 16:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/13 12:21:47 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:31:26 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "parser_internal.h"
 #include <stdlib.h>
 #include <libft.h>
@@ -29,8 +30,7 @@ static size_t	count_tabs(const char *line)
 	return (count);
 }
 
-
-static void	copy_expanded(char *out, const char *line)
+static void	ft_copy_expanded(char *out, const char *line)
 {
 	size_t	i;
 	size_t	j;
@@ -53,7 +53,6 @@ static void	copy_expanded(char *out, const char *line)
 	out[j] = '\0';
 }
 
-
 char	*ft_expand_tabs(const char *line)
 {
 	size_t	tabs;
@@ -67,10 +66,9 @@ char	*ft_expand_tabs(const char *line)
 	out = (char *)malloc(new_len + 1);
 	if (!out)
 		return (NULL);
-	copy_expanded(out, line);
+	ft_copy_expanded(out, line);
 	return (out);
 }
-
 
 int	ft_process_map_line(char **line)
 {

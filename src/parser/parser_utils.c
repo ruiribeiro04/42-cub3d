@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/13 12:21:47 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:32:46 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parser_internal.h"
 
+#include "parser_internal.h"
 
 int	ft_is_map_char(char c)
 {

@@ -6,9 +6,10 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*   Updated: 2026/07/17 17:23:08 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
 #include <stdlib.h>
 #include <libft.h>

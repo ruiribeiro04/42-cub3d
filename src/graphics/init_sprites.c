@@ -6,12 +6,11 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/10 14:50:20 by ruiferna          #+#    #+#             */
-/*   Updated: 2026/07/17 17:19:06 by vde-maga         ###   ########.fr       */
+/*   Updated: 2026/07/17 17:33:24 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphics.h"
-
 
 int	ft_init_sprites_if_present(t_game *game, t_config *cfg)
 {

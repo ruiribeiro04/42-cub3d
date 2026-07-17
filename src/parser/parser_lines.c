@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 16:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/13 12:21:47 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:30:29 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "parser_internal.h"
 #include <stdlib.h>
 #include <libft.h>
-
 
 int	ft_parse_element_line(const char *line, t_config *cfg)
 {
@@ -40,7 +40,6 @@ int	ft_parse_element_line(const char *line, t_config *cfg)
 	ft_cub_error("Unknown element identifier");
 	return (-1);
 }
-
 
 static int	ft_handle_line(char **line, t_config *cfg)
 {

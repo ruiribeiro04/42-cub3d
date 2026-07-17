@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/13 12:21:47 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:25:54 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "parser_internal.h"
 
 static int	check_missing(int present, const char *name)

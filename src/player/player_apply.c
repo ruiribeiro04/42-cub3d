@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr       */
+/*   Created: 2026/07/13 12:21:47 by ruiferna          #+#    #+#             */
+/*   Updated: 2026/07/17 17:30:08 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "graphics.h"
 #include "player.h"
-
 
 static int	is_wall(t_map *map, double x, double y)
 {
@@ -27,7 +27,6 @@ static int	is_wall(t_map *map, double x, double y)
 	return (map->grid[my][mx] == '1' || map->grid[my][mx] == 'D' ||
 		map->grid[my][mx] == ' ');
 }
-
 
 static void	try_move_x(t_player *p, t_map *map, double dx)
 {
