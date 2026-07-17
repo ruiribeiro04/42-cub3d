@@ -53,10 +53,10 @@ make
 ### Scene File Format (`.cub`)
 
 ```
-NO ./path_to_north_texture
-SO ./path_to_south_texture
-WE ./path_to_west_texture
-EA ./path_to_east_texture
+NO ./path_to_north_texture.xpm
+SO ./path_to_south_texture.xpm
+WE ./path_to_west_texture.xpm
+EA ./path_to_east_texture.xpm
 F 220,100,0
 C 225,30,0
 1111111
@@ -69,7 +69,7 @@ C 225,30,0
 - `NO`, `SO`, `WE`, `EA` — texture paths for each wall direction.
 - `F` — floor color `R,G,B` (each in [0, 255]).
 - `C` — ceiling color `R,G,B` (each in [0, 255]).
-- Map chars: `1`=wall, `0`=empty, `N/S/E/W`=spawn, ` `=void, `D`=door (bonus).
+- Map chars: `1`=wall, `0`=empty, `N/S/E/W`=spawn, ` `=void, `D`=door (bonus), `2`=sprite.
 
 ### Controls
 
@@ -88,7 +88,7 @@ C 225,30,0
 1. **Minimap** — a 2D top-down minimap in the top-left corner showing
    walls (white), floor (gray), doors (green), and the player (red dot).
 2. **Doors** — place `D` in the map to create a door. Press `E` near a
-   door to toggle it open/closed. Open doors show as `O` in the map.
+   door to toggle it open/closed. Open doors show as green in the minimap.
 3. **Mouse rotation** — move the mouse left/right to rotate the view.
 4. **Animated sprites** — place `2` in the map and declare a sprite
    texture with `SP <base>`; the engine loads `<base>01.xpm..10.xpm`
@@ -108,9 +108,13 @@ C 225,30,0
 
 ### AI Usage
 
-AI was used for: parser architecture, edge case identification, norminette
-compliance formatting, test scaffolding, and raycasting algorithm
-implementation. All code was reviewed, tested, and understood by the student.
+AI was used for:
+
+- Code review
+- Generate test cases for the codebase
+- Explanation of trigonometry concepts
+
+All code was reviewed, tested, and understood by the student.
 
 ## Project Structure
 
