@@ -6,13 +6,14 @@
 #    By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 19:00:00 by ruiferna          #+#    #+#              #
-#    Updated: 2025/07/15 14:45:00 by ruiferna         ###   ########.fr        #
+#    Updated: 2025/07/17 15:00:00 by ruiferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ============================ NAMES & PATHS ================================= #
 
 NAME            := cub3D
+BONUS_NAME      := cub3D_bonus
 
 LIBFT_DIR       := libs/libft
 LIBFT           := $(LIBFT_DIR)/libft.a
@@ -29,6 +30,7 @@ INCS_DIR        := includes
 
 CC              := cc
 CFLAGS          := -Wall -Wextra -Werror
+DEPFLAGS        := -MMD -MP
 IFLAGS          := -I$(INCS_DIR) -I$(LIBFT_DIR) -I$(FTPRINTF_DIR) -I$(MLX_DIR)
 
 PARSER_LDFLAGS  := -L$(LIBFT_DIR) -lft \
@@ -106,29 +108,33 @@ BONUS_SRCS      := $(filter-out $(BONUS_EXCLUDE),$(ALL_SRCS)) \
 		   $(BONUS_REPLACE)
 BONUS_OBJS      := $(BONUS_SRCS:.c=.o)
 
+# Dependency files
+DEPFILES        := $(MANDATORY_OBJS:.o=.d) $(BONUS_OBJS:.o=.d)
+
 # ============================ TARGETS ======================================= #
 
-.PHONY:         all clean fclean re bonus norm
+.PHONY:         all clean fclean re bonus norm clean_bonus_objs
 
 all:            $(LIBFT) $(FTPRINTF) $(MLX_LIB) $(NAME)
 
-$(NAME):        $(LIBFT) $(FTPRINTF) $(MLX_LIB) $(MANDATORY_OBJS)
+$(NAME):        | $(LIBFT) $(FTPRINTF) $(MLX_LIB) $(MANDATORY_OBJS)
 	@echo "\033[1;34mLinking $(NAME) (mandatory)...\033[0m"
 	$(CC) $(CFLAGS) $(MANDATORY_OBJS) $(LDFLAGS) -o $(NAME)
 
-# Bonus: separate compile with bonus replacements
-bonus:          fclean_sub $(LIBFT) $(FTPRINTF) $(MLX_LIB) $(NAME)_bonus_link
+# Bonus: separate binary with bonus sources
+bonus:          $(LIBFT) $(FTPRINTF) $(MLX_LIB) $(BONUS_NAME)
 
-$(NAME)_bonus_link: $(BONUS_OBJS)
-	@echo "\033[1;34mLinking $(NAME) (bonus)...\033[0m"
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LDFLAGS) -o $(NAME)
+$(BONUS_NAME):  $(BONUS_OBJS)
+	@echo "\033[1;34mLinking $(BONUS_NAME) (bonus)...\033[0m"
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LDFLAGS) -o $(BONUS_NAME)
 
-fclean_sub:
-	@rm -f $(MANDATORY_OBJS) $(BONUS_OBJS)
+# Clean bonus objects only (without removing mandatory objects)
+clean_bonus_objs:
+	@rm -f $(BONUS_OBJS) $(BONUS_OBJS:.o=.d)
 
 %.o:            %.c
 	@echo "\033[1;36mCompiling $<...\033[0m"
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(DEPFLAGS) $(IFLAGS) -c $< -o $@
 
 $(LIBFT):
 	@echo "\033[1;33mBuilding libft...\033[0m"
@@ -149,15 +155,18 @@ norm:
 
 clean:
 	@echo "\033[1;31mCleaning project objects...\033[0m"
-	rm -f $(MANDATORY_OBJS) $(BONUS_OBJS)
+	rm -f $(MANDATORY_OBJS) $(BONUS_OBJS) $(DEPFILES)
 	$(MAKE) -C $(LIBFT_DIR) clean 2>/dev/null || true
 	$(MAKE) -C $(FTPRINTF_DIR) clean 2>/dev/null || true
 
 fclean:         clean
 	@echo "\033[1;31mRemoving binaries...\033[0m"
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS_NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean 2>/dev/null || true
 	$(MAKE) -C $(FTPRINTF_DIR) fclean 2>/dev/null || true
 
 re:             fclean all
 	@echo "\033[1;35mRebuilt everything.\033[0m"
+
+# Include dependency files
+-include $(DEPFILES)
